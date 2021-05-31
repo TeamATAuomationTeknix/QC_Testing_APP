@@ -45,12 +45,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varchar)");
+        db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight varchar, partname varchar, qr varchar, user varchar)");
         // id,qid,partname,qrcode,operator,answer,partTime,TimeStamp,fullTime,qr_code
 
         db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp varchar)");
         db.execSQL("create table "+tb_part+"(id Integer,part_name varchar)");
-        db.execSQL("create table "+tb_question+"(id Integer primary key,question varchar, Highlight Integer, part_name String)");
+        db.execSQL("create table "+tb_question+"(id Integer primary key,question varchar, Highlight varchar, part_name String)");
         db.execSQL("create table "+tb_remaining_parts+"(id Integer,part_name varchar,qr_code varchar, fullTime Integer)");
         db.execSQL("create table "+tb_master+" (id integer primary key, model_name text, image blob)");
     }
@@ -91,9 +91,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(0);
                 String question = cursor.getString(1);
                 String answer = cursor.getString(2);
-                int highlight=cursor.getInt(3);
-                boolean flag=highlight==1?true:false;
-                Questions_main q=new Questions_main(id,question,flag);
+                String highlight=cursor.getString(3);
+                Questions_main q=new Questions_main(id,question,highlight);
                 q.setAnswer(answer);
                 questionsList.add(q);
                 Log.e("from database", id + " " + question);
@@ -115,9 +114,9 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(0);
                 String question = cursor.getString(1);
                 String answer = cursor.getString(2);
-                int highlight=cursor.getInt(3);
-                boolean flag=highlight==1?true:false;
-                Questions_main q=new Questions_main(id,question,flag);
+                String highlight=cursor.getString(3);
+
+                Questions_main q=new Questions_main(id,question,highlight);
                 q.setAnswer(answer);
                 questionsList.add(q);
                 Log.e("from database", id + " " + question);
@@ -162,7 +161,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
             Log.e("MyDbHelper","adding "+q.getQuestion());
             values.put("id",q.getId());
             values.put("question",q.getQuestion());
-            int h=q.isHighlighted?1:0;
+            String h=q.highlight;
             values.put("Highlight",h);
             values.put("part_name",partname);
             mydatabase.insert(tb_question,null,values);
@@ -185,9 +184,9 @@ public class MyDbHelper extends SQLiteOpenHelper {
             do {
                 int id = cursor.getInt(0);
                 String question = cursor.getString(1);
-                int highlight = cursor.getInt(2);
-                boolean h=highlight==1?true:false;
-                questionsList.add(new Questions_main(id,question,h));
+                String highlight = cursor.getString(2);
+
+                questionsList.add(new Questions_main(id,question,highlight));
                 Log.e("from database", id + " " + question);
 
 

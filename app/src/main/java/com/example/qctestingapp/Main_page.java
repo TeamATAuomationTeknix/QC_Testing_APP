@@ -48,8 +48,6 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
 
     public static final String IP_ADDRESS = "http://192.168.137.1/at/app";
     public static final String IP_ADDRESS_IMG = "http://192.168.137.1";
-
-
     public static TextView resultTextView;
     public static ImageView imagePreview, inputImageView1;
     private Button identifyButton;
@@ -60,8 +58,6 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
     ArrayList<String> pnames;
     String partname="";
     public static final String DATA_SAVED_BROADCAST = "datasaved";
-
-
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainPageBinding binding;
     private BroadcastReceiver broadcastReceiver;

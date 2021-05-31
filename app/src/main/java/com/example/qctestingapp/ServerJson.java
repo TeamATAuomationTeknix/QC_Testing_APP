@@ -102,7 +102,7 @@ public class ServerJson {
                             for(int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 Questions_main q= new Questions_main(jsonObject.getInt("id"),jsonObject.getString("question"),jsonObject.getString("answer"),
-                                        false,qr);
+                                        "NOHIGHLIGHT",qr);
                                 Log.e("answer from server",q.toString());
                                 qqlist.add(q);
                             }
@@ -188,9 +188,9 @@ public class ServerJson {
             try {
                 for(int i=0;i<response.length();i++) {
                     JSONObject obj = response.getJSONObject(i);
-                    Log.e("json tag", obj.getInt("id") + " " + obj.getString("question") + " " + obj.getInt("Highlight"));
-                    boolean flag = obj.getInt("Highlight") == 1 ? true : false;
-                    qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), flag));
+                    Log.e("json tag", obj.getInt("id") + " " + obj.getString("question") + " " + obj.getString("Highlight"));
+                    String highlight = obj.getString("Highlight");
+                    qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), highlight));
                     //qlist.add(new Questions_main(obj.getString("question"), flag));
                 }
 
@@ -201,7 +201,8 @@ public class ServerJson {
                 if(partname!=null) {
                     String pn = partname.replace("%20", " ");
                     myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
-                    if (qlist != null && pn != null) myDbHelper.addQuestions(qlist, pn);
+                    if (qlist != null && pn != null)
+                        myDbHelper.addQuestions(qlist, pn);
                     QuestionsAdapter adapter = new QuestionsAdapter(qlist);
                     if (recyclerView != null)
                         recyclerView.setAdapter(adapter);

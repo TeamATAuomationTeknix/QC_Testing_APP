@@ -7,25 +7,25 @@ public class Questions_main {
     int id;
     String question;
     String answer;
-    boolean isHighlighted=false;
+    String highlight="NOHIGHLIGHT";
     String qr_code;
     public static final String OK="OK";
     public static final String NOT_OK="NOT OK";
     static int qNo=1;
 
-    public Questions_main(int id,String question, boolean isHighlighted) {
+    public Questions_main(int id,String question, String highlight) {
         this.id=id;
         this.question=question;
-        this.isHighlighted=isHighlighted;
+        this.highlight=highlight;
       //  this.id=qNo;
         qNo++;
     }
 
-    public Questions_main(int id, String question, String answer, boolean isHighlighted, String qr_code) {
+    public Questions_main(int id, String question, String answer, String highlight, String qr_code) {
         this.id = id;
         this.question = question;
         this.answer = answer;
-        this.isHighlighted = isHighlighted;
+        this.highlight = highlight;
         this.qr_code = qr_code;
     }
 
@@ -35,7 +35,7 @@ public class Questions_main {
                 "id=" + id +
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
-                ", isHighlighted=" + isHighlighted +
+                ", isHighlighted=" + highlight +
                 ", qr_code='" + qr_code + '\'' +
                 '}';
     }
@@ -48,12 +48,12 @@ public class Questions_main {
         this.qr_code = qr_code;
     }
 
-    public boolean isHighlighted() {
-        return isHighlighted;
+    public String isHighlighted() {
+        return highlight;
     }
 
-    public void setHighlighted(boolean highlighted) {
-        isHighlighted = highlighted;
+    public void setHighlighted(String highlighted) {
+        highlight = highlighted;
     }
 
     public int getId() {

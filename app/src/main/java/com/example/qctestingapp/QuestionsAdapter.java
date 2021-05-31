@@ -37,9 +37,12 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
             holder.qNo.setText(id +". ");
             id++;
 
-            if(questionsList.get(position).isHighlighted){
+            if(questionsList.get(position).highlight.equals("EXTERNAL")){
             holder.question.setBackgroundColor(holder.question.getResources().getColor(R.color.highlighit));
             }
+        if(questionsList.get(position).highlight.equals("INTERNAL")){
+            holder.question.setBackgroundColor(holder.question.getResources().getColor(R.color.BlueColor));
+        }
             if(questionsList.get(position).getAnswer()==null) {
             holder.btnOk.setBackgroundColor(holder.btnOk.getResources().getColor(R.color.white));
             holder.btnNotOk.setBackgroundColor(holder.btnNotOk.getResources().getColor(R.color.white));
