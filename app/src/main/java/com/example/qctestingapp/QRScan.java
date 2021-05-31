@@ -52,25 +52,22 @@ public class QRScan extends AppCompatActivity implements ZXingScannerView.Result
 //                startActivity(i);
 //                finish();
                 ServerJson serverJson=new ServerJson(QRScan.this);
-                Questions.isDuplicate=serverJson.checkDuplicate(rawResult.getText(), new ServerJson.LoadData() {
-                    @Override
-                    public void load() {
-                        if(rawResult.getText().length()==36){
-                            // qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";
-                            Intent i = new Intent(QRScan.this, Questions.class);
-                            i.putExtra("qr_result", rawResult.getText());
-                            i.putExtra("qrScanned","scanned");
-                            i.putExtra("partname",getIntent().getStringExtra("partname"));
-                            startActivity(i);
-                            finish();
-                            //qr.setText(qr_code);
-                            //isModelNameExist();
-                        }else {
-                            Toast.makeText(getApplicationContext(), "Invalid QR Code...!", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
-                    }
-                });
+
+                if(rawResult.getText().length()==36){
+                    // qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";
+                    Intent i = new Intent(QRScan.this, Questions.class);
+                    i.putExtra("qr_result", rawResult.getText());
+                    i.putExtra("qrScanned","scanned");
+                    i.putExtra("partname",getIntent().getStringExtra("partname"));
+                    startActivity(i);
+                    finish();
+                    //qr.setText(qr_code);
+                    //isModelNameExist();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Invalid QR Code...!", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+
                 break;
             case "QCheck":
                 Intent in = new Intent(QRScan.this, QCheck.class);

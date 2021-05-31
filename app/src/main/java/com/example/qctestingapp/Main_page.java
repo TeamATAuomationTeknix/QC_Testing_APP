@@ -49,7 +49,7 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
     public static final String IP_ADDRESS = "http://192.168.137.1/at/app";
     public static final String IP_ADDRESS_IMG = "http://192.168.137.1";
 
-// made changes
+
     public static TextView resultTextView;
     public static ImageView imagePreview, inputImageView1;
     private Button identifyButton;
@@ -114,8 +114,9 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
             @Override
             public void onClick(View v) {
                 Log.e("tag","next button clicked");
-               // pnames=serverJson.getPartnames();
-                partname=pnames.get(0);
+                // pnames=serverJson.getPartnames();
+                if(pnames!=null&&pnames.size()>0)
+                    partname=pnames.get(0);
                 //add partnames from serverjson if not exist
 
                 Log.e("part in main page is: ",partname);
@@ -140,7 +141,7 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }*/
-        /*---------------------------------------------------------------------------------------------*/
+    /*---------------------------------------------------------------------------------------------*/
 
     public static final int MULTIPLE_PERMISSIONS = 10; // code you want.
 
@@ -225,7 +226,7 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
             MyDbHelper myDbHelper=new MyDbHelper(Main_page.this,MyDbHelper.DB_NAME,null,1);
             myDbHelper.deletePrimaryData();
             this.finish();
-             startActivity(getIntent());
+            startActivity(getIntent());
         }
         else if (id == R.id.nav_exit) {
             this.finish();

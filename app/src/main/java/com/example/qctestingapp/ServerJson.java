@@ -78,7 +78,7 @@ public class ServerJson {
 
     //********************get answers**********************
     public ArrayList<Questions_main> getAnswers(String qr, RecyclerView recyclerViewQCheck) {
-final ProgressDialog dialog=new ProgressDialog(context);
+        final ProgressDialog dialog=new ProgressDialog(context);
         ArrayList<Questions_main> qqlist=new ArrayList<Questions_main>();
         partname=partname.replace(" ","%20");
 
@@ -98,12 +98,12 @@ final ProgressDialog dialog=new ProgressDialog(context);
                         try {
 
                             JSONArray jsonArray=new JSONArray(response);
-                           // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varcha
+                            // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varcha
                             for(int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
-                               Questions_main q= new Questions_main(jsonObject.getInt("id"),jsonObject.getString("question"),jsonObject.getString("answer"),
-                                       false,qr);
-                               Log.e("answer from server",q.toString());
+                                Questions_main q= new Questions_main(jsonObject.getInt("id"),jsonObject.getString("question"),jsonObject.getString("answer"),
+                                        false,qr);
+                                Log.e("answer from server",q.toString());
                                 qqlist.add(q);
                             }
 
@@ -141,7 +141,7 @@ final ProgressDialog dialog=new ProgressDialog(context);
         // MySingleton.getInstance(MainActivity.this).addToRequestQue(stringRequest);
 
         requestQueue.add(stringRequest);
-return qqlist;
+        return qqlist;
     }
 
     //*********************************access questions**************************************
@@ -185,26 +185,28 @@ return qqlist;
 
             p.hide();
             Log.e("length of ressponse",response.length()+"");
-                try {
-                    for(int i=0;i<response.length();i++) {
-                        JSONObject obj = response.getJSONObject(i);
-                        Log.e("json tag", obj.getInt("id") + " " + obj.getString("question") + " " + obj.getInt("Highlight"));
-                        boolean flag = obj.getInt("Highlight") == 1 ? true : false;
-                        qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), flag));
-                        //qlist.add(new Questions_main(obj.getString("question"), flag));
-                    }
+            try {
+                for(int i=0;i<response.length();i++) {
+                    JSONObject obj = response.getJSONObject(i);
+                    Log.e("json tag", obj.getInt("id") + " " + obj.getString("question") + " " + obj.getInt("Highlight"));
+                    boolean flag = obj.getInt("Highlight") == 1 ? true : false;
+                    qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), flag));
+                    //qlist.add(new Questions_main(obj.getString("question"), flag));
+                }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             finally {
-                    String pn=partname.replace("%20"," ");
-                    myDbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1);
-                    myDbHelper.addQuestions(qlist,pn);
+                if(partname!=null) {
+                    String pn = partname.replace("%20", " ");
+                    myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
+                    if (qlist != null && pn != null) myDbHelper.addQuestions(qlist, pn);
                     QuestionsAdapter adapter = new QuestionsAdapter(qlist);
-                    if(recyclerView!=null)
-                    recyclerView.setAdapter(adapter);
+                    if (recyclerView != null)
+                        recyclerView.setAdapter(adapter);
                 }
+            }
         }
     }
     class ErrorListner implements Response.ErrorListener{
@@ -212,7 +214,7 @@ return qqlist;
         @Override
         public void onErrorResponse(VolleyError error) {
             p.hide();
-            p1.hide();
+
             Log.e("json ERROR",error.toString());
         }
     }
@@ -231,10 +233,17 @@ return qqlist;
 
         JsonArrayRequest jsonObjectRequest=new JsonArrayRequest(
                 Request.Method.GET,
-                Main_page.IP_ADDRESS+"/GetPartNames.php",
+                Main_page.IP_ADDRESS + "/GetPartNames.php",
                 null,
                 new GetPartnameListner(),
-                new ErrorListner()
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        p1.hide();
+                        Toast.makeText(context, "Not connected to network", Toast.LENGTH_SHORT).show();
+                        Log.e("json ERROR",error.toString());
+                    }
+                }
         );
         requestQueue.add(jsonObjectRequest);
 
@@ -276,7 +285,7 @@ return qqlist;
                     @Override
                     public void onResponse(String response) {
                         builder.setTitle("Done");
-                       // builder.setMessage("message: "+response);
+                        // builder.setMessage("message: "+response);
                         builder.setMessage("Records submitted successfully");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -317,7 +326,7 @@ return qqlist;
                         jsonObjet.put("partname", part);
                         jsonObjet.put("id_fk_lhs_all_prt_que_tbl", q.getId());
                         if(qr_res!=null)
-                        jsonObjet.put("qr_code", qr_res);
+                            jsonObjet.put("qr_code", qr_res);
                         else
                             jsonObjet.put("qr_code", "100");
                         jsonObjet.put("operator", "sukrut");
@@ -326,7 +335,7 @@ return qqlist;
                         jsonObjet.put("partTime",partTime);
                         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         jsonObjet.put("currentTime",formatter.format(new Date()));
-                       jsonArray.put(jsonObjet);
+                        jsonArray.put(jsonObjet);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -351,9 +360,9 @@ return qqlist;
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                       MyDbHelper myDbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1);
-                       myDbHelper.deleteTempAnswers();
-                       Log.e("temp answers: " ,"submitted and deleted");
+                        MyDbHelper myDbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1);
+                        myDbHelper.deleteTempAnswers();
+                        Log.e("temp answers: " ,"submitted and deleted");
                     }
                 },
                 new Response.ErrorListener() {
@@ -407,7 +416,7 @@ return qqlist;
                                 String model_nm = jsonObject.getString("img_name");
                                 String image = jsonObject.getString("img");
 
-                               // db.addImage(id, model_nm, image.getBytes());
+                                // db.addImage(id, model_nm, image.getBytes());
                                 db.addImage(id, model_nm, Base64.decode(image.substring(23), Base64.DEFAULT));
 
                             }
@@ -434,76 +443,6 @@ return qqlist;
     }
 
 
-    public boolean checkDuplicate(String qr_result,LoadData loadData){
-        ProgressDialog p2;
-        Questions.isDuplicate=false;
-         p2=new ProgressDialog(context);
-        p2.setMessage("Please wait... checking qr");
-        p2.setIndeterminate(false);
-        p2.setCancelable(false);
-        Log.e("tag","showing progress dialog");
-        p2.show();
-
-        String url=Main_page.IP_ADDRESS+"/CheckDuplicate.php?qr="+qr_result;
-        Log.e("load data url",url);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(final String response) {
-                        try {
-                                JSONArray jsonArray = new JSONArray(response);
-                                JSONObject jsonObject = jsonArray.getJSONObject(0);
-                               Log.e("json qr",jsonObject.getString("qr"));
-                               String myStr=jsonObject.getString("qr");
-                               if(myStr.equals(qr_result)) {
-
-                                   Questions.isDuplicate = true;
-                                   Toast.makeText(context, "This car is already cheked", Toast.LENGTH_SHORT).show();
-
-                               }
-                               else{
-                                   if(loadData!=null)
-                                       loadData.load();
-                                   Questions.isDuplicate=false;
-                               }
-                            p2.dismiss();
-
-                        }
-                        catch (Exception e) {
-                            if(loadData!=null)
-                                loadData.load();
-                            //Toast.makeText(context, "Conntection problem", Toast.LENGTH_SHORT).show();
-                            Log.e("loaddata",e.toString());
-                           // e.printStackTrace();
-                            p2.dismiss();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Volley", error.toString());
-                //Toast.makeText(getApplicationContext(),"Sorry"+error,Toast.LENGTH_LONG).show();
-
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        if(Questions.isConnected)
-        requestQueue.add(stringRequest);
-        else {
-            Toast.makeText(context, "Internet is not connected", Toast.LENGTH_SHORT).show();
-            loadData.load();
-        }
-
-        Log.e("returning is duplicate",Questions.isDuplicate+"");
-
-        return Questions.isDuplicate;
-    }
-
-    public interface LoadData{
-        public void load();
-    }
-
     public void insertTotalTime(Context context,String qr,String operator,String time){
         MySingleton mySingleton=MySingleton.getInstance(context);
         RequestQueue requestQueue= mySingleton.getRequestQueue();
@@ -527,7 +466,7 @@ return qqlist;
                 hashMap.put("qr",qr);
                 hashMap.put("operator",operator);
                 hashMap.put("total_time",time);
-               return hashMap;
+                return hashMap;
             }
         };
         requestQueue.add(stringRequest);

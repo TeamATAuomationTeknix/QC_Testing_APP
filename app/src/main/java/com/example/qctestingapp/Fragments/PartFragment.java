@@ -35,7 +35,7 @@ import com.example.qctestingapp.ServerJson;
 
 
 public class PartFragment extends Fragment {
-
+    //changes made from ganesh r
     ArrayList<Questions_main> list;
     TextView fragmentName;
     RecyclerView recyclerView;
@@ -80,15 +80,16 @@ public class PartFragment extends Fragment {
         View fragment=inflater.inflate(R.layout.fragment_part, container, false);
         masterImage =fragment.findViewById(R.id.masterImage);
         fragmentName=fragment.findViewById(R.id.partName);
+
         fragmentName.setText(partname);
         //ImageTask task=new ImageTask();
-       // task.execute("https://img.etb2bimg.com/imgv2/width-368,height-311,resize_mode-1/retail_files/sumo-1503999478-prod-var.jpg");
+        // task.execute("https://img.etb2bimg.com/imgv2/width-368,height-311,resize_mode-1/retail_files/sumo-1503999478-prod-var.jpg");
         myDbHelper=new MyDbHelper(getContext(),MyDbHelper.DB_NAME,null,1);
         Cursor c1=myDbHelper.getAllImagesOfSpecificModel(partname);
 
         if(c1.moveToFirst()){
             byte[] arrImg= c1.getBlob(1);
-           // is= arrImg;
+            // is= arrImg;
             bmImg=BitmapFactory.decodeByteArray(arrImg,0,arrImg.length);
 
             masterImage.setImageBitmap(bmImg);
@@ -100,12 +101,13 @@ public class PartFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         // Check local questions**********************
 
+        MyDbHelper myDbHelper=new MyDbHelper(getContext(),MyDbHelper.DB_NAME,null,1);
         list=myDbHelper.getQuestions(partname);
-        Log.e("tag","initializing server json");
+        ServerJson serverJson;
 
         //************get questions from server
         if(list.size()==0) {
-            ServerJson serverJson = new ServerJson(getContext(), list, recyclerView, partname);
+            serverJson = new ServerJson(getContext(), list, recyclerView, partname);
             Log.e("tag", "execute volley request");
             serverJson.volleyRequest();
         }

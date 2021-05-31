@@ -46,7 +46,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varchar)");
-       // id,qid,partname,qrcode,operator,answer,partTime,TimeStamp,fullTime,qr_code
+        // id,qid,partname,qrcode,operator,answer,partTime,TimeStamp,fullTime,qr_code
 
         db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp varchar)");
         db.execSQL("create table "+tb_part+"(id Integer,part_name varchar)");
@@ -80,7 +80,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     }
     //******************************
     public ArrayList<Questions_main> getAllAnswers() {
-       // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varchar)
+        // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varchar)
         questionsList=new ArrayList<>();
         String[] resultColumns = {"id", "question", "answer","Highlight","partname","qr","user"};
         SQLiteDatabase mydatabase = this.getReadableDatabase();
@@ -172,6 +172,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     }
     //get Qeestions***********************************************
     public ArrayList<Questions_main> getQuestions(String partname){
+        if(partname==null)partname="";
         Log.e("Mydbhelper","reading partnames");
         questionsList=new ArrayList<>();
         String[] resultColumns = {"id", "question", "Highlight"};
@@ -196,19 +197,19 @@ public class MyDbHelper extends SQLiteOpenHelper {
     }
 
     public void submitTempAnswers( int qid, String partname, String qrcode, String operator,int answer,String partTime, String TimeStamp) {
-       // (id Integer ,qid Text, question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varchar)
+        // (id Integer ,qid Text, question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varchar)
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         ContentValues values=new ContentValues();
-            //id,qid,partname,qrcode,operator,answer,partTime,TimeStamp
-          //  values.put("id",id);
-            values.put("qid",qid);
-            values.put("partname",partname);
-            values.put("qrcode",qrcode);
-            values.put("operator",operator);
-            values.put("answer",answer);
-            values.put("partTime",partTime);
-            values.put("TimeStamp", String.valueOf(TimeStamp));
-            mydatabase.insert(tb_temp_ans,null,values);
+        //id,qid,partname,qrcode,operator,answer,partTime,TimeStamp
+        //  values.put("id",id);
+        values.put("qid",qid);
+        values.put("partname",partname);
+        values.put("qrcode",qrcode);
+        values.put("operator",operator);
+        values.put("answer",answer);
+        values.put("partTime",partTime);
+        values.put("TimeStamp", String.valueOf(TimeStamp));
+        mydatabase.insert(tb_temp_ans,null,values);
 
 
     }
@@ -256,37 +257,37 @@ public class MyDbHelper extends SQLiteOpenHelper {
         mydatabase.close();
     }
 
-   public void setRemainingParts(LinkedList<String> parts, long fullTime, String qr_code){
+    public void setRemainingParts(LinkedList<String> parts, long fullTime, String qr_code){
         int id=1;
-       SQLiteDatabase mydatabase=this.getWritableDatabase();
-       mydatabase.execSQL("delete from " +tb_remaining_parts);
-       for(String partname:parts) {
-           ContentValues values = new ContentValues();
-           values.put("id", id);
-           values.put("part_name", partname);
-           values.put("fullTime", fullTime);
-           values.put("qr_code", qr_code);
-           mydatabase.insert(tb_remaining_parts,null,values);
-           id++;
-       }
-   }
+        SQLiteDatabase mydatabase=this.getWritableDatabase();
+        mydatabase.execSQL("delete from " +tb_remaining_parts);
+        for(String partname:parts) {
+            ContentValues values = new ContentValues();
+            values.put("id", id);
+            values.put("part_name", partname);
+            values.put("fullTime", fullTime);
+            values.put("qr_code", qr_code);
+            mydatabase.insert(tb_remaining_parts,null,values);
+            id++;
+        }
+    }
     public void deletAllParts() {
         SQLiteDatabase db=this.getWritableDatabase();
         db.execSQL("delete from " +tb_part);
     }
 
-   public Cursor getRemainingParts(){
-       String[] resultColumns = { "part_name","fullTime","qr_code"};
-       SQLiteDatabase mydatabase = this.getReadableDatabase();
+    public Cursor getRemainingParts(){
+        String[] resultColumns = { "part_name","fullTime","qr_code"};
+        SQLiteDatabase mydatabase = this.getReadableDatabase();
         //ArrayList<Questions_main> pnames=new ArrayList<>();
-       Cursor cursor = mydatabase.query(tb_remaining_parts,resultColumns,null,null,null,null,null);
+        Cursor cursor = mydatabase.query(tb_remaining_parts,resultColumns,null,null,null,null,null);
 
-       return cursor;
-   }
-   public void deleteRemainingParts(){
-       SQLiteDatabase mydatabase = this.getReadableDatabase();
-       mydatabase.execSQL("delete from " +tb_remaining_parts);
-   }
+        return cursor;
+    }
+    public void deleteRemainingParts(){
+        SQLiteDatabase mydatabase = this.getReadableDatabase();
+        mydatabase.execSQL("delete from " +tb_remaining_parts);
+    }
 
     public long addImage(int id, String model_nm , byte[] img)
     {
@@ -324,27 +325,9 @@ public class MyDbHelper extends SQLiteOpenHelper {
         mydatabase.close();
     }
 
-    public boolean duplicateQr(String qr_result) {
 
-        SQLiteDatabase mydatabase = this.getReadableDatabase();
-        String where="qr=?";
-        Cursor cursor;
-        if(qr_result!=null) {
-            cursor = mydatabase.query(tb_answer, new String[]{"qr"}, where, new String[]{qr_result}, null, null, null, null);
 
-            if (cursor.moveToFirst()) {
-                Log.e("Mydbhelper", "qr code matched");
-                return true;
-            }
-            else return false;
-        }
-        else {
-
-            return false;
-        }
-    }
-
-   public void deletePrimaryData() {
+    public void deletePrimaryData() {
 
         deleteAllImages();
         deletAllParts();

@@ -48,8 +48,8 @@ public class Questions extends AppCompatActivity {
     Boolean noRemaining=true;
     LinearLayout partTimeLayout,fullTimeLayout;
     String firstPart;
-    boolean allowDouble=true;
-    public static boolean isDuplicate=false;
+
+
     public static boolean isConnected=true;
     Runnable questionTimer;
     Handler handler;
@@ -89,7 +89,6 @@ public class Questions extends AppCompatActivity {
             }
         });
 
-        Log.e("logging is duplicate",isDuplicate+"");
 
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +108,7 @@ public class Questions extends AppCompatActivity {
     private void init(){
         list = new ArrayList<>();
         pnames = new ArrayList<>();
-        allowDouble = true;
+
 
         btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new OnBtnNextClickListner());
@@ -118,93 +117,94 @@ public class Questions extends AppCompatActivity {
         partTimeLayout.setVisibility(View.INVISIBLE);
         fullTimeLayout.setVisibility(View.INVISIBLE);
     }
-     protected void onStart() {
-         super.onStart();
-         Questions_main.qNo = 1;
+    protected void onStart() {
+        super.onStart();
+        Questions_main.qNo = 1;
 
 
 
-         firstPart = getIntent().getStringExtra("partname");
-         partname = getIntent().getStringExtra("partname");
-         qrScanned = getIntent().getStringExtra("qrScanned");
-         MyDbHelper myDbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
-         // Cursor remainingParts=new ArrayList<>();
-         Cursor remainingParts = myDbHelper.getRemainingParts();
-         if (remainingParts != null) {
-             if (remainingParts.moveToFirst()) {
-                 noRemaining = false;
-                 allowDouble = false;
-                 long t;
-                 do {
-                     //"part_name","fullTime","qr_code"
-                     pnames.add(remainingParts.getString(0));
-                     t = remainingParts.getLong(1);
-                     Log.e("time remaing part: ", t + "");
+        firstPart = getIntent().getStringExtra("partname");
+        partname = getIntent().getStringExtra("partname");
+        qrScanned = getIntent().getStringExtra("qrScanned");
+        MyDbHelper myDbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
+        // Cursor remainingParts=new ArrayList<>();
+        Cursor remainingParts = myDbHelper.getRemainingParts();
+        if (remainingParts != null) {
+            if (remainingParts.moveToFirst()) {
+                noRemaining = false;
 
-                     qr_res = remainingParts.getString(2);
-                     Log.e("qr res remaing part: ", qr_res);
-                 } while (remainingParts.moveToNext());
-                 myDbHelper.deleteRemainingParts();
-                 //  pnames = remainingParts;
-                 fullTimer.setBase(t);
+                long t;
+                do {
+                    //"part_name","fullTime","qr_code"
+                    pnames.add(remainingParts.getString(0));
+                    t = remainingParts.getLong(1);
+                    Log.e("time remaing part: ", t + "");
 
-                 getIntent().putExtra("qr_result", qr_res);
-                 //qr.setText(qr_res);
-                 partname = pnames.get(0);
-                 qrScanned = "scanned";
+                    qr_res = remainingParts.getString(2);
+                    Log.e("qr res remaing part: ", qr_res);
+                } while (remainingParts.moveToNext());
+                myDbHelper.deleteRemainingParts();
+                //  pnames = remainingParts;
+                fullTimer.setBase(t);
 
-             }
-             else{
-                 noRemaining = true;
-                 allowDouble = true;
-             }
-         }
-         else{
-             noRemaining = true;
-             allowDouble = true;
-         }
+                getIntent().putExtra("qr_result", qr_res);
+                //qr.setText(qr_res);
+                partname = pnames.get(0);
+                qrScanned = "scanned";
 
-         if (qrScanned != null) {
-             Log.e("tag", qrScanned);
-             if (qrScanned.equals("scanned")) {
+            }
+            else{
+                noRemaining = true;
 
-                 ServerJson serverJson = new ServerJson(this);
-                 if(myDbHelper.duplicateQr(getIntent().getStringExtra("qr_result"))&&allowDouble){
-                     qrScanned="";
-                     Toast.makeText(this, "This car is already checked", Toast.LENGTH_SHORT).show();
-                     return;
-                 }
-                 if(Questions.isDuplicate){
-                     qrScanned="";
-                     Toast.makeText(Questions.this, "It is already done", Toast.LENGTH_SHORT).show();
-                     return;
-                 }
+            }
+        }
+        else{
+            noRemaining = true;
+
+        }
+
+        if (qrScanned != null) {
+            Log.e("tag", qrScanned);
+            if (qrScanned.equals("scanned")) {
+
+                ServerJson serverJson = new ServerJson(this);
 
 
-                 qr.setText(getIntent().getStringExtra("qr_result"));
 
-                 if (noRemaining) {
-                     MyDbHelper dbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
-                     pnames = dbHelper.getPartnames();
+                qr.setText(getIntent().getStringExtra("qr_result"));
 
-                     if (pnames.size() == 0) {
-                         serverJson = new ServerJson(this, pnames);
-                         serverJson.getPartName();
-                         pnames = serverJson.getPartnames();
-                     }
-                 }//no remaining
-                 partTimeLayout.setVisibility(View.VISIBLE);
-                 fullTimeLayout.setVisibility(View.VISIBLE);
-                 btnNext.setVisibility(View.VISIBLE);
-                 timer.start();
-                 fullTimer.start();
-                 partFragment = new PartFragment(list, partname);
-                 fragmentManager = getSupportFragmentManager();
-                 fragmentTransaction = fragmentManager.beginTransaction();
-                 fragmentTransaction.add(R.id.layoutQuestions, partFragment).commit();
-             }
-         }
-     }
+                if (noRemaining) {
+                    MyDbHelper dbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
+                    pnames = dbHelper.getPartnames();
+                    if(pnames!=null) {
+                        if (pnames.size() == 0) {
+                            serverJson = new ServerJson(this, pnames);
+                            serverJson.getPartName();
+                            pnames = serverJson.getPartnames();
+                        }
+                    }
+                }//no remaining
+                if(partname!=null)
+                    addFragment();
+            }
+        }
+    }
+    public void addFragment(){
+
+
+        if(pnames.size()>0) {
+            btnNext.setVisibility(View.VISIBLE);
+            partTimeLayout.setVisibility(View.VISIBLE);
+            fullTimeLayout.setVisibility(View.VISIBLE);
+            timer.start();
+            fullTimer.start();
+        }
+        partFragment = new PartFragment(list, partname);
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.layoutQuestions, partFragment).commit();
+
+    }
 
     private void inputQRCode(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -229,26 +229,24 @@ public class Questions extends AppCompatActivity {
 //                Pattern p = Pattern.compile("\\S{2}\\d{1}\\S{2}\\d{1}\\S{4}\\d{1}\\S{1}\\d{5}\\S{3}\\d{1}\\S{4}\\d{1}\\S{2}\\d{2}\\S{2}\\d{1}\\S{2}");
 //                if (!qr_code.equals("") && p.matcher(qr_code).matches()) {
                 String qr_code=inputQR.getText().toString();
-                ServerJson serverJson=new ServerJson(Questions.this);
-                isDuplicate=serverJson.checkDuplicate(qr_code, new ServerJson.LoadData() {
-                    @Override
-                    public void load() {
-                        if(qr_code.length()==36){
-                            // qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";
-                            Intent i = new Intent(Questions.this, Questions.class);
-                            i.putExtra("qr_result", qr_code);
-                            i.putExtra("qrScanned","scanned");
-                            i.putExtra("partname",partname);
-                            startActivity(i);
-                            finish();
-                            //qr.setText(qr_code);
-                            //isModelNameExist();
-                        }else {
-                            Toast.makeText(getApplicationContext(), "Invalid QR Code...!", Toast.LENGTH_LONG).show();
-                            inputQRCode();
-                        }
-                    }
-                });
+
+
+                if(qr_code.length()==36){
+                    // qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";
+                    Intent i = new Intent(Questions.this, Questions.class);
+                    i.putExtra("qr_result", qr_code);
+                    i.putExtra("qrScanned","scanned");
+                    i.putExtra("partname",partname);
+                    startActivity(i);
+                    finish();
+                    //qr.setText(qr_code);
+                    //isModelNameExist();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Invalid QR Code...!", Toast.LENGTH_LONG).show();
+                    inputQRCode();
+                }
+
+
 
 
             }
@@ -306,6 +304,7 @@ public class Questions extends AppCompatActivity {
             if(pnames.size()>0&&pnames.get(0).equals(partname)){
                 pnames.remove(0);
             }
+
             if(pnames.size()==0){
                 //all part questios are completed
                 qrScanned="";
@@ -370,8 +369,8 @@ public class Questions extends AppCompatActivity {
         String qr_code=qr.getText().toString();
 
         if(ppnames.size()>0 &&active){
-        if(partname!=firstPart)
-            ppnames.addFirst(partname);
+            if(partname!=firstPart)
+                ppnames.addFirst(partname);
             MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
             myDbHelper.setRemainingParts(ppnames,fullTime,qr_code);
         }
