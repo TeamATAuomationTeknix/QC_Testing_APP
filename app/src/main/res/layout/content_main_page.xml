@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="30dp"
-            android:layout_weight="1.5"
+            android:layout_weight="2."
             android:adjustViewBounds="true"
             android:background="@drawable/mahindra_rise"
             android:padding="5dp"
@@ -31,6 +31,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="horizontal"
             android:weightSum="10"
             android:layout_marginTop="-20dp"
             android:layout_marginBottom="5dp"
@@ -44,7 +45,7 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10"
+                android:layout_weight="5"
                 android:adjustViewBounds="true"
                 android:background="@drawable/xuv"
                 android:padding="5dp"
@@ -65,9 +66,11 @@
                 android:padding="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="400dp"
+                android:layout_marginRight="-250dp"
                 android:scaleType="fitStart"
                 android:background="@drawable/kuv"
-                android:layout_weight="10"/>
+                android:layout_weight="5"/>
 
         </LinearLayout>
 

@@ -31,7 +31,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Hose Clip"
+                    android:text="Part No."
                     android:textStyle="bold"
                     android:gravity="center"/>
 

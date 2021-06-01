@@ -8,34 +8,42 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="283dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/partName"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="Ext()"
-            android:textSize="30sp" />
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
 
             android:id="@+id/masterImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="283dp"
+            android:layout_height="272dp"
             android:layout_gravity="center_horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_questions"
+            android:layout_width="667dp"
+            android:layout_height="522dp"
+            android:layout_gravity="center_horizontal"
+            android:scrollbars="vertical" />
+
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_questions"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:scrollbars="vertical"
-        />
+
+
 </LinearLayout>

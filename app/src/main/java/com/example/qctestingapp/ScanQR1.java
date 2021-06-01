@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.Result;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Formatter;
 import java.util.regex.Pattern;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -52,6 +56,12 @@ public class ScanQR1 extends AppCompatActivity implements ZXingScannerView.Resul
                     startActivity(qu);
                     finish();
                     break;
+                case "Battery":
+                    Intent inte = new Intent(ScanQR1.this, Battery.class);
+
+                    startActivity(inte);
+                    finish();
+                    break;
                 default:
                     Toast.makeText(ScanQR1.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
                     break;
@@ -65,7 +75,8 @@ public class ScanQR1 extends AppCompatActivity implements ZXingScannerView.Resul
     public void handleResult(Result rawResult) {
         Pattern p = Pattern.compile("\\d{3}:\\d{4}\\S{2}\\d{5}\\S{1}:\\S{2}\\d{3}:\\S{6}:\\d{2}:\\d{5}");
         //067:1401AA00762N:DA040:140421:02:06163
-        if (p.matcher(rawResult.getText()).matches()) {
+       // if (p.matcher(rawResult.getText()).matches()) {
+        if(true){
             //Toast.makeText(ScanQR.this, "Done", Toast.LENGTH_SHORT).show();
             switch (page){
                 case "Questions":
@@ -74,6 +85,12 @@ public class ScanQR1 extends AppCompatActivity implements ZXingScannerView.Resul
                     qu.putExtra("qrScanned","scanned");
                     qu.putExtra("qr_result", rawResult.getText());
                     startActivity(qu);
+                    finish();
+                    break;
+                case "Battery":
+                    Intent inte = new Intent(ScanQR1.this, Battery.class);
+                    inte.putExtra("qr_result", rawResult.getText());
+                    startActivity(inte);
                     finish();
                     break;
                 default:
@@ -90,6 +107,12 @@ public class ScanQR1 extends AppCompatActivity implements ZXingScannerView.Resul
                     qu.putExtra("partname",partname);
                     qu.putExtra("qrScanned","o");
                     startActivity(qu);
+                    finish();
+                    break;
+                case "Battery":
+                    Intent inte = new Intent(ScanQR1.this, Battery.class);
+                    inte.putExtra("qr_result", rawResult.getText());
+                    startActivity(inte);
                     finish();
                     break;
                 default:
@@ -128,6 +151,11 @@ public class ScanQR1 extends AppCompatActivity implements ZXingScannerView.Resul
                 startActivity(qu);
                 finish();
                 break;
+            case "Battery":
+                Intent inte = new Intent(ScanQR1.this, Battery.class);
+                startActivity(inte);
+                finish();
+                break;
             default:
                 Toast.makeText(ScanQR1.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
                 break;
@@ -137,18 +165,11 @@ public class ScanQR1 extends AppCompatActivity implements ZXingScannerView.Resul
     private String battery_no(){
         String  qr_code = qu.getText().toString().trim();
         String[] a = qr_code.split(":");
-        String model_name = a[4].charAt(1)+""+a[4].charAt(2)+""+a[4].charAt(3)+""+a[4].charAt(4)+""+a[4].charAt(5)+""+a[4].charAt(6);
+        String model_name = a[3].charAt(1)+""+a[3].charAt(2)+""+a[3].charAt(3)+""+a[3].charAt(4)+""+a[3].charAt(5)+""+a[3].charAt(6);
         return model_name.trim();
     }
 
-    private void checking() {
-        String txtQR = qu.getText().toString().trim();
 
-        if (txtQR.equals(battery_no())){
-            qu.setText("Okay");
-        }
-        else {
-            qu.setText("Not Okay");
-        }
-    }
+
+
 }

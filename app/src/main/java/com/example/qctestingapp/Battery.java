@@ -8,14 +8,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Battery extends AppCompatActivity {
@@ -43,7 +46,13 @@ public class Battery extends AppCompatActivity {
 
         qr_res = getIntent().getStringExtra("qr_result");
         qr.setText(qr_res);
-
+        if(qr_res!=null){
+            try {
+                checking();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +138,29 @@ public class Battery extends AppCompatActivity {
         });
         builder.setCancelable(false);
         builder.show();
+    }
+    private void checking() throws ParseException {
+        String txtQR = qr.getText().toString();
+        String[] arr=txtQR.split(":");
+
+        Date date = new Date();
+        long today = date.getTime();
+        Log.e("date",new SimpleDateFormat("dd/MM/yyyy").format(date));
+        Date prev = new SimpleDateFormat("ddMMyy").parse(arr[3]);
+        Log.e("3rd array",arr[3]);
+        Log.e("date",new SimpleDateFormat("dd/MM/yyyy").format(prev));
+        long pretime = prev.getTime();
+        long milliseconds = today - pretime;
+        Log.e("milliseconds",milliseconds+"");
+        int days = (int) (milliseconds / (60*60*24*1000));
+        Log.e("days", days + "");
+        if (days <= 45) {
+            textView.setText("Okay");
+            textView.setBackgroundColor(getResources().getColor(R.color.color_ok));
+        } else {
+            textView.setText("Not Okay");
+            textView.setBackgroundColor(getResources().getColor(R.color.color_not_ok));
+        }
     }
 
 }

@@ -39,6 +39,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
             switch (page){
+
                 case "Questions":
                     Intent qu = new Intent(ScanQR.this, Questions.class);
                     qu.putExtra("partname",partname);

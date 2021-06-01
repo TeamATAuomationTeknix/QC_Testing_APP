@@ -227,7 +227,7 @@ return qqlist;
         p1.setIndeterminate(false);
         p1.setCancelable(false);
         Log.e("tag","showing progress dialog");
-        p1.show();
+       // p1.show();
         MySingleton m=MySingleton.getInstance(context);
         RequestQueue requestQueue= m.getRequestQueue();
 
