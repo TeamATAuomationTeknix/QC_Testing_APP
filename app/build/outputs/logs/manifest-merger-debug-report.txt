@@ -1,0 +1,447 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+MERGED from [androidx.databinding:viewbinding:4.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\465d783f90737306ac5dbdd240d104f2\viewbinding-4.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-ui:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f983ca06cb491128d52e3b9db3009fc5\navigation-ui-2.3.5\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\b4830525609e4b8bb972f1d8a37dc780\material-1.3.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\53429fbc83e528985386a3702907817d\constraintlayout-2.0.4\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.biometric:biometric:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\df7434c73f2a83b19540389fd32a3fb1\biometric-1.1.0\AndroidManifest.xml:17:1-29:12
+MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\aee462275766ea11fd05a9119c668fe0\appcompat-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\571b43dc3d370ac743a943865d6e4a66\lifecycle-livedata-ktx-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\af641715a5d81f2a2ee4c203d61ed554\lifecycle-viewmodel-ktx-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-fragment:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\c065d7a03a6773e6fc3e846945183a4f\navigation-fragment-2.3.5\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-vision:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d5c2d4fd5de08dcf055465df90fe0ac0\jetified-play-services-vision-11.8.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.android.volley:volley:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\51af6846157b8f63f8e3f8c7c9e47595\jetified-volley-1.2.0\AndroidManifest.xml:2:1-7:12
+MERGED from [me.dm7.barcodescanner:zxing:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e5ec76a4449969be58b72c9a6c366537\zxing-1.9\AndroidManifest.xml:2:1-13:12
+MERGED from [com.google.android.gms:play-services-vision-common:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f5e090a30e2f6d016494c336df0a1594\jetified-play-services-vision-common-11.8.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8d68b20d24727f0c08d3db60feafefd6\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\580130cc79318d77f665f275f259e7a1\jetified-play-services-basement-11.8.0\AndroidManifest.xml:17:1-28:12
+MERGED from [me.dm7.barcodescanner:core:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a3a7d847564e0fa2db0ed47bb0b10986\jetified-core-1.9\AndroidManifest.xml:2:1-13:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\cdd4a60bef6c0f8a7e620ac5295b11ad\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\95cbcdd264a2eccacc08be754a9be679\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3d3b0751e6f78ff8c1df2664b2714ed8\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\6ba548daa8910021590b469dd1d15252\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\9bc35db89de5b085067c1324b8bfbbcf\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\52af9bb131e0a20092265842e485c08f\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\62ecce35880984b0c138ce475dc962aa\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\ad21947eec5ee398f5c283b0c4da9784\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8689124caa1430799f02cb459f46e2da\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d643442c4ffc886106a5522b382be213\dynamicanimation-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.2.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\333aa5338b695190e588c3bfbef0e54b\fragment-1.2.5\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-runtime:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\53955cd54d03d532a580d153d7c78d2c\navigation-runtime-2.3.5\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\04dc713a4b52bfe7bc8b2f78befb8bd1\activity-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\c09498c672bcad79f907a63b737ebf9d\drawerlayout-1.1.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.3.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a4d69af603900a59fcf17f1c85331837\transition-1.3.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e1e987c088abb64cb98086af7cc51c67\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\291b0dc121fa3d21c4d609cf60748a6c\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\af4ce0c025385f4d674c3fbc90c74bbd\slidingpanelayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\b4d6f16b2a41a056339edacecc5d0880\customview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\1bb65d76bc4c53e4fd0fa77c28d107ec\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\54a6463602e092e46e6a3bac5a75d6f2\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3dc644b4d78915f3594419990b5a6b35\navigation-common-2.3.5\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.media:media:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a547992bccb754fe8c5281f35b02b089\media-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\82ae702ce6452c85bbcde570c36bca5b\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d88be84dffbca90874262a60190a4c2c\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.3.2] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\29aa8a968910bdbd30954c3d9c50b248\core-1.3.2\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f4cb9c7d93882f34a3725527850d73a1\lifecycle-viewmodel-savedstate-2.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\1e3cc287f6f9aff9dd7d87c943f1b053\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4b3912fc93bd609a8bcd6b9553a912b6\versionedparcelable-1.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3614be1ff0fe680b43a404a69c35dcfe\lifecycle-runtime-2.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\fc0c8a66a760b49fb5235fd8b1759370\jetified-savedstate-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\dcfdda81f1a0c0c8194e8093ed02014c\lifecycle-livedata-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4e135c5bc7b71f541bfb359039037316\lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\eeb46425476175758829c070e05af108\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\5de14670e80ac28f28052413a4a35127\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4a7e3a6a5b12d48699851e0cd7ae034e\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\0c170a5bf61b9b60ba30f013c401aa8b\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\871eada208e4b1d3c3f2e0d7eeb7730e\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\763fff8338f14250d307a24463e7c6bd\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a4934bcfce5a642fea31bbad1cb3e0e2\jetified-annotation-experimental-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-vision-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8be59377412a022a090b82feac051795\jetified-play-services-vision-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d12ea21beaa14c49364953410a333747\jetified-play-services-base-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\5d74dbbb63d31febb19e727c516bcd72\jetified-play-services-basement-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-vision-common-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e6ee87012d7b45ecbffe49b27b97e2f3\jetified-play-services-vision-common-license-11.8.0\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3e9880fbd32153d5adcd8ff38ece5cc9\jetified-play-services-tasks-license-11.8.0\AndroidManifest.xml:2:1-6:12
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+	package
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:4:5-39
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:1-81:12
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.CAMERA
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:6:5-65
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:6:22-62
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:7:5-81
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:7:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:8:5-80
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:8:22-77
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:9:5-67
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:9:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:10:5-79
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:10:22-76
+uses-feature#android.hardware.camera
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:12:5-14:35
+	android:required
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:14:9-32
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:13:9-47
+application
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:16:5-79:19
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\b4830525609e4b8bb972f1d8a37dc780\material-1.3.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\b4830525609e4b8bb972f1d8a37dc780\material-1.3.0\AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\53429fbc83e528985386a3702907817d\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\53429fbc83e528985386a3702907817d\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-vision:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d5c2d4fd5de08dcf055465df90fe0ac0\jetified-play-services-vision-11.8.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-vision:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d5c2d4fd5de08dcf055465df90fe0ac0\jetified-play-services-vision-11.8.0\AndroidManifest.xml:7:5-20
+MERGED from [me.dm7.barcodescanner:zxing:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e5ec76a4449969be58b72c9a6c366537\zxing-1.9\AndroidManifest.xml:11:5-20
+MERGED from [me.dm7.barcodescanner:zxing:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e5ec76a4449969be58b72c9a6c366537\zxing-1.9\AndroidManifest.xml:11:5-20
+MERGED from [com.google.android.gms:play-services-vision-common:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f5e090a30e2f6d016494c336df0a1594\jetified-play-services-vision-common-11.8.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-vision-common:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f5e090a30e2f6d016494c336df0a1594\jetified-play-services-vision-common-11.8.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8d68b20d24727f0c08d3db60feafefd6\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8d68b20d24727f0c08d3db60feafefd6\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\580130cc79318d77f665f275f259e7a1\jetified-play-services-basement-11.8.0\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\580130cc79318d77f665f275f259e7a1\jetified-play-services-basement-11.8.0\AndroidManifest.xml:22:5-26:19
+MERGED from [me.dm7.barcodescanner:core:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a3a7d847564e0fa2db0ed47bb0b10986\jetified-core-1.9\AndroidManifest.xml:11:5-20
+MERGED from [me.dm7.barcodescanner:core:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a3a7d847564e0fa2db0ed47bb0b10986\jetified-core-1.9\AndroidManifest.xml:11:5-20
+MERGED from [androidx.core:core:1.3.2] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\29aa8a968910bdbd30954c3d9c50b248\core-1.3.2\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.3.2] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\29aa8a968910bdbd30954c3d9c50b248\core-1.3.2\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4b3912fc93bd609a8bcd6b9553a912b6\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4b3912fc93bd609a8bcd6b9553a912b6\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+MERGED from [com.google.android.gms:play-services-vision-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8be59377412a022a090b82feac051795\jetified-play-services-vision-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-vision-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8be59377412a022a090b82feac051795\jetified-play-services-vision-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d12ea21beaa14c49364953410a333747\jetified-play-services-base-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d12ea21beaa14c49364953410a333747\jetified-play-services-base-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\5d74dbbb63d31febb19e727c516bcd72\jetified-play-services-basement-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\5d74dbbb63d31febb19e727c516bcd72\jetified-play-services-basement-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-vision-common-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e6ee87012d7b45ecbffe49b27b97e2f3\jetified-play-services-vision-common-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-vision-common-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e6ee87012d7b45ecbffe49b27b97e2f3\jetified-play-services-vision-common-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3e9880fbd32153d5adcd8ff38ece5cc9\jetified-play-services-tasks-license-11.8.0\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3e9880fbd32153d5adcd8ff38ece5cc9\jetified-play-services-tasks-license-11.8.0\AndroidManifest.xml:5:5-20
+	android:requestLegacyExternalStorage
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:23:9-52
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.3.2] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\29aa8a968910bdbd30954c3d9c50b248\core-1.3.2\AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:25:9-35
+	android:label
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:20:9-41
+	android:hardwareAccelerated
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:18:9-44
+	android:roundIcon
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:24:9-46
+	android:largeHeap
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:21:9-33
+	android:icon
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:19:9-41
+	android:allowBackup
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:17:9-35
+	android:theme
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:26:9-50
+	android:networkSecurityConfig
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:22:9-69
+	android:usesCleartextTraffic
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:27:9-44
+activity#com.example.qctestingapp.Battery
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:28:9-54
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:28:19-42
+activity#com.example.qctestingapp.Questions
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:29:9-47
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:29:19-44
+activity#com.example.qctestingapp.CustomCamera
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:30:9-50
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:30:19-47
+activity#com.example.qctestingapp.QCheck1
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:31:9-45
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:31:19-42
+activity#com.example.qctestingapp.QRScanner
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:32:9-47
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:32:19-44
+activity#com.example.qctestingapp.QRScan
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:33:9-44
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:33:19-41
+activity#com.example.qctestingapp.MasterImages
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:34:9-50
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:34:19-47
+activity#com.example.qctestingapp.QCheck
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:35:9-44
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:35:19-41
+activity#com.example.qctestingapp.ScanQR
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:36:9-44
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:36:19-41
+activity#com.example.qctestingapp.CameraPreview
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:37:9-51
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:37:19-48
+activity#com.example.qctestingapp.ImageRegistration
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:38:9-55
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:38:19-52
+activity#com.example.qctestingapp.ScanQR1
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:39:9-45
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:39:19-42
+activity#com.example.qctestingapp.Main_page
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:40:9-43:69
+	android:label
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:42:13-61
+	android:theme
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:43:13-66
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:41:13-38
+activity#com.example.qctestingapp.MainActivity
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:44:9-50:20
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:44:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:45:13-49:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:46:17-69
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:46:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:48:17-77
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:48:27-74
+receiver#com.example.qctestingapp.NetworkStateChecker
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:52:9-56:20
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:52:19-54
+intent-filter#action:name:android.net.conn.CONNECTIVITY_CHANGE
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:53:13-55:29
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:54:17-79
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:54:25-76
+service#com.example.qctestingapp.MyService
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:58:9-62:44
+	android:enabled
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:60:13-35
+	android:exported
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:61:13-37
+	android:stopWithTask
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:62:13-41
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:59:13-38
+provider#androidx.core.content.FileProvider
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:64:9-74:20
+	android:grantUriPermissions
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:68:13-47
+	android:authorities
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:66:13-72
+	android:exported
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:67:13-37
+	tools:replace
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:69:13-48
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:65:13-62
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:70:13-73:52
+	android:resource
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:72:17-55
+	tools:replace
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:73:17-49
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:71:17-67
+uses-library#org.apache.http.legacy
+ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:76:9-78:40
+	android:required
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:78:13-37
+	android:name
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml:77:13-50
+uses-sdk
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+MERGED from [androidx.databinding:viewbinding:4.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\465d783f90737306ac5dbdd240d104f2\viewbinding-4.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.databinding:viewbinding:4.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\465d783f90737306ac5dbdd240d104f2\viewbinding-4.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-ui:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f983ca06cb491128d52e3b9db3009fc5\navigation-ui-2.3.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-ui:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f983ca06cb491128d52e3b9db3009fc5\navigation-ui-2.3.5\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\b4830525609e4b8bb972f1d8a37dc780\material-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\b4830525609e4b8bb972f1d8a37dc780\material-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\53429fbc83e528985386a3702907817d\constraintlayout-2.0.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\53429fbc83e528985386a3702907817d\constraintlayout-2.0.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.biometric:biometric:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\df7434c73f2a83b19540389fd32a3fb1\biometric-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.biometric:biometric:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\df7434c73f2a83b19540389fd32a3fb1\biometric-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\aee462275766ea11fd05a9119c668fe0\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\aee462275766ea11fd05a9119c668fe0\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\571b43dc3d370ac743a943865d6e4a66\lifecycle-livedata-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\571b43dc3d370ac743a943865d6e4a66\lifecycle-livedata-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\af641715a5d81f2a2ee4c203d61ed554\lifecycle-viewmodel-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\af641715a5d81f2a2ee4c203d61ed554\lifecycle-viewmodel-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-fragment:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\c065d7a03a6773e6fc3e846945183a4f\navigation-fragment-2.3.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-fragment:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\c065d7a03a6773e6fc3e846945183a4f\navigation-fragment-2.3.5\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-vision:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d5c2d4fd5de08dcf055465df90fe0ac0\jetified-play-services-vision-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-vision:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d5c2d4fd5de08dcf055465df90fe0ac0\jetified-play-services-vision-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.android.volley:volley:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\51af6846157b8f63f8e3f8c7c9e47595\jetified-volley-1.2.0\AndroidManifest.xml:5:5-43
+MERGED from [com.android.volley:volley:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\51af6846157b8f63f8e3f8c7c9e47595\jetified-volley-1.2.0\AndroidManifest.xml:5:5-43
+MERGED from [me.dm7.barcodescanner:zxing:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e5ec76a4449969be58b72c9a6c366537\zxing-1.9\AndroidManifest.xml:7:5-9:41
+MERGED from [me.dm7.barcodescanner:zxing:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e5ec76a4449969be58b72c9a6c366537\zxing-1.9\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.gms:play-services-vision-common:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f5e090a30e2f6d016494c336df0a1594\jetified-play-services-vision-common-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-vision-common:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f5e090a30e2f6d016494c336df0a1594\jetified-play-services-vision-common-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8d68b20d24727f0c08d3db60feafefd6\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8d68b20d24727f0c08d3db60feafefd6\jetified-play-services-tasks-11.8.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\580130cc79318d77f665f275f259e7a1\jetified-play-services-basement-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\580130cc79318d77f665f275f259e7a1\jetified-play-services-basement-11.8.0\AndroidManifest.xml:20:5-44
+MERGED from [me.dm7.barcodescanner:core:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a3a7d847564e0fa2db0ed47bb0b10986\jetified-core-1.9\AndroidManifest.xml:7:5-9:41
+MERGED from [me.dm7.barcodescanner:core:1.9] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a3a7d847564e0fa2db0ed47bb0b10986\jetified-core-1.9\AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\cdd4a60bef6c0f8a7e620ac5295b11ad\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\cdd4a60bef6c0f8a7e620ac5295b11ad\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\95cbcdd264a2eccacc08be754a9be679\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\95cbcdd264a2eccacc08be754a9be679\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3d3b0751e6f78ff8c1df2664b2714ed8\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3d3b0751e6f78ff8c1df2664b2714ed8\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\6ba548daa8910021590b469dd1d15252\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\6ba548daa8910021590b469dd1d15252\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\9bc35db89de5b085067c1324b8bfbbcf\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\9bc35db89de5b085067c1324b8bfbbcf\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\52af9bb131e0a20092265842e485c08f\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\52af9bb131e0a20092265842e485c08f\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\62ecce35880984b0c138ce475dc962aa\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\62ecce35880984b0c138ce475dc962aa\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\ad21947eec5ee398f5c283b0c4da9784\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\ad21947eec5ee398f5c283b0c4da9784\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8689124caa1430799f02cb459f46e2da\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8689124caa1430799f02cb459f46e2da\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d643442c4ffc886106a5522b382be213\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d643442c4ffc886106a5522b382be213\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.2.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\333aa5338b695190e588c3bfbef0e54b\fragment-1.2.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\333aa5338b695190e588c3bfbef0e54b\fragment-1.2.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-runtime:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\53955cd54d03d532a580d153d7c78d2c\navigation-runtime-2.3.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-runtime:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\53955cd54d03d532a580d153d7c78d2c\navigation-runtime-2.3.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\04dc713a4b52bfe7bc8b2f78befb8bd1\activity-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\04dc713a4b52bfe7bc8b2f78befb8bd1\activity-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\c09498c672bcad79f907a63b737ebf9d\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\c09498c672bcad79f907a63b737ebf9d\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.3.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a4d69af603900a59fcf17f1c85331837\transition-1.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.3.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a4d69af603900a59fcf17f1c85331837\transition-1.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e1e987c088abb64cb98086af7cc51c67\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e1e987c088abb64cb98086af7cc51c67\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\291b0dc121fa3d21c4d609cf60748a6c\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\291b0dc121fa3d21c4d609cf60748a6c\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\af4ce0c025385f4d674c3fbc90c74bbd\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\af4ce0c025385f4d674c3fbc90c74bbd\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\b4d6f16b2a41a056339edacecc5d0880\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\b4d6f16b2a41a056339edacecc5d0880\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\1bb65d76bc4c53e4fd0fa77c28d107ec\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\1bb65d76bc4c53e4fd0fa77c28d107ec\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\54a6463602e092e46e6a3bac5a75d6f2\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\54a6463602e092e46e6a3bac5a75d6f2\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3dc644b4d78915f3594419990b5a6b35\navigation-common-2.3.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-common:2.3.5] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3dc644b4d78915f3594419990b5a6b35\navigation-common-2.3.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a547992bccb754fe8c5281f35b02b089\media-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a547992bccb754fe8c5281f35b02b089\media-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\82ae702ce6452c85bbcde570c36bca5b\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\82ae702ce6452c85bbcde570c36bca5b\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d88be84dffbca90874262a60190a4c2c\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d88be84dffbca90874262a60190a4c2c\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.3.2] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\29aa8a968910bdbd30954c3d9c50b248\core-1.3.2\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.3.2] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\29aa8a968910bdbd30954c3d9c50b248\core-1.3.2\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f4cb9c7d93882f34a3725527850d73a1\lifecycle-viewmodel-savedstate-2.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\f4cb9c7d93882f34a3725527850d73a1\lifecycle-viewmodel-savedstate-2.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\1e3cc287f6f9aff9dd7d87c943f1b053\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\1e3cc287f6f9aff9dd7d87c943f1b053\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4b3912fc93bd609a8bcd6b9553a912b6\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4b3912fc93bd609a8bcd6b9553a912b6\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3614be1ff0fe680b43a404a69c35dcfe\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3614be1ff0fe680b43a404a69c35dcfe\lifecycle-runtime-2.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\fc0c8a66a760b49fb5235fd8b1759370\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\fc0c8a66a760b49fb5235fd8b1759370\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\dcfdda81f1a0c0c8194e8093ed02014c\lifecycle-livedata-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\dcfdda81f1a0c0c8194e8093ed02014c\lifecycle-livedata-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4e135c5bc7b71f541bfb359039037316\lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4e135c5bc7b71f541bfb359039037316\lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\eeb46425476175758829c070e05af108\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\eeb46425476175758829c070e05af108\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\5de14670e80ac28f28052413a4a35127\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\5de14670e80ac28f28052413a4a35127\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4a7e3a6a5b12d48699851e0cd7ae034e\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\4a7e3a6a5b12d48699851e0cd7ae034e\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\0c170a5bf61b9b60ba30f013c401aa8b\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\0c170a5bf61b9b60ba30f013c401aa8b\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\871eada208e4b1d3c3f2e0d7eeb7730e\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\871eada208e4b1d3c3f2e0d7eeb7730e\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\763fff8338f14250d307a24463e7c6bd\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\763fff8338f14250d307a24463e7c6bd\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a4934bcfce5a642fea31bbad1cb3e0e2\jetified-annotation-experimental-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a4934bcfce5a642fea31bbad1cb3e0e2\jetified-annotation-experimental-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-vision-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8be59377412a022a090b82feac051795\jetified-play-services-vision-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-vision-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\8be59377412a022a090b82feac051795\jetified-play-services-vision-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d12ea21beaa14c49364953410a333747\jetified-play-services-base-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\d12ea21beaa14c49364953410a333747\jetified-play-services-base-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\5d74dbbb63d31febb19e727c516bcd72\jetified-play-services-basement-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\5d74dbbb63d31febb19e727c516bcd72\jetified-play-services-basement-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-vision-common-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e6ee87012d7b45ecbffe49b27b97e2f3\jetified-play-services-vision-common-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-vision-common-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\e6ee87012d7b45ecbffe49b27b97e2f3\jetified-play-services-vision-common-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3e9880fbd32153d5adcd8ff38ece5cc9\jetified-play-services-tasks-license-11.8.0\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\3e9880fbd32153d5adcd8ff38ece5cc9\jetified-play-services-tasks-license-11.8.0\AndroidManifest.xml:4:5-43
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\sukru\AndroidStudioProjects\QCTestingApp\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.USE_BIOMETRIC
+ADDED from [androidx.biometric:biometric:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\df7434c73f2a83b19540389fd32a3fb1\biometric-1.1.0\AndroidManifest.xml:24:5-72
+	android:name
+		ADDED from [androidx.biometric:biometric:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\df7434c73f2a83b19540389fd32a3fb1\biometric-1.1.0\AndroidManifest.xml:24:22-69
+uses-permission#android.permission.USE_FINGERPRINT
+ADDED from [androidx.biometric:biometric:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\df7434c73f2a83b19540389fd32a3fb1\biometric-1.1.0\AndroidManifest.xml:27:5-74
+	android:name
+		ADDED from [androidx.biometric:biometric:1.1.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\df7434c73f2a83b19540389fd32a3fb1\biometric-1.1.0\AndroidManifest.xml:27:22-71
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\a99e3ca3b39f4b6527e1d29b0a4f044b\jetified-play-services-base-11.8.0\AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\580130cc79318d77f665f275f259e7a1\jetified-play-services-basement-11.8.0\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\580130cc79318d77f665f275f259e7a1\jetified-play-services-basement-11.8.0\AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:11.8.0] C:\Users\sukru\.gradle\caches\transforms-2\files-2.1\580130cc79318d77f665f275f259e7a1\jetified-play-services-basement-11.8.0\AndroidManifest.xml:24:13-58

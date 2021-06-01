@@ -1,0 +1,110 @@
+[
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_questions.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_questions.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_image_registration_item.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_image_registration_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\complete_dialog.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\complete_dialog.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\actionbar_layout.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\actionbar_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_custom_camera.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_custom_camera.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main_page.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_main_page.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_home.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_part.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\fragment_part.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\qc_check_layout.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\qc_check_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_master_images.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_master_images.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_slideshow.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\fragment_slideshow.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\app_bar_main_page.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\app_bar_main_page.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_qrscanner.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_qrscanner.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\nav_header_main_page.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\nav_header_main_page.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_battery.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_battery.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\camera_button.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\camera_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\print_item.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\print_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_master_images_item.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_master_images_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_qcheck.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_qcheck.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_image_registration.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_image_registration.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_gallery.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\fragment_gallery.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\questions.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\questions.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\content_main_page.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\content_main_page.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_qcheck_item.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_qcheck_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_camera_preview.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_camera_preview.xml"
+    },
+    {
+        "merged": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_qrscan.xml",
+        "source": "C:\\Users\\sukru\\AndroidStudioProjects\\QCTestingApp\\app\\src\\main\\res\\layout\\activity_qrscan.xml"
+    }
+]

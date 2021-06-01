@@ -1,0 +1,235 @@
+com/example/qctestingapp/CustomCameraBox.java
+ com.example.qctestingapp.CustomCameraBox
+com/example/qctestingapp/BuildConfig.java
+ com.example.qctestingapp.BuildConfig
+com/example/qctestingapp/ItemClickListener.java
+ com.example.qctestingapp.ItemClickListener
+com/example/qctestingapp/ui/gallery/GalleryViewModel.java
+ com.example.qctestingapp.ui.gallery.GalleryViewModel
+com/example/qctestingapp/ServerJson.java
+ com.example.qctestingapp.ServerJson
+ com.example.qctestingapp.ServerJson$1
+ com.example.qctestingapp.ServerJson$10
+ com.example.qctestingapp.ServerJson$11
+ com.example.qctestingapp.ServerJson$12
+ com.example.qctestingapp.ServerJson$13
+ com.example.qctestingapp.ServerJson$14
+ com.example.qctestingapp.ServerJson$15
+ com.example.qctestingapp.ServerJson$2
+ com.example.qctestingapp.ServerJson$3
+ com.example.qctestingapp.ServerJson$4
+ com.example.qctestingapp.ServerJson$5
+ com.example.qctestingapp.ServerJson$5$1
+ com.example.qctestingapp.ServerJson$6
+ com.example.qctestingapp.ServerJson$7
+ com.example.qctestingapp.ServerJson$8
+ com.example.qctestingapp.ServerJson$9
+ com.example.qctestingapp.ServerJson$ErrorListner
+ com.example.qctestingapp.ServerJson$GetPartnameListner
+ com.example.qctestingapp.ServerJson$JSONObjectResponseListener
+com/example/qctestingapp/ui/home/HomeViewModel.java
+ com.example.qctestingapp.ui.home.HomeViewModel
+com/example/qctestingapp/ui/gallery/GalleryFragment.java
+ com.example.qctestingapp.ui.gallery.GalleryFragment
+ com.example.qctestingapp.ui.gallery.GalleryFragment$1
+com/example/qctestingapp/BoxQRScanner.java
+ com.example.qctestingapp.BoxQRScanner
+com/example/qctestingapp/ui/slideshow/SlideshowViewModel.java
+ com.example.qctestingapp.ui.slideshow.SlideshowViewModel
+com/example/qctestingapp/MyService.java
+ com.example.qctestingapp.MyService
+ com.example.qctestingapp.MyService$1
+com/example/qctestingapp/Box.java
+ com.example.qctestingapp.Box
+com/example/qctestingapp/MyDbHelper.java
+ com.example.qctestingapp.MyDbHelper
+com/example/qctestingapp/MySingleton.java
+ com.example.qctestingapp.MySingleton
+com/example/qctestingapp/ui/home/HomeFragment.java
+ com.example.qctestingapp.ui.home.HomeFragment
+ com.example.qctestingapp.ui.home.HomeFragment$1
+com/example/qctestingapp/ui/slideshow/SlideshowFragment.java
+ com.example.qctestingapp.ui.slideshow.SlideshowFragment
+ com.example.qctestingapp.ui.slideshow.SlideshowFragment$1
+com/example/qctestingapp/Questions_main.java
+ com.example.qctestingapp.Questions_main
+com/example/qctestingapp/NetworkStateChecker.java
+ com.example.qctestingapp.NetworkStateChecker
+com/example/qctestingapp/Database.java
+ com.example.qctestingapp.Database
+ com.example.qctestingapp.Database$DatabaseHelper
+com/example/qctestingapp/QCheckAdapter.java
+ com.example.qctestingapp.QCheckAdapter
+ com.example.qctestingapp.QCheckAdapter$VhQuestions
+com/example/qctestingapp/databinding/ActivityQrscannerBinding.java
+ com.example.qctestingapp.databinding.ActivityQrscannerBinding
+com/example/qctestingapp/MainActivity.java
+ com.example.qctestingapp.MainActivity
+ com.example.qctestingapp.MainActivity$OnBtnCheckListner
+ com.example.qctestingapp.MainActivity$OnBtnCheckListner$1
+com/example/qctestingapp/databinding/ActionbarLayoutBinding.java
+ com.example.qctestingapp.databinding.ActionbarLayoutBinding
+com/example/qctestingapp/MasterImagesAdapter.java
+ com.example.qctestingapp.MasterImagesAdapter
+ com.example.qctestingapp.MasterImagesAdapter$1
+ com.example.qctestingapp.MasterImagesAdapter$ViewHolder
+com/example/qctestingapp/CameraPreview.java
+ com.example.qctestingapp.CameraPreview
+ com.example.qctestingapp.CameraPreview$1
+ com.example.qctestingapp.CameraPreview$2
+ com.example.qctestingapp.CameraPreview$3
+ com.example.qctestingapp.CameraPreview$4
+com/example/qctestingapp/databinding/ActivityMasterImagesBinding.java
+ com.example.qctestingapp.databinding.ActivityMasterImagesBinding
+com/example/qctestingapp/databinding/NavHeaderMainPageBinding.java
+ com.example.qctestingapp.databinding.NavHeaderMainPageBinding
+com/example/qctestingapp/databinding/QuestionsBinding.java
+ com.example.qctestingapp.databinding.QuestionsBinding
+com/example/qctestingapp/QRScanner.java
+ com.example.qctestingapp.QRScanner
+ com.example.qctestingapp.QRScanner$1
+ com.example.qctestingapp.QRScanner$2
+com/example/qctestingapp/databinding/ContentMainPageBinding.java
+ com.example.qctestingapp.databinding.ContentMainPageBinding
+com/example/qctestingapp/databinding/ActivityCameraPreviewBinding.java
+ com.example.qctestingapp.databinding.ActivityCameraPreviewBinding
+com/example/qctestingapp/databinding/ActivityMainBinding.java
+ com.example.qctestingapp.databinding.ActivityMainBinding
+com/example/qctestingapp/databinding/ActivityQuestionsBinding.java
+ com.example.qctestingapp.databinding.ActivityQuestionsBinding
+com/example/qctestingapp/MasterImages.java
+ com.example.qctestingapp.MasterImages
+com/example/qctestingapp/databinding/ActivityQrscanBinding.java
+ com.example.qctestingapp.databinding.ActivityQrscanBinding
+com/example/qctestingapp/CustomCamera.java
+ com.example.qctestingapp.CustomCamera
+ com.example.qctestingapp.CustomCamera$1
+ com.example.qctestingapp.CustomCamera$2
+ com.example.qctestingapp.CustomCamera$3
+ com.example.qctestingapp.CustomCamera$4
+com/example/qctestingapp/databinding/ActivityBatteryBinding.java
+ com.example.qctestingapp.databinding.ActivityBatteryBinding
+com/example/qctestingapp/CompleteDialog.java
+ com.example.qctestingapp.CompleteDialog
+ com.example.qctestingapp.CompleteDialog$OnBackListner
+ com.example.qctestingapp.CompleteDialog$OnContinueListner
+com/example/qctestingapp/databinding/ActivityImageRegistrationBinding.java
+ com.example.qctestingapp.databinding.ActivityImageRegistrationBinding
+com/example/qctestingapp/databinding/PrintItemBinding.java
+ com.example.qctestingapp.databinding.PrintItemBinding
+com/example/qctestingapp/ImageRegistrationAdapter.java
+ com.example.qctestingapp.ImageRegistrationAdapter
+ com.example.qctestingapp.ImageRegistrationAdapter$1
+ com.example.qctestingapp.ImageRegistrationAdapter$ViewHolder
+com/example/qctestingapp/Fragments/PartFragment.java
+ com.example.qctestingapp.Fragments.PartFragment
+ com.example.qctestingapp.Fragments.PartFragment$ImageTask
+com/example/qctestingapp/databinding/AppBarMainPageBinding.java
+ com.example.qctestingapp.databinding.AppBarMainPageBinding
+com/example/qctestingapp/QuestionsAdapter.java
+ com.example.qctestingapp.QuestionsAdapter
+ com.example.qctestingapp.QuestionsAdapter$VHQuestions
+ com.example.qctestingapp.QuestionsAdapter$VHQuestions$1
+ com.example.qctestingapp.QuestionsAdapter$VHQuestions$2
+com/example/qctestingapp/databinding/QcCheckLayoutBinding.java
+ com.example.qctestingapp.databinding.QcCheckLayoutBinding
+com/example/qctestingapp/databinding/CompleteDialogBinding.java
+ com.example.qctestingapp.databinding.CompleteDialogBinding
+com/example/qctestingapp/databinding/CameraButtonBinding.java
+ com.example.qctestingapp.databinding.CameraButtonBinding
+com/example/qctestingapp/databinding/ActivityCustomCameraBinding.java
+ com.example.qctestingapp.databinding.ActivityCustomCameraBinding
+com/example/qctestingapp/databinding/FragmentHomeBinding.java
+ com.example.qctestingapp.databinding.FragmentHomeBinding
+com/example/qctestingapp/databinding/FragmentPartBinding.java
+ com.example.qctestingapp.databinding.FragmentPartBinding
+com/example/qctestingapp/databinding/ActivityQcheckBinding.java
+ com.example.qctestingapp.databinding.ActivityQcheckBinding
+com/example/qctestingapp/databinding/ActivityImageRegistrationItemBinding.java
+ com.example.qctestingapp.databinding.ActivityImageRegistrationItemBinding
+com/example/qctestingapp/QRScan.java
+ com.example.qctestingapp.QRScan
+com/example/qctestingapp/databinding/ActivityMasterImagesItemBinding.java
+ com.example.qctestingapp.databinding.ActivityMasterImagesItemBinding
+com/example/qctestingapp/databinding/FragmentSlideshowBinding.java
+ com.example.qctestingapp.databinding.FragmentSlideshowBinding
+com/example/qctestingapp/databinding/FragmentGalleryBinding.java
+ com.example.qctestingapp.databinding.FragmentGalleryBinding
+com/example/qctestingapp/databinding/ActivityMainPageBinding.java
+ com.example.qctestingapp.databinding.ActivityMainPageBinding
+com/example/qctestingapp/databinding/ActivityQcheckItemBinding.java
+ com.example.qctestingapp.databinding.ActivityQcheckItemBinding
+com/example/qctestingapp/Battery.java
+ com.example.qctestingapp.Battery
+ com.example.qctestingapp.Battery$1
+ com.example.qctestingapp.Battery$2
+ com.example.qctestingapp.Battery$3
+ com.example.qctestingapp.Battery$4
+ com.example.qctestingapp.Battery$5
+com/example/qctestingapp/Main_page.java
+ com.example.qctestingapp.Main_page
+ com.example.qctestingapp.Main_page$1
+com/example/qctestingapp/QCheck.java
+ com.example.qctestingapp.QCheck
+ com.example.qctestingapp.QCheck$1
+ com.example.qctestingapp.QCheck$10
+ com.example.qctestingapp.QCheck$2
+ com.example.qctestingapp.QCheck$3
+ com.example.qctestingapp.QCheck$4
+ com.example.qctestingapp.QCheck$5
+ com.example.qctestingapp.QCheck$6
+ com.example.qctestingapp.QCheck$7
+ com.example.qctestingapp.QCheck$8
+ com.example.qctestingapp.QCheck$9
+com/example/qctestingapp/QCheck1.java
+ com.example.qctestingapp.QCheck1
+ com.example.qctestingapp.QCheck1$1
+ com.example.qctestingapp.QCheck1$10
+ com.example.qctestingapp.QCheck1$11
+ com.example.qctestingapp.QCheck1$12
+ com.example.qctestingapp.QCheck1$13
+ com.example.qctestingapp.QCheck1$14
+ com.example.qctestingapp.QCheck1$15
+ com.example.qctestingapp.QCheck1$16
+ com.example.qctestingapp.QCheck1$17
+ com.example.qctestingapp.QCheck1$18
+ com.example.qctestingapp.QCheck1$2
+ com.example.qctestingapp.QCheck1$3
+ com.example.qctestingapp.QCheck1$4
+ com.example.qctestingapp.QCheck1$5
+ com.example.qctestingapp.QCheck1$6
+ com.example.qctestingapp.QCheck1$7
+ com.example.qctestingapp.QCheck1$8
+ com.example.qctestingapp.QCheck1$9
+ com.example.qctestingapp.QCheck1$ObjectDetectionThread
+com/example/qctestingapp/ScanQR.java
+ com.example.qctestingapp.ScanQR
+com/example/qctestingapp/ScanQR1.java
+ com.example.qctestingapp.ScanQR1
+com/example/qctestingapp/ImageRegistration.java
+ com.example.qctestingapp.ImageRegistration
+ com.example.qctestingapp.ImageRegistration$1
+ com.example.qctestingapp.ImageRegistration$10
+ com.example.qctestingapp.ImageRegistration$11
+ com.example.qctestingapp.ImageRegistration$12
+ com.example.qctestingapp.ImageRegistration$13
+ com.example.qctestingapp.ImageRegistration$14
+ com.example.qctestingapp.ImageRegistration$15
+ com.example.qctestingapp.ImageRegistration$16
+ com.example.qctestingapp.ImageRegistration$17
+ com.example.qctestingapp.ImageRegistration$2
+ com.example.qctestingapp.ImageRegistration$3
+ com.example.qctestingapp.ImageRegistration$4
+ com.example.qctestingapp.ImageRegistration$5
+ com.example.qctestingapp.ImageRegistration$6
+ com.example.qctestingapp.ImageRegistration$7
+ com.example.qctestingapp.ImageRegistration$8
+ com.example.qctestingapp.ImageRegistration$9
+com/example/qctestingapp/Questions.java
+ com.example.qctestingapp.Questions
+ com.example.qctestingapp.Questions$1
+ com.example.qctestingapp.Questions$2
+ com.example.qctestingapp.Questions$3
+ com.example.qctestingapp.Questions$4
+ com.example.qctestingapp.Questions$5
+ com.example.qctestingapp.Questions$OnBtnNextClickListner
