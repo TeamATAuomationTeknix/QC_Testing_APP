@@ -57,13 +57,19 @@
         android:background="#c0c0c0"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"/>
-
+        <Spinner
+            android:id="@+id/parts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:scrollbarSize="20sp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_gravity="right"
             android:paddingRight="20dp"
             android:layout_height="wrap_content"
             android:id="@+id/parttimeLayout"
+            android:layout_marginTop="-20dp"
             >
             <TextView
                 android:layout_width="wrap_content"

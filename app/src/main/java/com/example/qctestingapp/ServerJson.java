@@ -35,6 +35,7 @@ import java.util.Map;
 
 public class ServerJson {
     ArrayList<String> partnames;
+    ArrayList<MyDbHelper.Parts> partnames1;
     Context context;
     ArrayList<Questions_main> qlist;
     RecyclerView recyclerView;
@@ -255,11 +256,12 @@ public class ServerJson {
         @Override
         public void onResponse(JSONArray response) {
             p1.hide();
-
+        partnames1=new ArrayList<>();
             try {
                 for(int i=0;i<response.length();i++) {
                     JSONObject obj = response.getJSONObject(i);
-                    partnames.add(obj.getString("partname"));
+                    //partnames.add(obj.getString("partname"));
+                    partnames1.add(new MyDbHelper.Parts(obj.getString("partname"),obj.getString("appname")));
                     Log.e("json tag", obj.getString("partname"));
                 }
 
@@ -268,7 +270,7 @@ public class ServerJson {
             }
             finally {
                 MyDbHelper myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
-                myDbHelper.addPartNames(partnames);
+                myDbHelper.addPartNames(partnames1);
 
             }
 
@@ -472,7 +474,56 @@ public class ServerJson {
         };
         requestQueue.add(stringRequest);
     }
+//****************** Get app name****************************
+    public void getAppName(Context context){
+        ArrayList<String> appNames=new ArrayList<>();
+        p1=new ProgressDialog(context);
+        p1.setMessage("Please wait... getting parts");
+        p1.setIndeterminate(false);
+        p1.setCancelable(false);
+        Log.e("tag","showing progress dialog");
+        p1.show();
+        MySingleton m=MySingleton.getInstance(context);
+        RequestQueue requestQueue= m.getRequestQueue();
 
+        JsonArrayRequest jsonObjectRequest=new JsonArrayRequest(
+
+                Request.Method.GET,
+                Main_page.IP_ADDRESS + "/GetAppName.php",
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        p1.dismiss();
+                        try {
+                            for(int i=0;i<response.length();i++) {
+                                JSONObject obj = response.getJSONObject(i);
+                                appNames.add(obj.getString("appname"));
+                                Log.e("appname", obj.getString("appname"));
+                            }
+
+                        } catch (JSONException e) {
+                            Log.e("getting appname",e.toString());
+                            e.printStackTrace();
+                        }
+                        finally {
+                            MyDbHelper myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
+                            myDbHelper.addAppNames(appNames);
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        p1.dismiss();
+                        Toast.makeText(context, "Not connected to network", Toast.LENGTH_SHORT).show();
+                        Log.e("json ERROR", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
 }
 
 

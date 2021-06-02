@@ -31,6 +31,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     String tb_temp_ans="temp_table_ans";
     String tb_remaining_parts="remaining_parts";
     String tb_master="master_images";
+    String tb_appName="app_names";
     ArrayList<String> pnames;
     ArrayList<Questions_main> questionsList;
     SQLiteDatabase mydatabase;
@@ -49,10 +50,11 @@ public class MyDbHelper extends SQLiteOpenHelper {
         // id,qid,partname,qrcode,operator,answer,partTime,TimeStamp,fullTime,qr_code
 
         db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp varchar)");
-        db.execSQL("create table "+tb_part+"(id Integer,part_name varchar)");
+        db.execSQL("create table "+tb_part+"(id Integer primary key autoincrement,part_name varchar,app_name varchar)");
         db.execSQL("create table "+tb_question+"(id Integer primary key,question varchar, Highlight varchar, part_name String)");
         db.execSQL("create table "+tb_remaining_parts+"(id Integer,part_name varchar,qr_code varchar, fullTime Integer)");
         db.execSQL("create table "+tb_master+" (id integer primary key, model_name text, image blob)");
+        db.execSQL("create table "+tb_appName+"(id Integer,app_name varchar)");
     }
 
     @Override
@@ -127,12 +129,13 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return questionsList;
     }
     //add partnames***************************
-    public void addPartNames(List<String> partnames){
+    public void addPartNames(List<MyDbHelper.Parts> partnames){
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         mydatabase.execSQL("delete from " +tb_part);
         ContentValues values=new ContentValues();
-        for(String q:partnames) {
-            values.put("part_name",q);
+        for(Parts q:partnames) {
+            values.put("part_name",q.getPartname());
+            values.put("app_name",q.getAppname());
             mydatabase.insert(tb_part,null,values);
 
         }
@@ -144,6 +147,20 @@ public class MyDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getReadableDatabase();
         String[] cols={"id","part_name"};
         Cursor cursor=db.query(tb_part,cols,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do {
+                pnames.add(cursor.getString(1));
+
+            } while (cursor.moveToNext());
+        }
+        return pnames;
+    }
+    public ArrayList<String> getPartnamesByApp(String appname){
+        pnames=new ArrayList<>();
+        SQLiteDatabase db=this.getReadableDatabase();
+        String[] cols={"id","part_name"};
+        String where="app_name=?";
+        Cursor cursor=db.query(tb_part,cols,where,new String[]{appname},null,null,null);
         if(cursor.moveToFirst()){
             do {
                 pnames.add(cursor.getString(1));
@@ -327,9 +344,62 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
 
     public void deletePrimaryData() {
+        SQLiteDatabase mydatabase=this.getWritableDatabase();
+        mydatabase.execSQL("delete from "+tb_master);
+        mydatabase.execSQL("delete from " +tb_question);
+        mydatabase.execSQL("delete from " +tb_part);
+        mydatabase.execSQL("delete from " +tb_appName);
+//        deleteAllImages();
+//        deletAllParts();
+//        deleteAllQuestions();
+    }
 
-        deleteAllImages();
-        deletAllParts();
-        deleteAllQuestions();
+    public void addAppNames(ArrayList<String> appNames) {
+        SQLiteDatabase mydatabase=this.getWritableDatabase();
+        mydatabase.execSQL("delete from " +tb_appName);
+        ContentValues values=new ContentValues();
+        for(String q:appNames) {
+            values.put("app_name",q);
+            mydatabase.insert(tb_appName,null,values);
+
+        }
+    }
+    public ArrayList<String> getAppNames(){
+        pnames=new ArrayList<>();
+        SQLiteDatabase db=this.getReadableDatabase();
+        String[] cols={"id","app_name"};
+        Cursor cursor=db.query(tb_appName,cols,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do {
+                pnames.add(cursor.getString(1));
+
+            } while (cursor.moveToNext());
+        }
+        return pnames;
+    }
+    public static class Parts{
+        String partname;
+        String appname;
+
+        public Parts(String partname, String appname) {
+            this.partname = partname;
+            this.appname = appname;
+        }
+
+        public String getPartname() {
+            return partname;
+        }
+
+        public void setPartname(String partname) {
+            this.partname = partname;
+        }
+
+        public String getAppname() {
+            return appname;
+        }
+
+        public void setAppname(String appname) {
+            this.appname = appname;
+        }
     }
 }

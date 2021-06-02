@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,20 +18,24 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qctestingapp.Fragments.PartFragment;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Questions extends AppCompatActivity {
+public class Questions extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     ProgressDialog p;
     ArrayList<Questions_main> list;
     ArrayList<String> pnames;
@@ -54,6 +59,10 @@ public class Questions extends AppCompatActivity {
     Runnable questionTimer;
     Handler handler;
     boolean active=true;
+    Spinner parts;
+    public static String appName="LHS";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +87,8 @@ public class Questions extends AppCompatActivity {
         partTimeLayout=findViewById(R.id.parttimeLayout);
         fullTimeLayout=findViewById(R.id.fulltimelayout);
         //Getting data from ScanQR
+        parts=findViewById(R.id.parts);
+        parts.setEnabled(Main_page.partEnabled);
         qr_res = getIntent().getStringExtra("qr_result");
         qr.setText(qr_res);
 
@@ -103,8 +114,43 @@ public class Questions extends AppCompatActivity {
         });
 
         init();
+        ArrayList<String> appNames=new ArrayList<>();
+        MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
+        appNames=myDbHelper.getAppNames();
+//        appNames.add("LHS");
+//        appNames.add("RHS");
+//        appNames.add("Engine Compart");
+        initparts(appNames);
+    }
+    public void initparts(ArrayList<String> partsList){
+        parts.setOnItemSelectedListener(this);
+
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, partsList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        parts.setAdapter(dataAdapter);
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        appName=parent.getItemAtPosition(position).toString();
+        SharedPreferences preferences=getSharedPreferences("appnameselection",MODE_MULTI_PROCESS);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putInt("appnameselection",position);
+        editor.apply();
+        Log.e("position",position+"");
+        Main_page.appNameSelection=position;
+        MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
+        pnames=myDbHelper.getPartnamesByApp(parts.getSelectedItem().toString());
+        partname=pnames.get(0);
+        getIntent().putExtra("partname",partname);
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        SharedPreferences preferences=getSharedPreferences("appnameselection",MODE_MULTI_PROCESS);
+        preferences.getInt("appnameselection",1);
+        parts.setSelection( preferences.getInt("appnameselection",1));
+    }
     private void init(){
         list = new ArrayList<>();
         pnames = new ArrayList<>();
@@ -120,13 +166,24 @@ public class Questions extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Questions_main.qNo = 1;
+        MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
+        ArrayList<String> appnames=myDbHelper.getAppNames();
+        if(appnames.size()==0) {
+            ServerJson serverJson = new ServerJson(Questions.this);
+            serverJson.getAppName(Questions.this);
+            appnames=myDbHelper.getAppNames();
 
-
-
+        }
+        for(String appp:appnames)
+            Log.e("appnames from questios",appp);
+       // parts.setEnabled(Main_page.partEnabled);
+        SharedPreferences preferences=getSharedPreferences("appnameselection",MODE_MULTI_PROCESS);
+        Log.e("preferance for appname",preferences.getInt("appnameselection",1)+"");
+        parts.setSelection( preferences.getInt("appnameselection",1));
         firstPart = getIntent().getStringExtra("partname");
         partname = getIntent().getStringExtra("partname");
         qrScanned = getIntent().getStringExtra("qrScanned");
-        MyDbHelper myDbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
+       myDbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
         // Cursor remainingParts=new ArrayList<>();
         Cursor remainingParts = myDbHelper.getRemainingParts();
         if (remainingParts != null) {
@@ -165,9 +222,10 @@ public class Questions extends AppCompatActivity {
 
         if (qrScanned != null) {
             Log.e("tag", qrScanned);
+            ServerJson serverJson;
             if (qrScanned.equals("scanned")) {
 
-                ServerJson serverJson = new ServerJson(this);
+               serverJson = new ServerJson(this);
 
 
 
@@ -175,9 +233,10 @@ public class Questions extends AppCompatActivity {
 
                 if (noRemaining) {
                     MyDbHelper dbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
-                    pnames = dbHelper.getPartnames();
+                    pnames = dbHelper.getPartnamesByApp(parts.getSelectedItem().toString());
                     if(pnames!=null) {
                         if (pnames.size() == 0) {
+
                             serverJson = new ServerJson(this, pnames);
                             serverJson.getPartName();
                             pnames = serverJson.getPartnames();
@@ -232,6 +291,8 @@ public class Questions extends AppCompatActivity {
 
 
                 if(qr_code.length()==36){
+                    //parts.setEnabled(false);
+                    Main_page.partEnabled=false;
                     // qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";
                     Intent i = new Intent(Questions.this, Questions.class);
                     i.putExtra("qr_result", qr_code);
@@ -373,6 +434,7 @@ public class Questions extends AppCompatActivity {
                 ppnames.addFirst(partname);
             MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
             myDbHelper.setRemainingParts(ppnames,fullTime,qr_code);
+
         }
     }
 }

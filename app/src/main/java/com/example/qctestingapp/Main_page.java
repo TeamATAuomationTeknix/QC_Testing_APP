@@ -61,7 +61,8 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainPageBinding binding;
     private BroadcastReceiver broadcastReceiver;
-
+    public static boolean partEnabled=true;
+    public static int appNameSelection=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
