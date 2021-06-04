@@ -1,6 +1,8 @@
 package com.example.qctestingapp.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +34,8 @@ import com.example.qctestingapp.Questions_main;
 import com.example.qctestingapp.QuestionsAdapter;
 import com.example.qctestingapp.R;
 import com.example.qctestingapp.ServerJson;
+
+import static android.content.Context.MODE_MULTI_PROCESS;
 
 
 public class PartFragment extends Fragment {
@@ -75,23 +79,21 @@ public class PartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         View fragment=inflater.inflate(R.layout.fragment_part, container, false);
         masterImage =fragment.findViewById(R.id.masterImage);
         fragmentName=fragment.findViewById(R.id.partName);
-
-        fragmentName.setText(partname);
+        SharedPreferences preferences=container.getContext().getSharedPreferences("appnameselection",MODE_MULTI_PROCESS);
+        String appname=preferences.getString("appname","");
+        fragmentName.setText(appname+"-"+partname);
         //ImageTask task=new ImageTask();
         // task.execute("https://img.etb2bimg.com/imgv2/width-368,height-311,resize_mode-1/retail_files/sumo-1503999478-prod-var.jpg");
         myDbHelper=new MyDbHelper(getContext(),MyDbHelper.DB_NAME,null,1);
         Cursor c1=myDbHelper.getAllImagesOfSpecificModel(partname);
-
         if(c1.moveToFirst()){
             byte[] arrImg= c1.getBlob(1);
             // is= arrImg;
             bmImg=BitmapFactory.decodeByteArray(arrImg,0,arrImg.length);
-
             masterImage.setImageBitmap(bmImg);
         }
         else{

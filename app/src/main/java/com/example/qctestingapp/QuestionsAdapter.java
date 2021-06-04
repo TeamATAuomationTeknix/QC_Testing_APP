@@ -20,12 +20,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
     public QuestionsAdapter(ArrayList<Questions_main> questionsList) {
             this.questionsList = questionsList;
             Log.e("tag","adapter initialized");
+            id=1;
             }
 
     @NonNull
     @Override
 
     public VHQuestions onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
             LayoutInflater inflater=LayoutInflater.from(parent.getContext());
             LinearLayout layout=(LinearLayout) inflater.inflate(R.layout.questions,null);
             Log.e("tag","on create view holder");

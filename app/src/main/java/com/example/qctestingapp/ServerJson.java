@@ -3,6 +3,8 @@ package com.example.qctestingapp;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class ServerJson {
@@ -280,7 +284,7 @@ public class ServerJson {
 
 
     //****************************************Submit answers*********************************
-    public void submitAnswer(ArrayList<Questions_main> answerList, String partname, String partTime, String fullTime, String qr_res){
+    public void submitAnswer(ArrayList<Questions_main> answerList, String partname, String partTime, String fullTime, String qr_res,String user){
         builder=new AlertDialog.Builder(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,
                 Main_page.IP_ADDRESS+"/InsertAnswer.php",
@@ -332,7 +336,7 @@ public class ServerJson {
                             jsonObjet.put("qr_code", qr_res);
                         else
                             jsonObjet.put("qr_code", "100");
-                        jsonObjet.put("operator", "sukrut");
+                        jsonObjet.put("operator", user);
                         int ans=q.getAnswer()=="OK"?1:0;
                         jsonObjet.put("answer", ans);
                         jsonObjet.put("partTime",partTime);
@@ -475,10 +479,10 @@ public class ServerJson {
         requestQueue.add(stringRequest);
     }
 //****************** Get app name****************************
-    public void getAppName(Context context){
-        ArrayList<String> appNames=new ArrayList<>();
+    public void getAppName(Context context, ArrayList<String> appNames){
+        //ArrayList<String> appNames=appnames;
         p1=new ProgressDialog(context);
-        p1.setMessage("Please wait... getting parts");
+        p1.setMessage("Please wait...");
         p1.setIndeterminate(false);
         p1.setCancelable(false);
         Log.e("tag","showing progress dialog");
@@ -494,7 +498,7 @@ public class ServerJson {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        p1.dismiss();
+
                         try {
                             for(int i=0;i<response.length();i++) {
                                 JSONObject obj = response.getJSONObject(i);
@@ -506,11 +510,12 @@ public class ServerJson {
                             Log.e("getting appname",e.toString());
                             e.printStackTrace();
                         }
-                        finally {
+                        finally{
                             MyDbHelper myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
                             myDbHelper.addAppNames(appNames);
-
+                            p1.dismiss();
                         }
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -524,6 +529,107 @@ public class ServerJson {
         );
         requestQueue.add(jsonObjectRequest);
     }
+    public void getEmpInfo(String token){
+        String tk="";
+        ProgressDialog pg=new ProgressDialog(context);
+        pg.setMessage("Please wait checking token...");
+        pg.setTitle("Wait");
+        pg.setIndeterminate(false);
+        pg.setCancelable(false);
+        pg.show();
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, Main_page.IP_ADDRESS+"/GetToken.php?token="+token, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                pg.dismiss();
+                try {
+                    JSONArray jsonArray=new JSONArray(response);
+
+                        JSONObject jsonObject=  jsonArray.getJSONObject(0);
+                        Log.e("emp token",jsonObject.getString("token"));
+                        Log.e("emp name",jsonObject.getString("emp_name"));
+
+                        if(token.equals(jsonObject.getString("token"))){
+                            String empname=jsonObject.getString("emp_name");
+                            SharedPreferences preferences=context.getSharedPreferences("userpref",MODE_PRIVATE);
+                            SharedPreferences.Editor editor=preferences.edit();
+                            editor.putString("user",empname);
+                            editor.apply();
+                            MyDbHelper myDbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1);
+                            myDbHelper.addEmployee(jsonObject.getInt("token"),jsonObject.getString("emp_name"));
+                            Toast.makeText(context, "Successfully login", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(context, Main_page.class);
+                            context.startActivity(i);
+                        }
+                        else{
+                            Toast.makeText(context, "Login fail", Toast.LENGTH_SHORT).show();
+                        }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pg.dismiss();
+                Log.e("emp name error",error.toString());
+            }
+        });
+//        {
+//            @Nullable
+//            @org.jetbrains.annotations.Nullable
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                HashMap<String,String> hashMap=new HashMap<>();
+//                hashMap.put("token",token);
+//                return hashMap;
+//            }
+//        };
+        MySingleton singleton=MySingleton.getInstance(context);
+        singleton.addToRequestQue(stringRequest);
+    }
+    public void insertBatteryStatus(HashMap<String,String> batteryInfo){
+        builder=new AlertDialog.Builder(context);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
+                Main_page.IP_ADDRESS+"/InsertBatteryInfo.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        builder.setTitle("Done");
+                        // builder.setMessage("message: "+response);
+                        if(response.equals("success"))
+                        builder.setMessage("Records submitted successfully");
+                        else {
+                            builder.setMessage("Server problem:" + response);
+                            Log.e("error in battery",response);
+                        }
+                        AlertDialog alertDialog=builder.create();
+                        alertDialog.show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, "Connection problem", Toast.LENGTH_SHORT).show();
+                        Log.e("submit answer",error.toString());
+                        Toast.makeText(context, "Data is stored locally", Toast.LENGTH_SHORT).show();
+                        myDbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1 );
+                            myDbHelper.batteryStatusTemp(batteryInfo);
+                    }
+                }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return batteryInfo;
+            }
+
+        };
+        // MySingleton.getInstance(MainActivity.this).addToRequestQue(stringRequest);
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+
+    }
+
 }
 
 

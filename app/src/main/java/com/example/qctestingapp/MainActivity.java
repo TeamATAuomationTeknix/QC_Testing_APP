@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openActivity() {
-        Intent intent = new Intent(this, Main_page.class);
+        Intent intent = new Intent(this, Token.class);
         startActivity(intent);
     }
 }

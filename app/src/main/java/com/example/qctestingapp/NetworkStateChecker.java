@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class NetworkStateChecker extends BroadcastReceiver {
@@ -43,13 +44,14 @@ public class NetworkStateChecker extends BroadcastReceiver {
 
         //if there is a network
         if (activeNetwork != null) {
-            //if connected to wifi or mobile data plan
+            //if connected to wifi or mobile data
             //if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
-                //getting all the unsynced names
+                //getting all the unsynced answers
                // Toast.makeText(context, "network Connected...", Toast.LENGTH_SHORT).show();
                 Questions.isConnected=true;
                submitAnswer();
+               submitBattery();
             }
             else if(activeNetwork.getType()==ConnectivityManager.TYPE_MOBILE){
                // Toast.makeText(context, "Mobile network connected", Toast.LENGTH_SHORT).show();
@@ -65,12 +67,31 @@ public class NetworkStateChecker extends BroadcastReceiver {
             Questions.isConnected=false;
         }
     }
-    public void submitAnswer(){
+
+    private void submitBattery() {
+        ServerJson serverJson = new ServerJson(context);
         MyDbHelper myDbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1);
+        List<HashMap> empinfo=myDbHelper.getBatteryTemp();
+        Log.e("submit battery","jhjjj");
+        if(empinfo!=null){
+            for(HashMap<String,String> hm:empinfo){
+                serverJson.insertBatteryStatus(hm);
+            }
+        }
+    }
+
+    public void submitAnswer(){
+        ServerJson serverJson = new ServerJson(context);
+        MyDbHelper myDbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1);
+        List<HashMap> empinfo=myDbHelper.getBatteryTemp();
         JSONArray jsonArray=myDbHelper.getTempAnswers();
         if(jsonArray!=null) {
-            ServerJson serverJson = new ServerJson(context);
             serverJson.submitTempAnswer(jsonArray);
+        }
+        if(empinfo!=null){
+            for(HashMap<String,String> hm:empinfo){
+                serverJson.insertBatteryStatus(hm);
+            }
         }
     }
 }

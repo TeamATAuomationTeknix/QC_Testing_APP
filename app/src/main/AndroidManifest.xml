@@ -36,6 +36,9 @@
         <activity android:name=".ScanQR" />
         <activity android:name=".CameraPreview" />
         <activity android:name=".ImageRegistration" />
+        <activity android:name=".Token"/>
+        <activity android:name=".Battery"/>
+        <activity android:name=".ScanQR1"/>
 
         <activity
             android:name=".Main_page"

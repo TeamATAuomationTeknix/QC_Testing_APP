@@ -21,6 +21,7 @@ import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
     String tb_remaining_parts="remaining_parts";
     String tb_master="master_images";
     String tb_appName="app_names";
+    String tb_employee="emp_table";
+    String tb_tmp_battery="tmp_battery";
     ArrayList<String> pnames;
     ArrayList<Questions_main> questionsList;
     SQLiteDatabase mydatabase;
@@ -55,6 +58,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+tb_remaining_parts+"(id Integer,part_name varchar,qr_code varchar, fullTime Integer)");
         db.execSQL("create table "+tb_master+" (id integer primary key, model_name text, image blob)");
         db.execSQL("create table "+tb_appName+"(id Integer,app_name varchar)");
+        db.execSQL("create table "+tb_employee+"(id Integer primary key autoincrement,token_no Integer, name varchar)");
+        db.execSQL("create table "+tb_tmp_battery+"(id Integer primary key autoincrement,mainqr varchar, batteryqr varchar, status varchar)");
     }
 
     @Override
@@ -377,6 +382,27 @@ public class MyDbHelper extends SQLiteOpenHelper {
         }
         return pnames;
     }
+    //****************** Insert Employee******************
+    public void addEmployee(int token,String name){
+        SQLiteDatabase mydatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("token_no", token);
+        contentValues.put("name", name);
+        mydatabase.insert(tb_employee,null,contentValues);
+        Log.e("insert emp","employee added");
+    }
+
+    public String getEmployee(String token){
+        String empname="";
+        SQLiteDatabase db=this.getReadableDatabase();
+        String[] cols={"token_no","name"};
+        String where="token_no=?";
+        Cursor cursor=db.query(tb_employee,cols,where,new String[]{token},null,null,null);
+        if(cursor.moveToFirst()){
+              empname= cursor.getString(1);
+        }
+        return empname;
+    }
     public static class Parts{
         String partname;
         String appname;
@@ -401,5 +427,33 @@ public class MyDbHelper extends SQLiteOpenHelper {
         public void setAppname(String appname) {
             this.appname = appname;
         }
+    }
+    public void batteryStatusTemp(HashMap<String, String> batteryInfo){
+        SQLiteDatabase mydatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("mainqr", batteryInfo.get("mainqr"));
+        contentValues.put("batteryqr", batteryInfo.get("batteryqr"));
+        contentValues.put("status", batteryInfo.get("status"));
+        mydatabase.insert(tb_tmp_battery,null,contentValues);
+    }
+    public List<HashMap> getBatteryTemp(){
+
+        ArrayList<HashMap> batteryinfo=new ArrayList<>();
+        SQLiteDatabase db=this.getWritableDatabase();
+        String[] cols={"mainqr","batteryqr","status"};
+        Cursor cursor=db.query(tb_tmp_battery,cols,null,null,null,null,null);
+
+       if(cursor.moveToFirst())
+        do{
+            HashMap<String,String> hashMap=new HashMap<>();
+            hashMap.put("mainqr",cursor.getString(0));
+            hashMap.put("batteryqr",cursor.getString(1));
+            hashMap.put("status",cursor.getString(2));
+            batteryinfo.add(hashMap);
+            Log.e("battery info",hashMap.toString());
+        }while(cursor.moveToNext());
+        db.execSQL("delete from " +tb_tmp_battery);
+
+        return batteryinfo;
     }
 }

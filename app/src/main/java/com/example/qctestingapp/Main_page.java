@@ -59,7 +59,7 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
     String partname="";
     public static final String DATA_SAVED_BROADCAST = "datasaved";
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainPageBinding binding;
+
     private BroadcastReceiver broadcastReceiver;
     public static boolean partEnabled=true;
     public static int appNameSelection=1;
@@ -68,6 +68,9 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);
+        Log.e("user from main",preferences.getString("user","unknown"));
+
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 //        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
@@ -216,7 +219,12 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
             Intent i=new Intent(Main_page.this,QCheck.class);
             startActivity(i);
 
-        }else if (id == R.id.nav_restart) {
+        }
+        else if (id == R.id.nav_battery_check) {
+            Intent i = new Intent(Main_page.this, Battery.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_restart) {
             Log.e("main_activity","restarting app");
 //            ServerJson serverJson=new ServerJson(getBaseContext());
 //            serverJson.refreshData();

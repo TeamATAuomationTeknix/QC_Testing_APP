@@ -18,7 +18,10 @@
             android:id="@+id/nav_current_page"
             android:icon="@drawable/next"
             android:title="Current Data" />
-
+        <item
+            android:id="@+id/nav_battery_check"
+            android:icon="@drawable/ic_action_battery"
+            android:title="Battery" />
 
     </group>
 
