@@ -209,8 +209,10 @@ public class ServerJson {
                     if (qlist != null && pn != null)
                         myDbHelper.addQuestions(qlist, pn);
                     QuestionsAdapter adapter = new QuestionsAdapter(qlist);
-                    if (recyclerView != null)
+                    if (recyclerView != null) {
+                        Questions.partcount=Questions.devidedparts/qlist.size();
                         recyclerView.setAdapter(adapter);
+                    }
                 }
             }
         }
@@ -287,12 +289,14 @@ public class ServerJson {
     public void submitAnswer(ArrayList<Questions_main> answerList, String partname, String partTime, String fullTime, String qr_res,String user){
         builder=new AlertDialog.Builder(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,
-                Main_page.IP_ADDRESS+"/InsertAnswer.php",
+                //Main_page.IP_ADDRESS+"/InsertAnswer.php",
+               "http://192.168.137.1/Test/InsertAnswer.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         builder.setTitle("Done");
-                        // builder.setMessage("message: "+response);
+                         //builder.setMessage("message: "+response);
+                         Log.e("submit answer",response);
                         builder.setMessage("Records submitted successfully");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -314,7 +318,7 @@ public class ServerJson {
                         for(Questions_main q:answerList) {
                             int ans=q.getAnswer()=="OK"?1:0;
                             //( int qid, String partname, String qrcode, String operator,String answer,String partTime, Date TimeStamp)
-                            SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                            SimpleDateFormat formatter=new SimpleDateFormat("yy-MM-dd hh:mm:ss");
                             myDbHelper.submitTempAnswers(q.getId(),partname,qr_res,"sukrut",ans,partTime,formatter.format(new Date()));
                         }
                     }
@@ -423,8 +427,9 @@ public class ServerJson {
                                 String model_nm = jsonObject.getString("img_name");
                                 String image = jsonObject.getString("img");
 
-                                // db.addImage(id, model_nm, image.getBytes());
-                                db.addImage(id, model_nm, Base64.decode(image.substring(23), Base64.DEFAULT));
+                                 //db.addImage(id, model_nm, image.getBytes());
+                                //db.addImage(id, model_nm, Base64.decode(image.substring(23), Base64.DEFAULT));
+                                db.addImage(id, model_nm, Base64.decode(image, Base64.DEFAULT));
 
                             }
 
@@ -453,6 +458,7 @@ public class ServerJson {
     public void insertTotalTime(Context context,String qr,String operator,String time){
         MySingleton mySingleton=MySingleton.getInstance(context);
         RequestQueue requestQueue= mySingleton.getRequestQueue();
+       // String url= Main_page.IP_ADDRESS + "/InsertTotalTime.php";
         String url= Main_page.IP_ADDRESS + "/InsertTotalTime.php";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -591,7 +597,8 @@ public class ServerJson {
     public void insertBatteryStatus(HashMap<String,String> batteryInfo){
         builder=new AlertDialog.Builder(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,
-                Main_page.IP_ADDRESS+"/InsertBatteryInfo.php",
+                //Main_page.IP_ADDRESS+"/InsertBatteryInfo.php",
+                "http://192.168.137.1/Test/InsertBatteryInfo.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -600,7 +607,7 @@ public class ServerJson {
                         if(response.equals("success"))
                         builder.setMessage("Records submitted successfully");
                         else {
-                            builder.setMessage("Server problem:" + response);
+                           // builder.setMessage("Server problem:" + response);
                             Log.e("error in battery",response);
                         }
                         AlertDialog alertDialog=builder.create();

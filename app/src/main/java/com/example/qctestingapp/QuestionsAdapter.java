@@ -72,8 +72,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
         class VHQuestions extends RecyclerView.ViewHolder {
             TextView qNo,question;
             Button btnOk,btnNotOk;
+            boolean increase=true;
             public VHQuestions(@NonNull View itemView) {
                 super(itemView);
+
                 qNo=itemView.findViewById(R.id.txtQNo);
                 question=itemView.findViewById(R.id.txtQuestion);
                 btnOk=itemView.findViewById(R.id.btnOk);
@@ -84,6 +86,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
                         questionsList.get(getAdapterPosition()).setAnswer(Questions_main.OK);
                         btnOk.setBackgroundColor(v.getResources().getColor(R.color.color_ok));
                         btnNotOk.setBackgroundColor(v.getResources().getColor(R.color.white));
+                        if(increase){
+                            increase=false;
+                            Questions.count=Questions.count+Questions.partcount;
+                            Questions.progressBar.setProgress(Questions.count);
+                        }
                     }
                 });
 
@@ -93,6 +100,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
                         questionsList.get(getAdapterPosition()).setAnswer(Questions_main.NOT_OK);
                         btnNotOk.setBackgroundColor(v.getResources().getColor(R.color.color_not_ok));
                         btnOk.setBackgroundColor(v.getResources().getColor(R.color.white));
+                        if(increase){
+                            increase=false;
+                            Questions.count=Questions.count+Questions.partcount;
+                            Questions.progressBar.setProgress(Questions.count);
+                        }
                     }
                 });
         }

@@ -113,6 +113,8 @@ public class PartFragment extends Fragment {
             Log.e("tag", "execute volley request");
             serverJson.volleyRequest();
         }
+        if(list.size()>0)
+        Questions.partcount=Questions.devidedparts/list.size();
         QuestionsAdapter adapter=new QuestionsAdapter(list);
         recyclerView.setAdapter(adapter);
         return fragment;

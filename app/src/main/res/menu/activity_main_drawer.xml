@@ -21,7 +21,7 @@
         <item
             android:id="@+id/nav_battery_check"
             android:icon="@drawable/ic_action_battery"
-            android:title="Battery" />
+            android:title="Battery Status" />
 
     </group>
 

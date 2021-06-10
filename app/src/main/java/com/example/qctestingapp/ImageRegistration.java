@@ -175,16 +175,16 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
             @Override
             public void onClick(View v) {
 
-//                Intent i = new Intent(ImageRegistration.this, CameraPreview.class);
-//                i.putExtra("calling_page", "ImageRegistration");
-//                startActivity(i);
+                Intent i = new Intent(ImageRegistration.this, CameraPreview.class);
+                i.putExtra("calling_page", "ImageRegistration");
+                startActivity(i);
 
-                //takePicture(v);
-                AlertDialog.Builder builder=new AlertDialog.Builder(ImageRegistration.this);
-                builder.setTitle("Alert");
-                builder.setMessage("This feature is not available yet.");
+                takePicture(v);
+//                AlertDialog.Builder builder=new AlertDialog.Builder(ImageRegistration.this);
+//                builder.setTitle("Alert");
+//                builder.setMessage("This feature is not available yet.");
 
-                builder.show();
+//                builder.show();
             }
 
         });
@@ -686,16 +686,17 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 
                             if(response.equals("Unsuccessfully"))
                             {
-                                dialog.dismiss();
+
                                 Toast.makeText(getApplicationContext(),"Operation Failed...! Please Try Again...!",Toast.LENGTH_LONG).show();
                             }
                             else if(response.equals("Successfully"))
                             {
-                                dialog.dismiss();
+
                                 Toast.makeText(getApplicationContext(),"Operation Done Successfully...!",Toast.LENGTH_LONG).show();
                                 fetchDataFromServer();
                                 clearImage();
                             }
+                            dialog.dismiss();
                         }
                         catch (Exception e){
                             dialog.dismiss();

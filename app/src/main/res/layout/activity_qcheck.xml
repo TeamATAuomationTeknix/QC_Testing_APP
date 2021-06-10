@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="15dp"
             android:layout_weight="1.5"
             android:weightSum="10">
 
@@ -58,16 +58,17 @@
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
         <LinearLayout
-            android:layout_width="500dp"
-            android:layout_height="26dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="3"
             android:weightSum="10">
 
             <RelativeLayout
                 android:id="@+id/relative_layout_img"
-                android:layout_width="0dp"
-                android:layout_height="220dp"
+                android:layout_width="wrap_content"
+                android:layout_height="169dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
@@ -78,11 +79,11 @@
                 <ImageView
                     android:id="@+id/img_preview"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_centerInParent="true"
+                    android:layout_height="500dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
-                    android:layout_weight="7.5"
+                    android:layout_weight="74"
                     android:adjustViewBounds="true"
                     android:background="@drawable/shadow"
                     android:padding="9dp"
@@ -103,8 +104,9 @@
             android:id="@+id/txt_clip"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.3"
+            android:layout_weight="0.5"
             android:gravity="center"
+            android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:hint="Responses"/>
 
@@ -112,6 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="#c0c0c0"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"/>
 
@@ -124,8 +127,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_qcheck"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-
+                android:layout_height="400dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" />
 
         </LinearLayout>

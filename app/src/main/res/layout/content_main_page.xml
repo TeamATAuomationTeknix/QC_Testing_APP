@@ -16,9 +16,9 @@
         android:weightSum="10">
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="30dp"
@@ -31,10 +31,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="horizontal"
             android:weightSum="10"
+            android:layout_gravity="center"
             android:layout_marginTop="-20dp"
             android:layout_marginBottom="5dp"
-            android:layout_weight="3.7">
+            android:layout_weight="7">
 
             <ImageView
                 android:layout_width="0dp"
@@ -42,32 +44,15 @@
                 android:layout_weight="0"/>
 
             <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
+                android:layout_width="wrap_content"
+                android:layout_height="314dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
                 android:adjustViewBounds="true"
                 android:background="@drawable/xuv"
                 android:padding="5dp"
-                android:scaleType="fitEnd" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:weightSum="10"
-            android:layout_weight="4">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:padding="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
-                android:scaleType="fitStart"
-                android:background="@drawable/kuv"
-                android:layout_weight="10"/>
+                android:scaleType="center" />
 
         </LinearLayout>
 

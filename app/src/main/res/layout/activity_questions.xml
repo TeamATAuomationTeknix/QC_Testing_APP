@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="11"
-        >
+        android:weightSum="11">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,14 +24,14 @@
                 android:id="@+id/txt_qr"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:hint="Scan QR >>"
-                android:background="@drawable/shadow"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="8"
+                android:background="@drawable/shadow"
                 android:gravity="center"
-                android:textStyle="bold"/>
+                android:hint="Scan QR >>"
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/btn_scan_qr"
@@ -52,11 +51,11 @@
         </LinearLayout>
 
         <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#c0c0c0"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#c0c0c0"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
         <Spinner
             android:id="@+id/parts"
             android:layout_width="wrap_content"
@@ -69,7 +68,6 @@
             android:paddingRight="20dp"
             android:layout_height="wrap_content"
             android:id="@+id/parttimeLayout"
-            android:layout_marginTop="-20dp"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -110,14 +108,21 @@
                 android:textSize="20dp"
                 />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:id="@+id/layoutQuestions"
 
+        <LinearLayout
+            android:id="@+id/layoutQuestions"
+            android:layout_width="match_parent"
+            android:layout_height="493dp"
+            android:layout_marginTop="-50dp"
             android:orientation="vertical">
 
         </LinearLayout>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress"
+            android:layout_marginTop="5dp"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
         <Button
             android:layout_width="150dp"
             android:layout_height="50dp"

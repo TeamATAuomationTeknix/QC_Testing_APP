@@ -73,11 +73,15 @@ public class Battery extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(getApplicationContext(), ScanQR.class));
-                Intent i = new Intent(Battery.this, ScanQR1.class);
-                i.putExtra("calling_page", "Battery");
-                i.putExtra("qr_result",qr.getText().toString());
-                startActivity(i);
-                finish();
+                if(qr.getText().toString().equals("")){
+                    Toast.makeText(Battery.this, "Please scan QR code of car", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent i = new Intent(Battery.this, ScanQR1.class);
+                    i.putExtra("calling_page", "Battery");
+                    i.putExtra("qr_result", qr.getText().toString());
+                    startActivity(i);
+                    finish();
+                }
             }
         });
 
@@ -124,7 +128,7 @@ public class Battery extends AppCompatActivity {
                // Pattern p = Pattern.compile("\\S{2}\\d{1}\\S{2}\\d{1}\\S{4}\\d{1}\\S{1}\\d{5}\\S{3}\\d{1}\\S{4}\\d{1}\\S{2}\\d{2}\\S{2}\\d{1}\\S{2}");
                // if (!qr_code.equals("") && p.matcher(qr_code).matches()) {
                 if(qr_code.length()==36){
-                    qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";
+
                     Intent i = new Intent(Battery.this, Battery.class);
                     i.putExtra("qr_result", qr_code);
                     startActivity(i);
@@ -173,6 +177,7 @@ public class Battery extends AppCompatActivity {
             serverJson.insertBatteryStatus(hashMap);
         }
         else{
+            if(txtQR!="")
             Toast.makeText(this, "Invalid QR Code", Toast.LENGTH_SHORT).show();
         }
         

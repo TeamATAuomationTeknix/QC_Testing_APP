@@ -25,6 +25,7 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +54,10 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     Boolean noRemaining=true;
     LinearLayout partTimeLayout,fullTimeLayout;
     String firstPart;
-
+    public static ProgressBar progressBar;
+    public static int count=0;
+    public static int partcount=0;
+    public static int devidedparts=0;
     public static boolean isConnected=true;
     Runnable questionTimer;
     Handler handler;
@@ -126,8 +130,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     }
     public void initparts(ArrayList<String> partsList){
         parts.setOnItemSelectedListener(this);
-
-
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, partsList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         parts.setAdapter(dataAdapter);
@@ -146,7 +148,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         pnames=myDbHelper.getPartnamesByApp(parts.getSelectedItem().toString());
         partname=pnames.get(0);
         getIntent().putExtra("partname",partname);
-
     }
 
     @Override
@@ -158,7 +159,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     private void init(){
         list = new ArrayList<>();
         pnames = new ArrayList<>();
-
+        progressBar=findViewById(R.id.progress);
 
         btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new OnBtnNextClickListner());
@@ -253,9 +254,9 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         }
     }
     public void addFragment(){
-
-
         if(pnames.size()>0) {
+            devidedparts=100/pnames.size();
+            Log.e("count",count+"");
             btnNext.setVisibility(View.VISIBLE);
             partTimeLayout.setVisibility(View.VISIBLE);
             fullTimeLayout.setVisibility(View.VISIBLE);
@@ -263,7 +264,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             fullTimer.start();
         }
         partFragment = new PartFragment(list, partname);
-
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.layoutQuestions, partFragment).commit();
@@ -289,6 +289,8 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+
 //                String qr_code = inputQR.getText().toString().toUpperCase().trim().replaceAll("\\s+", "").replaceAll("\n","");
 //                Pattern p = Pattern.compile("\\S{2}\\d{1}\\S{2}\\d{1}\\S{4}\\d{1}\\S{1}\\d{5}\\S{3}\\d{1}\\S{4}\\d{1}\\S{2}\\d{2}\\S{2}\\d{1}\\S{2}");
 //                if (!qr_code.equals("") && p.matcher(qr_code).matches()) {
@@ -333,12 +335,15 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         @Override
         public void onClick(View v) {
             ServerJson serverJson=new ServerJson(Questions.this);
-
+            if(count<100) {
+//                count=count+partcount;
+//                progressBar.setProgress(count);
+            }
             int i=1,ok=0,not_ok=0;
             list=partFragment.getList();
             for(Questions_main q:list){
                 if(q.getAnswer()==null) {
-                    Toast.makeText(Questions.this, "please check question no: " + i, Toast.LENGTH_LONG).show();
+                    Toast.makeText(Questions.this, "Please complete check point: " + i, Toast.LENGTH_LONG).show();
                     return;
                 }
                 else{
@@ -354,6 +359,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             }
             if(i-1==list.size()&&i!=0) {
                 //one activity completed
+
                 SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);
                 String user=preferences.getString("user","unknown");
                 helper = new MyDbHelper(Questions.this, MyDbHelper.DB_NAME, null, 1);
@@ -374,6 +380,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 
             if(pnames.size()==0){
                 //all part questios are completed
+                count=0;
                 qrScanned="";
                 timer.stop();
                 fullTimer.stop();
@@ -387,7 +394,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 TextView t=new TextView(Questions.this);
                 CompleteDialog completeDialog=new CompleteDialog(Questions.this);
                 completeDialog.show();
-                Log.e("submit time",fullTimer.getText().toString());
+                Log.e("Submit time",fullTimer.getText().toString());
                 btnNext.setVisibility(View.INVISIBLE);
                 partTimeLayout.setVisibility(View.INVISIBLE);
                 fullTimeLayout.setVisibility(View.INVISIBLE);
@@ -411,9 +418,8 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 fragmentTransaction.add(R.id.layoutQuestions, partFragment).commit();
             }
             else{
-                Toast.makeText(Questions.this, "all questions completed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Questions.this, "All check points completed", Toast.LENGTH_SHORT).show();
             }
-
 
         }
     }

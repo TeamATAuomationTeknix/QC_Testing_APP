@@ -84,7 +84,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_centerInParent="true"
-                 />
+                />
 
         </RelativeLayout>
 
@@ -202,7 +202,6 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layoutDirection="rtl"
             android:orientation="horizontal"/>
 
     </LinearLayout>
