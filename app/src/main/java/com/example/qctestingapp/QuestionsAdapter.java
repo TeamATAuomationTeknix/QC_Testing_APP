@@ -36,9 +36,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
 
     @Override
     public void onBindViewHolder(@NonNull VHQuestions holder, int position) {
-            holder.qNo.setText(id +". ");
+            holder.qNo.setText((position+1) +". ");
             id++;
-
             if(questionsList.get(position).highlight.equals("EXTERNAL")){
             holder.question.setBackgroundColor(holder.question.getResources().getColor(R.color.highlighit));
             }
@@ -46,6 +45,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
             holder.question.setBackgroundColor(holder.question.getResources().getColor(R.color.BlueColor));
         }
             if(questionsList.get(position).getAnswer()==null) {
+                holder.increase=true;
             holder.btnOk.setBackgroundColor(holder.btnOk.getResources().getColor(R.color.white));
             holder.btnNotOk.setBackgroundColor(holder.btnNotOk.getResources().getColor(R.color.white));
             }else{

@@ -6,45 +6,38 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:background="@color/whiteS">
-
-
-        <TextView
-            android:id="@+id/partName"
-            android:layout_width="125dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="20dp"
-            android:text="LHS - Ext()"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="181dp"
-        android:layout_marginTop="10dp">
+        android:layout_height="220dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/partName"
+            android:textStyle="bold"
+            android:maxWidth="250dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="Ext()"
+            android:textSize="30sp" />
 
         <ImageView
-            android:id="@+id/masterImage"
-            android:layout_width="match_parent"
-            android:layout_height="182dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp" />
 
+            android:id="@+id/masterImage"
+            android:layout_width="300dp"
+            android:layout_height="217dp"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_questions"
         android:layout_width="match_parent"
-        android:layout_height="254dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="320dp"
         android:layout_gravity="center_horizontal"
         android:scrollbars="vertical" />
-
 </LinearLayout>

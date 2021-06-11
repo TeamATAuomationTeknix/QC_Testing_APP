@@ -46,7 +46,6 @@ public class Battery extends AppCompatActivity {
         battery_qr=findViewById(R.id.battery_qr);
         scanqr = (ImageButton) findViewById(R.id.btn_scan_qr);
         scanqr1 = (ImageButton) findViewById(R.id.btn_scan_qr2);
-
         qr_res = getIntent().getStringExtra("qr_result");
         qr_res2=getIntent().getStringExtra("battery_qr");
         qr.setText(qr_res);
@@ -78,7 +77,8 @@ public class Battery extends AppCompatActivity {
                 }else {
                     Intent i = new Intent(Battery.this, ScanQR1.class);
                     i.putExtra("calling_page", "Battery");
-                    i.putExtra("qr_result", qr.getText().toString());
+                    String q=getIntent().getStringExtra("qr_result");
+                    i.putExtra("qr_result", q);
                     startActivity(i);
                     finish();
                 }
@@ -93,6 +93,18 @@ public class Battery extends AppCompatActivity {
                 return false;
             }
         });
+        battery_qr.setOnLongClickListener(
+                new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if(!qr.getText().toString().equals(""))
+                        checkBatteryqr();
+                        else
+                            Toast.makeText(Battery.this, "Please insert main QR code", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }
+        );
 
     }
 
@@ -181,6 +193,53 @@ public class Battery extends AppCompatActivity {
             Toast.makeText(this, "Invalid QR Code", Toast.LENGTH_SHORT).show();
         }
         
+    }
+    public void checkBatteryqr(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("QR Code.");
+        builder.setMessage("Enter Battery QR Code.");
+
+        // Set up the input
+        final EditText inputQR = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        inputQR.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        int maxLength = 36;
+        InputFilter[] filters = new InputFilter[1];
+        filters[0] = new InputFilter.LengthFilter(maxLength);
+        inputQR.setFilters(filters);
+        builder.setView(inputQR);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String qr_code = inputQR.getText().toString();//toUpperCase().trim().replaceAll("\\s+", "").replaceAll("\n","");
+                // Pattern p = Pattern.compile("\\S{2}\\d{1}\\S{2}\\d{1}\\S{4}\\d{1}\\S{1}\\d{5}\\S{3}\\d{1}\\S{4}\\d{1}\\S{2}\\d{2}\\S{2}\\d{1}\\S{2}");
+                // if (!qr_code.equals("") && p.matcher(qr_code).matches()) {
+                String[] arr=qr_code.split(":");
+                if(arr.length>=4){
+
+                    Intent i = new Intent(Battery.this, Battery.class);
+                    i.putExtra("battery_qr", qr_code);
+                    i.putExtra("qr_result", qr.getText().toString());
+                    startActivity(i);
+                    finish();
+                    //qr.setText(qr_code);
+                    //isModelNameExist();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Invalid QR Code...!", Toast.LENGTH_LONG).show();
+                    inputQRCode();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
     }
 
 }

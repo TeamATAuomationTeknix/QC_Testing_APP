@@ -289,8 +289,8 @@ public class ServerJson {
     public void submitAnswer(ArrayList<Questions_main> answerList, String partname, String partTime, String fullTime, String qr_res,String user){
         builder=new AlertDialog.Builder(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,
-                //Main_page.IP_ADDRESS+"/InsertAnswer.php",
-               "http://192.168.137.1/Test/InsertAnswer.php",
+                Main_page.IP_ADDRESS+"/InsertAnswer.php",
+
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -597,12 +597,19 @@ public class ServerJson {
     public void insertBatteryStatus(HashMap<String,String> batteryInfo){
         builder=new AlertDialog.Builder(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,
-                //Main_page.IP_ADDRESS+"/InsertBatteryInfo.php",
-                "http://192.168.137.1/Test/InsertBatteryInfo.php",
+                Main_page.IP_ADDRESS+"/InsertBatteryInfo.php",
+
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         builder.setTitle("Done");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
                         // builder.setMessage("message: "+response);
                         if(response.equals("success"))
                         builder.setMessage("Records submitted successfully");

@@ -61,39 +61,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/battery_qr"
-            android:layout_width="259dp"
-            android:layout_height="69dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/shadow"
-            android:hint="Enter Battery QR Code >>"
-            android:textSize="20dp" />
-
         <ImageButton
-
             android:id="@+id/btn_scan_qr2"
-            android:layout_width="143dp"
-            android:layout_height="69dp"
-            android:layout_marginLeft="-10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="2"
             android:background="@drawable/shadow"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/qr_scan"
+            android:adjustViewBounds="true"
             android:padding="9dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/qr_scan" />
+            android:scaleType="fitCenter" />
 
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="Result"
-        android:id="@+id/txtView" />
+        android:id="@+id/battery_qr"
+        android:layout_width="584dp"
+        android:layout_height="67dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/shadow"
+        android:gravity="center"
+        android:hint="Enter Battery code here : "
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/txtView"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Result"
+        android:textSize="30dp" />
 </LinearLayout>

@@ -393,6 +393,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 fragmentTransaction.commit();
                 TextView t=new TextView(Questions.this);
                 CompleteDialog completeDialog=new CompleteDialog(Questions.this);
+                completeDialog.setCancelable(false);
                 completeDialog.show();
                 Log.e("Submit time",fullTimer.getText().toString());
                 btnNext.setVisibility(View.INVISIBLE);
@@ -439,6 +440,8 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     @Override
     protected void onPause() {
         super.onPause();
+        count=0;
+
         LinkedList<String> ppnames=new LinkedList<>(pnames);
         long fullTime= fullTimer.getBase();
         String qr_code=qr.getText().toString();
@@ -448,7 +451,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 ppnames.addFirst(partname);
             MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
             myDbHelper.setRemainingParts(ppnames,fullTime,qr_code);
-
         }
     }
 }

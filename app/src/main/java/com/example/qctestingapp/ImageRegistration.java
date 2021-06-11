@@ -175,9 +175,9 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(ImageRegistration.this, CameraPreview.class);
-                i.putExtra("calling_page", "ImageRegistration");
-                startActivity(i);
+//                Intent i = new Intent(ImageRegistration.this, CameraPreview.class);
+//                i.putExtra("calling_page", "ImageRegistration");
+//                startActivity(i);
 
                 takePicture(v);
 //                AlertDialog.Builder builder=new AlertDialog.Builder(ImageRegistration.this);
