@@ -89,7 +89,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
                         if(increase){
                             increase=false;
                             Questions.count=Questions.count+Questions.partcount;
-                            Questions.progressBar.setProgress(Questions.count);
+                            Questions.progressBar.setProgress((int) Questions.count);
                         }
                     }
                 });
@@ -103,7 +103,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
                         if(increase){
                             increase=false;
                             Questions.count=Questions.count+Questions.partcount;
-                            Questions.progressBar.setProgress(Questions.count);
+                            Questions.progressBar.setProgress((int) Questions.count);
                         }
                     }
                 });

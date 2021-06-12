@@ -51,20 +51,20 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     String qrScanned="no";
     Chronometer timer;
     Chronometer fullTimer;
-    Boolean noRemaining=true;
+    public static Boolean noRemaining=true;
     LinearLayout partTimeLayout,fullTimeLayout;
     String firstPart;
     public static ProgressBar progressBar;
-    public static int count=0;
-    public static int partcount=0;
-    public static int devidedparts=0;
+    public static float count=0;
+    public static float partcount=0;
+    public static float devidedparts=0;
     public static boolean isConnected=true;
     Runnable questionTimer;
     Handler handler;
     boolean active=true;
     Spinner parts;
     public static String appName="LHS";
-
+    boolean submitted=true;
 
 
     @Override
@@ -144,10 +144,13 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         editor.apply();
         Log.e("position",position+"");
         Main_page.appNameSelection=position;
-        MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
-        pnames=myDbHelper.getPartnamesByApp(parts.getSelectedItem().toString());
-        partname=pnames.get(0);
-        getIntent().putExtra("partname",partname);
+        if(noRemaining) {
+            MyDbHelper myDbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
+            pnames = myDbHelper.getPartnamesByApp(parts.getSelectedItem().toString());
+
+            partname = pnames.get(0);
+
+        }
     }
 
     @Override
@@ -199,6 +202,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 do {
                     //"part_name","fullTime","qr_code"
                     pnames.add(remainingParts.getString(0));
+                    Log.e("pnames size",pnames.size()+"");
                     t = remainingParts.getLong(1);
                     Log.e("time remaing part: ", t + "");
 
@@ -212,13 +216,14 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 getIntent().putExtra("qr_result", qr_res);
                 //qr.setText(qr_res);
                 partname = pnames.get(0);
+                getIntent().putExtra("partname",partname);
                 qrScanned = "scanned";
 
             }
-            else{
-                noRemaining = true;
-
-            }
+//            else{
+//                noRemaining = true;
+//
+//            }
         }
         else{
             noRemaining = true;
@@ -254,7 +259,8 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         }
     }
     public void addFragment(){
-        if(pnames.size()>0) {
+        if(partname!=null&&pnames.size()>0){
+       // if(pnames.size()>0) {
             devidedparts=100/pnames.size();
             Log.e("count",count+"");
             btnNext.setVisibility(View.VISIBLE);
@@ -365,7 +371,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 helper = new MyDbHelper(Questions.this, MyDbHelper.DB_NAME, null, 1);
                 helper.insert_data(list,partname,qr.getText().toString(),user);
                 serverJson=new ServerJson(Questions.this);
-
                 serverJson.submitAnswer(list,partname,timer.getText().toString(),fullTimer.getText().toString(),qr.getText().toString(),user);
                 // Toast.makeText(Questions.this, "Records submitted successfully", Toast.LENGTH_SHORT).show();
                 Toast.makeText(Questions.this, "Ok: " + ok + " times & not ok: " + not_ok + "times", Toast.LENGTH_SHORT).show();
@@ -382,8 +387,10 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 //all part questios are completed
                 count=0;
                 qrScanned="";
+                submitted=false;
                 timer.stop();
                 fullTimer.stop();
+
                 SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);
                 String user=preferences.getString("user","unknown");
                 serverJson=new ServerJson(Questions.this);
@@ -443,12 +450,21 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         count=0;
 
         LinkedList<String> ppnames=new LinkedList<>(pnames);
+        if(noRemaining){
+            ppnames.addFirst(partname);
+        }
         long fullTime= fullTimer.getBase();
+        fullTimer.stop();
+        timer.stop();
         String qr_code=qr.getText().toString();
 
         if(ppnames.size()>0 &&active&&!qr_code.equals("")){
-            if(partname!=firstPart)
-                ppnames.addFirst(partname);
+//            if(partname!=firstPart)
+//                ppnames.addFirst(partname);
+            if(ppnames.size()>1) {
+                if (ppnames.get(0).equals(ppnames.get(1)))
+                    ppnames.remove(0);
+            }
             MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
             myDbHelper.setRemainingParts(ppnames,fullTime,qr_code);
         }
