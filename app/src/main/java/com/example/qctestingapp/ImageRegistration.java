@@ -279,7 +279,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 
         return super.onOptionsItemSelected(item);
     }
-
+// xcxc
 
     private String getModel(){
 
