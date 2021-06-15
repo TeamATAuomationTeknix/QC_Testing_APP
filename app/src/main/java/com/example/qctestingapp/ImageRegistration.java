@@ -88,13 +88,15 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 
     /*------------------ Server Related Declaration -------------------*/
 
-    public static final String INSERT_URL = Main_page.IP_ADDRESS + "/MasterDataInsertion.php";
+   // public static final String INSERT_URL = Main_page.IP_ADDRESS + "/MasterDataInsertion.php";
+   public static final String INSERT_URL = Main_page.IP_ADDRESS + "/SetMasterImageByModel.php";
     public static final String UPDATE_URL = Main_page.IP_ADDRESS + "/MasterDataUpdation.php";
     public static final String DELETE_URL = Main_page.IP_ADDRESS + "/MasterDataDeletion.php";
-    public static final String FETCH_URL = Main_page.IP_ADDRESS + "/MasterDataFetch.php";
+    //public static final String FETCH_URL = Main_page.IP_ADDRESS + "/MasterDataFetch.php";
+    public static final String FETCH_URL = Main_page.IP_ADDRESS + "/GetMasterImageByModel.php";
     
     public static final String KEY_ID = "id";
-    public static final String KEY_MODEL_CODE = "prt_name";
+    public static final String KEY_PART_NAME = "prt_name";
     public static final String KEY_IMAGE_DATA = "mst_img";
 
     String msg;
@@ -280,11 +282,10 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 
 
     private String getModel(){
-        if(model_name==null) {
+
         String  qr_code = qr.getText().toString().trim();
         String[] a = qr_code.split("_");
-             String model_name = a[1].charAt(1)+""+a[1].charAt(2);
-        }
+        model_name = a[1].charAt(0)+""+a[1].charAt(1)+""+a[1].charAt(2);
         return model_name;
     }
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -375,8 +376,8 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 
             //listImages.add(bitmapImage);
 
-                        final String model_nm = getModel();
-
+                        final String part_name = spinner.getSelectedItem().toString();
+                              String model_name=getModel();
             //Toast.makeText(ImageRegistration.this,"Model - "+ model_nm,Toast.LENGTH_SHORT).show();
 
             //String model_nm = qr.getText().toString().replaceAll("\\s", "");
@@ -384,7 +385,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 
                   MyDbHelper db = new MyDbHelper(ImageRegistration.this,MyDbHelper.DB_NAME,null,1);
 
-                  db.addImage(autoIncrementId(), model_nm, bitmapToByteArray(bitmapImage));
+                  db.addImage( part_name,model_name, bitmapToByteArray(bitmapImage));
                   db.close();
 
             //byteArrayImages.add(bitmapToByteArray(bitmapImage));
@@ -430,15 +431,15 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 
         listId.clear();
         listImages.clear();
-        String model_nm = getModel();
+        String part_name = spinner.getSelectedItem().toString();
+        String model_nm=getModel();
         //String model_nm = qr.getText().toString().replaceAll("\\s", "");
         //String model_nm = qr.getText().toString().replaceAll("([0-9])", "").trim();
 
         MyDbHelper db = new MyDbHelper(ImageRegistration.this,MyDbHelper.DB_NAME,null,1);
 
         //Toast.makeText(ImageRegistration.this,model_nm,Toast.LENGTH_SHORT).show();
-        Cursor c1 = db.getAllImagesOfSpecificModel(model_nm);
-        Log.d("func", "outside");
+        Cursor c1 = db.getAllImagesOfSpecificModel(model_nm,part_name);
 
         if (c1 != null && c1.getCount() != 0) {
             if (c1.moveToFirst()) {
@@ -652,7 +653,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
             Toast.makeText(getApplicationContext(),"Please Capture Image First...",Toast.LENGTH_LONG).show();
             return;
         }
-        final String model_code = getModel();
+        final String part_name = spinner.getSelectedItem().toString();
         final String image = bitmapToBase64(bitmapImage);
 
         String DATA_URL = null;
@@ -718,18 +719,17 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
                 Map<String,String> params = new HashMap<String, String>();
 
                 params.put(KEY_ID, String.valueOf(id));
-                params.put(KEY_MODEL_CODE, model_code);
+                params.put(KEY_PART_NAME,part_name);
                 params.put(KEY_IMAGE_DATA, image);
-
+                params.put("model_name",getModel());
+                Log.e("model name: ",getModel());
                 return params;
             }
 
         };
         Log.e("uploading image to: ",DATA_URL);
-
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
         clearImage();
     }
 
@@ -767,10 +767,10 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                                 int id = jsonObject.getInt("id");
-                                String model_nm = jsonObject.getString("img_name");
+                                String part_name = jsonObject.getString("img_name");
                                 String image = jsonObject.getString("img");
-
-                                db.addImage(id, model_nm, base64ToByteArray(image));
+                                String model=jsonObject.getString("model_name");
+                                db.addImage( part_name,model, base64ToByteArray(image));
 
                             }
                             fetchImages();

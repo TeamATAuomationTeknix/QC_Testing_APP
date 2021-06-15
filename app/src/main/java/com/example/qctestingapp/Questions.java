@@ -269,7 +269,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             timer.start();
             fullTimer.start();
         }
-        partFragment = new PartFragment(list, partname);
+        partFragment = new PartFragment(list, partname,getModel());
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.layoutQuestions, partFragment).commit();
@@ -422,7 +422,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 Questions_main.qNo=1;
                 fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.remove(partFragment);
-                partFragment = new PartFragment(list, partname);
+                partFragment = new PartFragment(list, partname,getModel());
                 fragmentTransaction.add(R.id.layoutQuestions, partFragment).commit();
             }
             else{
@@ -468,5 +468,13 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
             myDbHelper.setRemainingParts(ppnames,fullTime,qr_code);
         }
+    }
+    private String getModel(){
+
+        String  qr_code = qr.getText().toString().trim();
+
+        String[] a = qr_code.split("_");
+        String model_name = a[1].charAt(0)+""+a[1].charAt(1)+""+a[1].charAt(2);
+        return model_name;
     }
 }

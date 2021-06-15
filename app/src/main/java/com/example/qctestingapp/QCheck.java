@@ -270,7 +270,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     private void loadImages() {
         String partname=spinner.getSelectedItem().toString();
         MyDbHelper myDbHelper=new MyDbHelper(getBaseContext(),MyDbHelper.DB_NAME,null,1);
-        Cursor c1=myDbHelper.getAllImagesOfSpecificModel(partname);
+        Cursor c1=myDbHelper.getAllImagesOfSpecificModel("model1",partname);
 
         if(c1.moveToFirst()){
             byte[] arrImg= c1.getBlob(1);

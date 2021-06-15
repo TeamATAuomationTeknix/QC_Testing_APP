@@ -56,7 +56,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+tb_part+"(id Integer primary key autoincrement,part_name varchar,app_name varchar)");
         db.execSQL("create table "+tb_question+"(id Integer primary key,question varchar, Highlight varchar, part_name String)");
         db.execSQL("create table "+tb_remaining_parts+"(id Integer,part_name varchar,qr_code varchar, fullTime Integer)");
-        db.execSQL("create table "+tb_master+" (id integer primary key, model_name text, image blob)");
+        db.execSQL("create table "+tb_master+" (id integer primary key autoincrement,part_name text, model_name text, image blob)");
         db.execSQL("create table "+tb_appName+"(id Integer,app_name varchar)");
         db.execSQL("create table "+tb_employee+"(id Integer primary key autoincrement,token_no Integer, name varchar)");
         db.execSQL("create table "+tb_tmp_battery+"(id Integer primary key autoincrement,mainqr varchar, batteryqr varchar, status varchar)");
@@ -310,15 +310,17 @@ public class MyDbHelper extends SQLiteOpenHelper {
         mydatabase.execSQL("delete from " +tb_remaining_parts);
     }
 
-    public long addImage(int id, String model_nm , byte[] img)
+    public long addImage(String partname, String model_nm , byte[] img)
     {
 //(id integer primary key, model_name text, image blob)
 
         SQLiteDatabase mydatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("id", id);
+
         contentValues.put("model_name", model_nm);
+        contentValues.put("part_name",partname);
         contentValues.put("image", img);
+        Log.e("tag","add image");
         //Toast.makeText(context,"Image Inserted",Toast.LENGTH_SHORT).show();
         return mydatabase.insert(tb_master, null, contentValues);
     }
@@ -327,10 +329,10 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return mydatabase.query(tb_master, new String[] {"id"}, null, null, null, null, null);
     }
 
-    public Cursor getAllImagesOfSpecificModel(String model_nm) {
+    public Cursor getAllImagesOfSpecificModel(String model_name,String part_name) {
         SQLiteDatabase mydatabase = this.getReadableDatabase();
-
-        Cursor cursor = mydatabase.query(tb_master, new String[] {"id", "image"}, "model_name"+" = '"+model_nm+"' ", null, null, null, null);;
+        String where="model_name=? and part_name=?";
+        Cursor cursor = mydatabase.query(tb_master, new String[] {"id", "image"}, where, new String[]{model_name,part_name}, null, null, null);;
         //mydatabase.close();
         return cursor;
 

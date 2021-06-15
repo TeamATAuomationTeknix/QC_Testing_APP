@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,8 @@ public class PartFragment extends Fragment {
     Bitmap bmImg=null;
     ProgressDialog p=null;
     MyDbHelper myDbHelper;
+    EditText qr;
+    String model_name="";
     ArrayList<String> pnames;
     //    public PartFragment(ArrayList<Questions_main> list, ArrayList<String> pnames) {
 //        // Required empty public constructorthis
@@ -58,9 +61,10 @@ public class PartFragment extends Fragment {
 //
 //
 //    }
-    public PartFragment (ArrayList<Questions_main> list,String partname){
+    public PartFragment (ArrayList<Questions_main> list,String partname,String model){
         this.list=list;
         this.partname=partname;
+        model_name=model;
     }
 
     public ArrayList<Questions_main> getList() {
@@ -81,6 +85,7 @@ public class PartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragment=inflater.inflate(R.layout.fragment_part, container, false);
+
         masterImage =fragment.findViewById(R.id.masterImage);
         fragmentName=fragment.findViewById(R.id.partName);
         SharedPreferences preferences=container.getContext().getSharedPreferences("appnameselection",MODE_MULTI_PROCESS);
@@ -89,7 +94,8 @@ public class PartFragment extends Fragment {
         //ImageTask task=new ImageTask();
         // task.execute("https://img.etb2bimg.com/imgv2/width-368,height-311,resize_mode-1/retail_files/sumo-1503999478-prod-var.jpg");
         myDbHelper=new MyDbHelper(getContext(),MyDbHelper.DB_NAME,null,1);
-        Cursor c1=myDbHelper.getAllImagesOfSpecificModel(partname);
+
+        Cursor c1=myDbHelper.getAllImagesOfSpecificModel(model_name,partname);
         if(c1.moveToFirst()){
             byte[] arrImg= c1.getBlob(1);
             // is= arrImg;
@@ -163,4 +169,5 @@ public class PartFragment extends Fragment {
             }
         }
     }
+
 }

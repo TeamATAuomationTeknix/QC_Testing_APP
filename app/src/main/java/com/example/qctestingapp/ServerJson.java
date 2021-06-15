@@ -156,7 +156,7 @@ public class ServerJson {
         p.setMessage("Please wait... Questions are downloading");
         p.setIndeterminate(false);
         p.setCancelable(false);
-        Log.e("tag","showing progress dialog");
+        Log.e("tag","Showing progress dialog");
         p.show();
         MySingleton m=MySingleton.getInstance(context);
 
@@ -424,12 +424,12 @@ public class ServerJson {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                                 int id = jsonObject.getInt("id");
-                                String model_nm = jsonObject.getString("img_name");
+                                String part_name = jsonObject.getString("img_name");
                                 String image = jsonObject.getString("img");
-
+                                String model=jsonObject.getString("model_name");
                                  //db.addImage(id, model_nm, image.getBytes());
                                 //db.addImage(id, model_nm, Base64.decode(image.substring(23), Base64.DEFAULT));
-                                db.addImage(id, model_nm, Base64.decode(image, Base64.DEFAULT));
+                                db.addImage( part_name,model, Base64.decode(image, Base64.DEFAULT));
 
                             }
 

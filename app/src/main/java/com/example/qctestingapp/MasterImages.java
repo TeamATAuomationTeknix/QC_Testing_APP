@@ -91,7 +91,7 @@ public class MasterImages extends AppCompatActivity {
                 MyDbHelper db = new MyDbHelper(MasterImages.this,MyDbHelper.DB_NAME,null,1);
 
 
-                Cursor c1 = db.getAllImagesOfSpecificModel(listUniqueModels.get(i));
+                Cursor c1 = db.getAllImagesOfSpecificModel("model1",listUniqueModels.get(i));
                 Log.d("func", "outside");
                 //Toast.makeText(getApplicationContext(), "Hiii "+listAllModels.get(i), Toast.LENGTH_SHORT).show();
                 if (c1 != null && c1.getCount() != 0) {
