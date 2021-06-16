@@ -567,17 +567,19 @@ public class ServerJson {
                             context.startActivity(i);
                         }
                         else{
-                            Toast.makeText(context, "Login fail", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show();
                         }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 pg.dismiss();
+                Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show();
                 Log.e("emp name error",error.toString());
             }
         });

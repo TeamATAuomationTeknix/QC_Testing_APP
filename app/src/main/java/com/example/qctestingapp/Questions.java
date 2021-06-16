@@ -66,7 +66,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     public static String appName="LHS";
     boolean submitted=true;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

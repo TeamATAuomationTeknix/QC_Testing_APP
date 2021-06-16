@@ -335,8 +335,15 @@ public class MyDbHelper extends SQLiteOpenHelper {
         Cursor cursor = mydatabase.query(tb_master, new String[] {"id", "image"}, where, new String[]{model_name,part_name}, null, null, null);;
         //mydatabase.close();
         return cursor;
-
     }
+    public Cursor getAllImagesOfSpecificModel(String part_name) {
+        SQLiteDatabase mydatabase = this.getReadableDatabase();
+        String where="part_name=?";
+        Cursor cursor = mydatabase.query(tb_master, new String[] {"id", "image"}, where, new String[]{part_name}, null, null, null);;
+        //mydatabase.close();
+        return cursor;
+    }
+
     public void deleteAllImages(){
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         mydatabase.execSQL("delete from "+tb_master);
@@ -405,6 +412,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
         }
         return empname;
     }
+
+
     public static class Parts{
         String partname;
         String appname;

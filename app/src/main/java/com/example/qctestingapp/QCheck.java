@@ -270,7 +270,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     private void loadImages() {
         String partname=spinner.getSelectedItem().toString();
         MyDbHelper myDbHelper=new MyDbHelper(getBaseContext(),MyDbHelper.DB_NAME,null,1);
-        Cursor c1=myDbHelper.getAllImagesOfSpecificModel("model1",partname);
+        Cursor c1=myDbHelper.getAllImagesOfSpecificModel(getModel(),partname);
 
         if(c1.moveToFirst()){
             byte[] arrImg= c1.getBlob(1);
@@ -359,7 +359,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     private String getModel(){
         String  qr_code = qr.getText().toString().trim();;
         String[] a = qr_code.split("_");
-        String model_name = a[1].charAt(1)+""+a[1].charAt(2);
+        String model_name = a[1].charAt(0)+""+a[1].charAt(1)+""+a[1].charAt(2);
         return model_name.trim();
     }
 
@@ -979,6 +979,8 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     }
 
     /*--------------------------------------------------------------*/
+public String getAppName(){
 
-
+    return null;
+}
 }

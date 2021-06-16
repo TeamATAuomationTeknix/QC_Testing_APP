@@ -47,7 +47,7 @@ import java.util.List;
 public class Main_page extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // public static final String IP_ADDRESS = "http://192.168.137.1/at/app";
-    public static final String IP_ADDRESS = "http://192.168.0.34/Test";
+    public static final String IP_ADDRESS = "http://192.168.0.33/Test";
     public static final String IP_ADDRESS_IMG = "http://192.168.137.1";
     public static TextView resultTextView;
     public static ImageView imagePreview, inputImageView1;
@@ -206,7 +206,6 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
 
         if (id == R.id.nav_master) {
             Intent i=new Intent(Main_page.this,ImageRegistration.class);

@@ -41,7 +41,7 @@ public class MasterImagesAdapter extends RecyclerView.Adapter<MasterImagesAdapte
 
         holder.imgPreview.setImageBitmap(listImages.get(position));
         //holder.imgPreview.setRotation(90);
-        holder.txtModel.setText("Part Number : "+listModel.get(position));
+        holder.txtModel.setText("Part Name : "+listModel.get(position));
 //        holder.txtClipNo.setText("Hose Clip : "+String.valueOf(listClipNo.get(position)));
 
         //holder.txtClipNo.setText(listEnd.get(position));

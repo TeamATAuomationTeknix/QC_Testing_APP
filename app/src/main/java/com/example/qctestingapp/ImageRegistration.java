@@ -293,13 +293,13 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         String item = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-        model_name=item;
+        //model_name=item;
 
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        model_name=parent.getSelectedItem().toString();
+        //model_name=parent.getSelectedItem().toString();
     }
 
     private void isModelNameExist(){
@@ -373,9 +373,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 
         bitmapImage = ((BitmapDrawable)imagePreview.getDrawable()).getBitmap();
         if (bitmapImage != null){
-
             //listImages.add(bitmapImage);
-
                         final String part_name = spinner.getSelectedItem().toString();
                               String model_name=getModel();
             //Toast.makeText(ImageRegistration.this,"Model - "+ model_nm,Toast.LENGTH_SHORT).show();
