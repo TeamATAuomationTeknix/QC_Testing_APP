@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/qcCheckQuestion"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question 1"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        />
+    <Button
+        android:id="@+id/qcCheckBtn"
+        android:layout_width="175dp"
+        android:layout_height="50dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="OK"
+        android:textSize="14sp"
+        android:background="@color/white"
+        app:backgroundTint="@color/white"
+        android:layout_marginRight="60dp"
+        app:backgroundTintMode="multiply"
+        android:layout_marginLeft="10dp"
+       android:layout_marginTop="10dp"
+        />
+
+</LinearLayout>
