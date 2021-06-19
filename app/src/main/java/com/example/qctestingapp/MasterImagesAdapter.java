@@ -33,6 +33,7 @@ public class MasterImagesAdapter extends RecyclerView.Adapter<MasterImagesAdapte
     @Override
     public MasterImagesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.activity_master_images_item, parent, false);
+
         return new MasterImagesAdapter.ViewHolder(v);
     }
 

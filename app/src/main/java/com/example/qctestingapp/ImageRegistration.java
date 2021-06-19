@@ -25,6 +25,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -119,8 +120,10 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         broom = (ImageButton) findViewById(R.id.img_btn_broom);
         remove = (ImageButton) findViewById(R.id.img_btn_remove);
 
+
         relativeLayout_img = (RelativeLayout) findViewById(R.id.relative_layout_img);
         initializeSpinner();
+
 
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         //qr.clearFocus();
@@ -250,6 +253,13 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
+   //todo add home icon to tolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_page, menu);
+        return true;
+    }
 
     private void initializeSpinner() {
         spinner.setOnItemSelectedListener(this);
@@ -272,7 +282,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == R.id.home) {
             String alertMsg = "Are you sure ? Do you want to LEAVE this Page ?";
             alertDialog("BACK", alertMsg);
         }
@@ -503,7 +513,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         this.finish();
     }
 
-    private void alertDialog(final String operation, String alertMsg){
+    public void alertDialog(final String operation, String alertMsg){
 
         // Build the AlartBox
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ImageRegistration.this);
@@ -956,5 +966,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         String alertMsg = "Are you sure ? Do you want to LEAVE this Page ?";
         alertDialog("BACK", alertMsg);
     }
+
+
 
 }

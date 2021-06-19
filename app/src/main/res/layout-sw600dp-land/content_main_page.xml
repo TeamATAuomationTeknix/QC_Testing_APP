@@ -25,6 +25,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/mahindra_rise"
             android:padding="5dp"
+            android:layout_gravity="center"
             android:scaleType="fitCenter" />
 
         <LinearLayout

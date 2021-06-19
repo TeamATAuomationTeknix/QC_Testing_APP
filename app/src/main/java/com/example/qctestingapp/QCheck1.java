@@ -344,17 +344,17 @@ public class QCheck1 extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         // handle arrow click here
-        if (id == android.R.id.home) {
+        if (id == R.id.home) {
             String alertMsg = "Are you sure ? Do you want to LEAVE this Page ?";
             alertDialog("BACK", alertMsg);
         }
-        else if (id == R.id.action_print) {
-            if (qr.getText().toString().equals("")){
-                Toast.makeText(getApplicationContext(),"Please Scan or Insert QR Code First...",Toast.LENGTH_LONG).show();
-            }else {
-                printPreview();
-            }
-        }
+//        else if (id == R.id.action_print) {
+//            if (qr.getText().toString().equals("")){
+//                Toast.makeText(getApplicationContext(),"Please Scan or Insert QR Code First...",Toast.LENGTH_LONG).show();
+//            }else {
+//                printPreview();
+//            }
+//        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -30,6 +33,7 @@ public class Battery extends AppCompatActivity {
     String model_name;
     TextView textView;
     String status="NOT OK";
+    Button homeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,19 +171,22 @@ public class Battery extends AppCompatActivity {
         String[] arr=txtQR.split(":");
         if(arr.length>=4) {
             Date date = new Date();
+            Log.e("today: ",date.toString()+"");
             long today = date.getTime();
             Date prev = new SimpleDateFormat("ddMMyy").parse(arr[3]);
+
             long pretime = prev.getTime();
             long milliseconds = today - pretime;
-            int days = (int) (milliseconds / (60 * 60 * 24 * 1000));
+
+            int days = (int) (milliseconds / (60 * 60 * 24 * 1000))%365;
             if (days <= 45) {
-                status="OK";
+                status="\n"+days;
                 textView.setText(status);
-                textView.setBackgroundColor(getResources().getColor(R.color.color_ok));
+                textView.setBackgroundResource(R.drawable.green_circle);
             } else {
-                status="NOT OK";
+                status="\n"+days;
                 textView.setText(status);
-                textView.setBackgroundColor(getResources().getColor(R.color.color_not_ok));
+                textView.setBackgroundResource(R.drawable.red_circle);
             }
             ServerJson serverJson=new ServerJson(this);
             HashMap<String,String> hashMap=new HashMap<>();
@@ -240,6 +247,23 @@ public class Battery extends AppCompatActivity {
         });
         builder.setCancelable(false);
         builder.show();
+    }
+    //todo add home icon to tolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_page, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == R.id.home) {
+            this.finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

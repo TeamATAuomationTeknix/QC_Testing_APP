@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.print.PrintHelper;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,6 +66,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.qctestingapp.Fragments.PieChart;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
@@ -98,7 +102,6 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
 
     RecyclerView recyclerViewQCheck;
     RecyclerView.Adapter adapter;
-
     public static TextView qr, clip_no, clip_not_found, resultTextView;
     public static ImageView imagePreview, imageClip;
 
@@ -177,7 +180,10 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
 
     final int OK = 1;
     final int NOT_OK = 0;
-
+    int okCount=0;
+    int notOkCount=0;
+    LinearLayout pichartLayout;
+    PieChart pieChart;
 /*Remove*/public static String timeStamp1;
 
     /*-------------------------- Print QR-------------------------------*/
@@ -196,6 +202,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qcheck);
+
         spinner=findViewById(R.id.spinner);
         //Toast.makeText(getApplicationContext(),"Id : "+autoIncrementId(),Toast.LENGTH_SHORT).show();
         qr = (TextView) findViewById(R.id.txt_qr);
@@ -203,7 +210,15 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
         scanqr = (ImageButton) findViewById(R.id.btn_scan_qr);
         imagePreview = (ImageView) findViewById(R.id.img_preview);
 
-
+        //todo add pichart fragmennt
+        pieChart = new PieChart(0, 0);
+        pichartLayout = findViewById(R.id.layoutPieChart);
+        if(qr.getText().toString()!="") {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.layoutPieChart, pieChart);
+            transaction.commit();
+        }
        // sharedPreferences = getSharedPreferences("Picture Pref", Context.MODE_PRIVATE);
 
         ///////
@@ -260,7 +275,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
             }
         });
 
-        // Add Back Arrow to Toolbar
+        // todo get app name in center
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -276,14 +291,15 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
             byte[] arrImg= c1.getBlob(1);
             // is= arrImg;
             Bitmap bmImg=BitmapFactory.decodeByteArray(arrImg,0,arrImg.length);
-
+            imagePreview.setBackground(null);
             imagePreview.setImageBitmap(bmImg);
+
         }
         else{
             Toast.makeText(getBaseContext(), "Please add image for: "+partname, Toast.LENGTH_SHORT).show();
         }
     }
-
+//TODO get data when qr code is scanned
     private void getTablleData() {
         String qr_res=qr.getText().toString();
         if(!qr_res.equals("")) {
@@ -298,11 +314,23 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
             list= serverJson.getAnswers(qr_res, recyclerViewQCheck);
              }
             if(list.size()>0&&list!=null) {
+                countOkNotOk(list);
+                FragmentManager fragmentManager=getSupportFragmentManager();
+                FragmentTransaction transaction=fragmentManager.beginTransaction();
+                transaction.remove(pieChart);
+
+                Log.e("pie chart values",okCount+" "+notOkCount);
+                pieChart=new PieChart(okCount,notOkCount);
+                transaction.add(R.id.layoutPieChart,pieChart);
+                transaction.commit();
                 adapter = new QCheckAdapter(QCheck.this, list);
                 recyclerViewQCheck.setLayoutManager(new LinearLayoutManager(QCheck.this));
                 recyclerViewQCheck.setAdapter(adapter);
+
             }
+
         }
+
     }
 
     private void initializeSpinner() {
@@ -333,17 +361,17 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         // handle arrow click here
-        if (id == android.R.id.home) {
+        if (id == R.id.home) {
             String alertMsg = "Are you sure ? Do you want to LEAVE this Page ?";
             alertDialog("BACK", alertMsg);
         }
-        else if (id == R.id.action_print) {
-            if (qr.getText().toString().equals("")){
-                Toast.makeText(getApplicationContext(),"Please Scan or Insert QR Code First...",Toast.LENGTH_LONG).show();
-            }else {
-                printPreview();
-            }
-        }
+//        else if (id == R.id.action_print) {
+//            if (qr.getText().toString().equals("")){
+//                Toast.makeText(getApplicationContext(),"Please Scan or Insert QR Code First...",Toast.LENGTH_LONG).show();
+//            }else {
+//                printPreview();
+//            }
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -982,5 +1010,13 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
 public String getAppName(){
 
     return null;
+}
+public void countOkNotOk(List<Questions_main> list){
+    for(Questions_main qq:list) {
+        if (qq.getAnswer().equals(Questions_main.OK))
+            okCount++;
+        if (qq.getAnswer().equals(Questions_main.NOT_OK))
+            notOkCount++;
+    }
 }
 }

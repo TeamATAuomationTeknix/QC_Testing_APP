@@ -6,8 +6,7 @@
     android:layout_height="@dimen/nav_header_height"
     android:background="#003866"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
@@ -17,13 +16,19 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
         android:layout_marginTop="3dp"
-        android:contentDescription="@string/nav_header_desc"
+        android:layout_weight="5"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:background="@color/white"
+        android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/at_logo" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/white"/>
 
     <TextView
         android:layout_width="match_parent"

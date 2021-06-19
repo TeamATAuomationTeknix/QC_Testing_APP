@@ -40,7 +40,14 @@ public class QCheckAdapter extends RecyclerView.Adapter<QCheckAdapter.VhQuestion
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull VhQuestions holder, int position) {
-        holder.question.setText(list.get(position).getId()+" "+list.get(position).getQuestion());
+        //holder.question.setText(list.get(position).getId()+" "+list.get(position).getQuestion());
+        holder.question.setText((position+1)+" "+list.get(position).getQuestion());
+        if(list.get(position).highlight.equals("EXTERNAL")){
+            holder.question.setBackgroundColor(holder.question.getResources().getColor(R.color.highlighit));
+        }
+        if(list.get(position).highlight.equals("INTERNAL")){
+            holder.question.setBackgroundColor(holder.question.getResources().getColor(R.color.BlueColor));
+        }
         String ans=list.get(position).getAnswer();
         holder.btnOk.setText(ans);
         if(ans.equals(Questions_main.OK))

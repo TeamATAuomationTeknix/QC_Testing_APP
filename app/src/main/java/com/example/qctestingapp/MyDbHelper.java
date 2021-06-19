@@ -85,7 +85,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         }
 
     }
-    //******************************
+    //todo get all answers******************************
     public ArrayList<Questions_main> getAllAnswers() {
         // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varchar)
         questionsList=new ArrayList<>();
@@ -133,7 +133,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         }
         return questionsList;
     }
-    //add partnames***************************
+    //todo add partnames***************************
     public void addPartNames(List<MyDbHelper.Parts> partnames){
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         mydatabase.execSQL("delete from " +tb_part);
@@ -146,7 +146,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         }
 
     }
-    //get Partnames*****************************
+    //todo get Partnames*****************************
     public ArrayList<String> getPartnames(){
         pnames=new ArrayList<>();
         SQLiteDatabase db=this.getReadableDatabase();
@@ -160,6 +160,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         }
         return pnames;
     }
+
     public ArrayList<String> getPartnamesByApp(String appname){
         pnames=new ArrayList<>();
         SQLiteDatabase db=this.getReadableDatabase();
@@ -174,7 +175,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         }
         return pnames;
     }
-    //**********************add questions
+    //********************** todo add questions
     public void addQuestions(ArrayList<Questions_main> questions,String partname){
         Log.e("MyDbHelper","size:  "+questions.size()+" "+partname);
         SQLiteDatabase mydatabase=this.getWritableDatabase();
@@ -337,9 +338,10 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return cursor;
     }
     public Cursor getAllImagesOfSpecificModel(String part_name) {
+        Log.e("geting model",part_name);
         SQLiteDatabase mydatabase = this.getReadableDatabase();
         String where="part_name=?";
-        Cursor cursor = mydatabase.query(tb_master, new String[] {"id", "image"}, where, new String[]{part_name}, null, null, null);;
+        Cursor cursor = mydatabase.query(tb_master, new String[] {"id", "image","model_name"}, where, new String[]{part_name}, null, null, null);;
         //mydatabase.close();
         return cursor;
     }
@@ -412,7 +414,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         }
         return empname;
     }
-
 
     public static class Parts{
         String partname;

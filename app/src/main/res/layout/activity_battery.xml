@@ -79,20 +79,30 @@
 
     <TextView
         android:id="@+id/battery_qr"
-        android:layout_width="584dp"
+        android:layout_width="match_parent"
         android:layout_height="67dp"
         android:layout_margin="10dp"
         android:background="@drawable/shadow"
         android:gravity="center"
-        android:hint="Enter Battery code here : "
+        android:hint="@string/batteryQR"
         android:textSize="20dp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/txtView"
-        android:layout_width="108dp"
+
+        android:layout_width="129dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Result"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:text="result"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/txtView"
+        android:layout_width="129dp"
+        android:layout_height="147dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_marginTop="15dp"
         android:textSize="30dp" />
 </LinearLayout>

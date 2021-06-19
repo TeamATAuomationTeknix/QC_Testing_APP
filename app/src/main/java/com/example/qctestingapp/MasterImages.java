@@ -11,7 +11,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,10 +32,11 @@ public class MasterImages extends AppCompatActivity {
 
     ArrayList<String> listAllModels;
     ArrayList<String> listUniqueModels;
-
+    Button homeBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_master_images);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
@@ -60,7 +64,7 @@ public class MasterImages extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == R.id.home) {
             this.finish();
         }
 
@@ -68,10 +72,13 @@ public class MasterImages extends AppCompatActivity {
     }
 
     private void fetchModels(){
-
+Log.e("hi","fetch models");
         listAllModels.clear();
         MyDbHelper myDbHelper=new MyDbHelper(getBaseContext(),MyDbHelper.DB_NAME,null,1);
+
        listAllModels= myDbHelper.getPartnames();
+       for(String m:listAllModels)
+           Log.e("moedel",m);
         fetchImages();
     }
 
@@ -89,21 +96,22 @@ public class MasterImages extends AppCompatActivity {
 
             try {
                 MyDbHelper db = new MyDbHelper(MasterImages.this,MyDbHelper.DB_NAME,null,1);
-
-
                 Cursor c1 = db.getAllImagesOfSpecificModel(listUniqueModels.get(i));
-                Log.d("func", "outside");
+
+                Log.e("tag", "got image to specific model");
                 //Toast.makeText(getApplicationContext(), "Hiii "+listAllModels.get(i), Toast.LENGTH_SHORT).show();
                 if (c1 != null && c1.getCount() != 0) {
+                    Log.e("tag","c1 is not null");
                     if (c1.moveToFirst()) {
+                        Log.e("c1 first","move to first");
                         int count = 1;
                         do {
                             int id = c1.getInt(0);
-                            String model = listAllModels.get(i);
+                            String model = c1.getString(2);
                             byte[] image = c1.getBlob(1);
-
+                            Log.e("model",model);
                             listImages.add(byteArrayToBitmap(image));
-                            listModel.add(listUniqueModels.get(i));
+                            listModel.add(model+"-"+listUniqueModels.get(i));
                             listClipNo.add(count);
                             count++;
 
@@ -127,6 +135,13 @@ public class MasterImages extends AppCompatActivity {
     private static Bitmap byteArrayToBitmap(byte[] byteimg){
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteimg, 0, byteimg.length);
         return bitmap;
+    }
+    //todo add home icon to tolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_page, menu);
+        return true;
     }
 
 

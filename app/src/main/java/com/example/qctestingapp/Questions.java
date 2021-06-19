@@ -17,6 +17,8 @@ import android.os.SystemClock;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -70,6 +72,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
+
         handler=new Handler();
         questionTimer=new Runnable() {
             @Override
@@ -90,12 +93,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         fullTimeLayout=findViewById(R.id.fulltimelayout);
         //Getting data from ScanQR
         parts=findViewById(R.id.parts);
-        if(Main_page.partEnabled)
-        parts.setVisibility(View.VISIBLE);
-        else
-            parts.setVisibility(View.INVISIBLE);
-        qr_res = getIntent().getStringExtra("qr_result");
-        qr.setText(qr_res);
 
         qr.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -119,6 +116,13 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         });
 
         init();
+        if(Main_page.partEnabled&&qr.getText().toString().equals(""))
+            parts.setVisibility(View.VISIBLE);
+        else
+            parts.setVisibility(View.INVISIBLE);
+        qr_res = getIntent().getStringExtra("qr_result");
+        qr.setText(qr_res);
+
         ArrayList<String> appNames=new ArrayList<>();
         MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
         appNames=myDbHelper.getAppNames();
@@ -127,6 +131,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 //        appNames.add("Engine Compart");
         initparts(appNames);
     }
+
     public void initparts(ArrayList<String> partsList){
         parts.setOnItemSelectedListener(this);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, partsList);
@@ -146,7 +151,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         if(noRemaining) {
             MyDbHelper myDbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
             pnames = myDbHelper.getPartnamesByApp(parts.getSelectedItem().toString());
-
             partname = pnames.get(0);
 
         }
@@ -196,7 +200,8 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         if (remainingParts != null) {
             if (remainingParts.moveToFirst()) {
                 noRemaining = false;
-
+                if(qr.getText().toString().equals(""))
+                parts.setVisibility(View.INVISIBLE);
                 long t;
                 do {
                     //"part_name","fullTime","qr_code"
@@ -378,9 +383,11 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 helper.getAllAnswers();
                 timer.setBase(SystemClock.elapsedRealtime());
             }
+            //TODO Remove duplicate partnames from pnames
             if(pnames.size()>0&&pnames.get(0).equals(partname)){
                 pnames.remove(0);
             }
+
 
             if(pnames.size()==0){
                 //all part questios are completed
@@ -476,4 +483,23 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         String model_name = a[1].charAt(0)+""+a[1].charAt(1)+""+a[1].charAt(2);
         return model_name;
     }
+    //todo add home icon to tolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_page, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+
+        if (item.getItemId() == R.id.home) {
+           finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

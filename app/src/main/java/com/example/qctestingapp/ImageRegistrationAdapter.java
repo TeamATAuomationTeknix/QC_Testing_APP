@@ -62,6 +62,7 @@ public class ImageRegistrationAdapter extends RecyclerView.Adapter<ImageRegistra
                     //ImageRegistration.imagePreview.setRotation(90);
 
                     ImageRegistration.recamera.setVisibility(View.VISIBLE);
+                    ImageRegistration.recamera.setVisibility(View.VISIBLE);
                     ImageRegistration.add.setVisibility(View.INVISIBLE);
                     ImageRegistration.update.setVisibility(View.INVISIBLE);
                     ImageRegistration.remove.setVisibility(View.VISIBLE);
@@ -72,7 +73,7 @@ public class ImageRegistrationAdapter extends RecyclerView.Adapter<ImageRegistra
                     holder.linearLayout.setBackgroundResource(0);
                     //ImageRegistration.remove.setVisibility(View.INVISIBLE);
                     ImageRegistration.clearImage();
-                    Toast.makeText(context,"Long Press for Edit",Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(context,"Long Press for Edit",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -109,7 +110,7 @@ public class ImageRegistrationAdapter extends RecyclerView.Adapter<ImageRegistra
             linearLayout = itemView.findViewById(R.id.linear_item);
 
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+           // itemView.setOnLongClickListener(this);
         }
 
 

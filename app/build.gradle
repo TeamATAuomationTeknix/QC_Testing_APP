@@ -41,12 +41,17 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'org.jsoup:jsoup:1.11.2' //html parsing
     //implementation 'com.mcxiaoke.volley:library:1.0.19'
+// Chart and graph library
+    implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+
     implementation 'com.google.android.gms:play-services-vision:11.8.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.android.volley:volley:1.2.0'

@@ -39,6 +39,13 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
             switch (page){
+                case "Battery":
+                    Intent u = new Intent(ScanQR.this, Battery.class);
+                    u.putExtra("partname",partname);
+                    u.putExtra("qrScanned","no");
+                    startActivity(u);
+                    finish();
+                    break;
                 case "Questions":
                     Intent qu = new Intent(ScanQR.this, Questions.class);
                     qu.putExtra("partname",partname);
@@ -74,6 +81,14 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
             //Toast.makeText(ScanQR.this, "Done", Toast.LENGTH_SHORT).show();
         if(rawResult.getText().length()==36){
             switch (page){
+                case "Battery":
+                    Intent u = new Intent(ScanQR.this, Battery.class);
+                    u.putExtra("partname",partname);
+                    u.putExtra("qrScanned","scanned");
+                    u.putExtra("qr_result", rawResult.getText());
+                    startActivity(u);
+                    finish();
+                    break;
                 case "Questions":
                     Intent qu = new Intent(ScanQR.this, Questions.class);
                     qu.putExtra("partname",partname);
@@ -103,6 +118,14 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
         } else {
             Toast.makeText(ScanQR.this, "Invalid QR Code...!", Toast.LENGTH_LONG).show();
             switch (page){
+                case "Battery":
+                Intent l = new Intent(ScanQR.this, Battery.class);
+                l.putExtra("partname",partname);
+                l.putExtra("qrScanned","scanned");
+                l.putExtra("qr_result", rawResult.getText());
+                startActivity(l);
+                finish();
+                break;
                 case "Questions":
                     Intent qu = new Intent(ScanQR.this, Questions.class);
                     qu.putExtra("partname",partname);
@@ -149,6 +172,13 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
     public void onBackPressed() {
 
         switch (page){
+            case "Battery":
+                Intent u = new Intent(ScanQR.this, Battery.class);
+                u.putExtra("partname","partname");
+                u.putExtra("qrScanned","no");
+                startActivity(u);
+                finish();
+                break;
             case "Questions":
                 Intent qu = new Intent(ScanQR.this, Questions.class);
                 qu.putExtra("partname","partname");
