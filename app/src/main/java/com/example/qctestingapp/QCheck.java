@@ -301,36 +301,41 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     }
 //TODO get data when qr code is scanned
     private void getTablleData() {
+        okCount=0;
+        notOkCount=0;
+        recyclerViewQCheck.setLayoutManager(new LinearLayoutManager(QCheck.this));
         String qr_res=qr.getText().toString();
         if(!qr_res.equals("")) {
             String partname = spinner.getSelectedItem().toString();
            MyDbHelper myDbHelper = new MyDbHelper(QCheck.this, MyDbHelper.DB_NAME, null, 1);
             // ArrayList<Questions_main> list = myDbHelper.getAllAnswers();
-           ArrayList<Questions_main> list = myDbHelper.getAnswersBydata(qr_res, spinner.getSelectedItem().toString());
+           ArrayList<Questions_main> list = myDbHelper.getAnswersBydata(qr_res, partname);
             if(list.size()==0&&!qr.getText().toString().equals("")){
             ServerJson serverJson = new ServerJson(QCheck.this, partnamelist);
-          serverJson.setPartname(partname);
+            serverJson.setPartname(partname);
             //list=serverJson.getAnswers(qr_res);
-            list= serverJson.getAnswers(qr_res, recyclerViewQCheck);
+            list= serverJson.getAnswers(qr_res, recyclerViewQCheck,this);
              }
-            if(list.size()>0&&list!=null) {
-                countOkNotOk(list);
-                FragmentManager fragmentManager=getSupportFragmentManager();
-                FragmentTransaction transaction=fragmentManager.beginTransaction();
-                transaction.remove(pieChart);
+           addFragments(list);
+        }
+    }
 
-                Log.e("pie chart values",okCount+" "+notOkCount);
-                pieChart=new PieChart(okCount,notOkCount);
-                transaction.add(R.id.layoutPieChart,pieChart);
-                transaction.commit();
-                adapter = new QCheckAdapter(QCheck.this, list);
-                recyclerViewQCheck.setLayoutManager(new LinearLayoutManager(QCheck.this));
-                recyclerViewQCheck.setAdapter(adapter);
+    public void addFragments(ArrayList<Questions_main> list) {
+        if(list.size()>0&&list!=null) {
+            countOkNotOk(list);
+            FragmentManager fragmentManager=getSupportFragmentManager();
+            FragmentTransaction transaction=fragmentManager.beginTransaction();
+            transaction.remove(pieChart);
 
-            }
+            Log.e("pie chart values",okCount+" "+notOkCount);
+            pieChart=new PieChart(okCount,notOkCount);
+            transaction.add(R.id.layoutPieChart,pieChart);
+            transaction.commit();
+            adapter = new QCheckAdapter(QCheck.this, list);
+
+            recyclerViewQCheck.setAdapter(adapter);
 
         }
-
     }
 
     private void initializeSpinner() {

@@ -116,11 +116,11 @@
         <TextView
             android:id="@+id/txt_clip"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="28dp"
             android:layout_weight="0.3"
             android:gravity="center"
-            android:textStyle="bold"
-            android:hint="Responses"/>
+            android:hint="Responses"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"

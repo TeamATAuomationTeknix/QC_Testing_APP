@@ -71,17 +71,32 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
         mydatabase=this.getWritableDatabase();
         ContentValues values=new ContentValues();
+
         for(Questions_main q:questions) {
+            Cursor cursor = mydatabase.query(tb_answer, new String[]{"question", "qr"}, "question=? and qr=?", new String[]{q.getQuestion(), qr}, null, null, null);
+            if (cursor.moveToFirst()) {
+                String where = "question=? and qr=?";
+                values.put("id", q.getId());
+                values.put("question", q.getQuestion());
+                values.put("answer", q.getAnswer());
+                values.put("Highlight", q.isHighlighted());
+                values.put("qr", qr);
+                values.put("user", user);
+                values.put("partname", partname);
+                // mydatabase.insert(tb_answer,null,values);
+                mydatabase.update(tb_answer, values, where, new String[]{q.getQuestion(), qr});
+            }
+            else{
 
-            values.put("id",q.getId());
-            values.put("question",q.getQuestion());
-            values.put("answer",q.getAnswer());
-            values.put("Highlight",q.isHighlighted());
-            values.put("qr",qr);
-            values.put("user",user);
-            values.put("partname",partname);
-            mydatabase.insert(tb_answer,null,values);
-
+                values.put("id", q.getId());
+                values.put("question", q.getQuestion());
+                values.put("answer", q.getAnswer());
+                values.put("Highlight", q.isHighlighted());
+                values.put("qr", qr);
+                values.put("user", user);
+                values.put("partname", partname);
+                mydatabase.insert(tb_answer,null,values);
+            }
         }
 
     }
@@ -117,6 +132,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         String where="qr=? and partname=?";
         Cursor cursor= mydatabase.query(tb_answer, resultColumns, where, new String[]{qr_res, partname}, null, null, null, null);
         if (cursor.moveToFirst()) {
+            Log.e("tag","update operation");
             do {
                 int id = cursor.getInt(0);
                 String question = cursor.getString(1);
@@ -135,6 +151,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     }
     //todo add partnames***************************
     public void addPartNames(List<MyDbHelper.Parts> partnames){
+        Log.e("tag","insert");
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         mydatabase.execSQL("delete from " +tb_part);
         ContentValues values=new ContentValues();

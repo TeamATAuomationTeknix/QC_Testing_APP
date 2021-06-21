@@ -35,7 +35,7 @@ public class CompleteDialog extends Dialog {
    class OnContinueListner implements View.OnClickListener{
        @Override
        public void onClick(View v) {
-           Main_page.partEnabled=true;
+           Main_page.partEnabled=false;
            ArrayList<String> pnames=new ArrayList<>();
            MyDbHelper dbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1);
            pnames= dbHelper.getPartnames();

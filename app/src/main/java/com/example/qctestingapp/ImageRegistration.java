@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -72,6 +73,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
     Bitmap bitmapImage;
     Spinner spinner;
     String model_name;
+    String partname;
 
     ArrayList<Integer> listId;
     ArrayList<Bitmap> listImages;
@@ -253,7 +255,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
-   //todo add home icon to tolbar
+   //todo add home icon to toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -264,12 +266,17 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
     private void initializeSpinner() {
         spinner.setOnItemSelectedListener(this);
         MyDbHelper myDbHelper=new MyDbHelper(getBaseContext(),MyDbHelper.DB_NAME,null,1);
+        ArrayList<String> appnames=new ArrayList<>();
+        appnames=myDbHelper.getAppNames();
+        ArrayList<String> partnamelist = new ArrayList<String>();
+        for(String appn:appnames)
+            partnamelist.addAll(myDbHelper.getPartnamesByApp(appn));
 
-        //List<String> partnamelist = new ArrayList<String>();
-        ArrayList<String> partnamelist=myDbHelper.getPartnames();
+
        if(partnamelist==null){
            ServerJson serverJson=new ServerJson(getBaseContext(), partnamelist);
           serverJson.getPartnames();
+
        }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, partnamelist);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -301,7 +308,12 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
-
+        SharedPreferences preferences=getSharedPreferences("appnameselection",MODE_MULTI_PROCESS);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putInt("appnameselection",position);
+        editor.putString("appname",spinner.getSelectedItem().toString());
+        editor.apply();
+        Log.e("appname",spinner.getSelectedItem().toString());
         // Showing selected spinner item
         //model_name=item;
 

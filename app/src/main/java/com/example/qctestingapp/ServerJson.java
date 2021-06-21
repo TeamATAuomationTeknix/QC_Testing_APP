@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
@@ -23,6 +25,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.qctestingapp.Fragments.PieChart;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -81,8 +84,9 @@ public class ServerJson {
         this.partnames = partnames;
     }
 
-    //********************get answers**********************
-    public ArrayList<Questions_main> getAnswers(String qr, RecyclerView recyclerViewQCheck) {
+    //********************todo get answers**********************
+    public ArrayList<Questions_main> getAnswers(String qr, RecyclerView recyclerViewQCheck,QCheck qCheck) {
+
         final ProgressDialog dialog=new ProgressDialog(context);
         ArrayList<Questions_main> qqlist=new ArrayList<Questions_main>();
         partname=partname.replace(" ","%20");
@@ -97,15 +101,18 @@ public class ServerJson {
         StringRequest stringRequest=new StringRequest(Request.Method.GET,
                 Main_page.IP_ADDRESS+"/GetAnswers.php/?partname="+partname+"&qr="+qr,
                 new Response.Listener<String>() {
+                    String user="";
                     @Override
                     public void onResponse(String response) {
-
                         try {
 
                             JSONArray jsonArray=new JSONArray(response);
+
                             // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varcha
                             for(int i=0;i<jsonArray.length();i++){
+
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                //user=jsonObject.getString("operator");
                                 Questions_main q= new Questions_main(jsonObject.getInt("id"),jsonObject.getString("question"),jsonObject.getString("answer"),
                                         "NOHIGHLIGHT",qr);
                                 Log.e("answer from server",q.toString());
@@ -116,11 +123,12 @@ public class ServerJson {
                             e.printStackTrace();
                         }
                         if(qqlist.size()>0) {
-                            MyDbHelper myDbHelper = new MyDbHelper(dialog.getContext(), MyDbHelper.DB_NAME, null, 1);
-                            myDbHelper.insert_data(qqlist, ServerJson.this.getPartname(), qr, "sukrut");
 
-                            QCheckAdapter qCheckAdapter = new QCheckAdapter(dialog.getContext(), qqlist);
-                            recyclerViewQCheck.setAdapter(qCheckAdapter);
+                            MyDbHelper myDbHelper = new MyDbHelper(dialog.getContext(), MyDbHelper.DB_NAME, null, 1);
+                            myDbHelper.insert_data(qqlist, ServerJson.this.getPartname().replace("%20"," "), qr, "user");
+                           qCheck.addFragments(qqlist);
+//                            QCheckAdapter qCheckAdapter = new QCheckAdapter(dialog.getContext(), qqlist);
+//                            recyclerViewQCheck.setAdapter(qCheckAdapter);
                         }
                         dialog.hide();
                     }
@@ -131,25 +139,14 @@ public class ServerJson {
                         dialog.hide();
                         Log.e("temp saving error:",error.toString());
                     }
-                }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String,String>();
+                });
+         MySingleton.getInstance(context).addToRequestQue(stringRequest);
 
-                params.put("partname",partname);
-                params.put("qr",qr);
-                return params;
-            }
-
-        };
-        // MySingleton.getInstance(MainActivity.this).addToRequestQue(stringRequest);
-
-        requestQueue.add(stringRequest);
+        //requestQueue.add(stringRequest);
         return qqlist;
     }
 
-    //*********************************access questions**************************************
+    //*********************************todo access questions**************************************
     public void volleyRequest(){
         partname=partname.replace(" ","%20");
         p=new ProgressDialog(context);
@@ -285,7 +282,7 @@ public class ServerJson {
     }
 
 
-    //****************************************Submit answers*********************************
+    //****************************************todo Submit answers*********************************
     public void submitAnswer(ArrayList<Questions_main> answerList, String partname, String partTime, String fullTime, String qr_res,String user){
         builder=new AlertDialog.Builder(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,

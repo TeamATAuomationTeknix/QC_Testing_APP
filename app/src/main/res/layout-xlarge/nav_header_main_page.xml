@@ -12,42 +12,47 @@
     android:orientation="vertical"
     android:gravity="bottom">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="3dp"
-        android:layout_weight="5"
-        android:adjustViewBounds="true"
-        android:background="@color/white"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/at_logo" />
-
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/white"/>
-
-    <TextView
+        android:layout_height="1dp"
+        android:background="@color/WHITE"></View>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Automation Teknix"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="25dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:contentDescription="@string/nav_header_desc"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:paddingBottom="8dp"
+            app:srcCompat="@drawable/at_logo" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="Automation Teknix"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/WHITE"></View>
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="60dp"
+
         android:gravity="center"
         android:fontFamily="sans-serif"
         android:text="\@pplying Innovative Intelligence"
