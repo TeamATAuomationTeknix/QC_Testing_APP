@@ -126,15 +126,20 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         ArrayList<String> appNames=new ArrayList<>();
         MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
         appNames=myDbHelper.getAppNames();
+        if(appNames.size()==0) {
+            ServerJson serverJson = new ServerJson(Questions.this);
+            serverJson.getAppName(Questions.this,appNames);
+            appNames=myDbHelper.getAppNames();
+        }
 //        appNames.add("LHS");
 //        appNames.add("RHS");
 //        appNames.add("Engine Compart");
         initparts(appNames);
     }
 
-    public void initparts(ArrayList<String> partsList){
+    public void initparts(ArrayList<String> appNames){
         parts.setOnItemSelectedListener(this);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, partsList);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, appNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         parts.setAdapter(dataAdapter);
     }
@@ -148,9 +153,10 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         editor.apply();
         Log.e("position",position+"");
         Main_page.appNameSelection=position;
+        //todo if no items remaining
         if(noRemaining) {
             MyDbHelper myDbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
-            pnames = myDbHelper.getPartnamesByApp(parts.getSelectedItem().toString());
+            pnames = myDbHelper.getPartnamesByApp(appName);
             partname = pnames.get(0);
 
         }
@@ -177,13 +183,13 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     protected void onStart() {
         super.onStart();
         Questions_main.qNo = 1;
+        //todo get appnames
         MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
         ArrayList<String> appnames=myDbHelper.getAppNames();
         if(appnames.size()==0) {
             ServerJson serverJson = new ServerJson(Questions.this);
             serverJson.getAppName(Questions.this,appnames);
             appnames=myDbHelper.getAppNames();
-
         }
         for(String appp:appnames)
             Log.e("appnames from questios",appp);
@@ -224,10 +230,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 qrScanned = "scanned";
 
             }
-//            else{
-//                noRemaining = true;
-//
-//            }
         }
         else{
             noRemaining = true;
@@ -247,10 +249,10 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 
                 if (noRemaining) {
                     MyDbHelper dbHelper = new MyDbHelper(this, MyDbHelper.DB_NAME, null, 1);
-                    pnames = dbHelper.getPartnamesByApp(parts.getSelectedItem().toString());
+                    pnames = dbHelper.getPartnamesByApp(appName);
+                    Log.e("app name is",appName);
                     if(pnames!=null) {
                         if (pnames.size() == 0) {
-
                             serverJson = new ServerJson(this, pnames);
                             serverJson.getPartName();
                             pnames = serverJson.getPartnames();
@@ -262,17 +264,19 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             }
         }
     }
+    //todo btnNext Visibility
     public void addFragment(){
-        if(partname!=null&&pnames.size()>0){
-       // if(pnames.size()>0) {
+
+        if(pnames.size()>0) //{
             devidedparts=100/pnames.size();
+
             Log.e("count",count+"");
             btnNext.setVisibility(View.VISIBLE);
             partTimeLayout.setVisibility(View.VISIBLE);
             fullTimeLayout.setVisibility(View.VISIBLE);
             timer.start();
             fullTimer.start();
-        }
+        //}
         partFragment = new PartFragment(list, partname,getModel());
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -305,7 +309,12 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 //                Pattern p = Pattern.compile("\\S{2}\\d{1}\\S{2}\\d{1}\\S{4}\\d{1}\\S{1}\\d{5}\\S{3}\\d{1}\\S{4}\\d{1}\\S{2}\\d{2}\\S{2}\\d{1}\\S{2}");
 //                if (!qr_code.equals("") && p.matcher(qr_code).matches()) {
                 String qr_code=inputQR.getText().toString();
+                    if(qr_code.equals("")){
+                        Toast.makeText(getApplicationContext(), "Please Enter QR Code...!", Toast.LENGTH_LONG).show();
 
+                        inputQRCode();
+                        return;
+                    }
 
                 if(qr_code.length()==36){
                     //parts.setEnabled(false);
@@ -390,12 +399,13 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 
 
             if(pnames.size()==0){
-                //all part questios are completed
+                //todo all part questios are completed
                 count=0;
                 qrScanned="";
                 submitted=false;
                 timer.stop();
                 fullTimer.stop();
+                noRemaining=true;
 
                 SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);
                 String user=preferences.getString("user","unknown");
@@ -500,6 +510,5 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

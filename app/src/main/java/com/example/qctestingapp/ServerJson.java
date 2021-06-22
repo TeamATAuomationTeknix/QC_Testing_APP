@@ -90,7 +90,6 @@ public class ServerJson {
         final ProgressDialog dialog=new ProgressDialog(context);
         ArrayList<Questions_main> qqlist=new ArrayList<Questions_main>();
         partname=partname.replace(" ","%20");
-
         dialog.setMessage("Please wait... Answers checking from server");
         dialog.setIndeterminate(false);
         dialog.setCancelable(false);
@@ -482,7 +481,7 @@ public class ServerJson {
         requestQueue.add(stringRequest);
     }
 //****************** Get app name****************************
-    public void getAppName(Context context, ArrayList<String> appNames){
+    public void getAppName(Questions context, ArrayList<String> appNames){
         //ArrayList<String> appNames=appnames;
         p1=new ProgressDialog(context);
         p1.setMessage("Please wait...");
@@ -494,7 +493,6 @@ public class ServerJson {
         RequestQueue requestQueue= m.getRequestQueue();
 
         JsonArrayRequest jsonObjectRequest=new JsonArrayRequest(
-
                 Request.Method.GET,
                 Main_page.IP_ADDRESS + "/GetAppName.php",
                 null,
@@ -516,6 +514,7 @@ public class ServerJson {
                         finally{
                             MyDbHelper myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
                             myDbHelper.addAppNames(appNames);
+                            context.initparts(appNames);
                             p1.dismiss();
                         }
 

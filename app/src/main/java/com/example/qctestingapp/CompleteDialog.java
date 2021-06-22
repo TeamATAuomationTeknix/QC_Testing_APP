@@ -15,13 +15,10 @@ import java.util.ArrayList;
 public class CompleteDialog extends Dialog {
     Button btnCoutinue,btnBack;
     Activity context;
-
     public CompleteDialog(@NonNull Activity context) {
-
         super(context);
         this.context=context;
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

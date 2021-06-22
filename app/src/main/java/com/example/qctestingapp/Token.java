@@ -57,6 +57,11 @@ public class Token extends AppCompatActivity {
 
     public void login() {
         String tk=token.getText().toString();
+        if(tk.equals(""))
+        {
+            Toast.makeText(this, "Please Enter Token Number", Toast.LENGTH_SHORT).show();
+            return;
+        }
         MyDbHelper myDbHelper=new MyDbHelper(Token.this,MyDbHelper.DB_NAME,null,1);
         String empname=myDbHelper.getEmployee(tk);
         if (!empname.equals("")) {
