@@ -35,6 +35,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     String tb_appName="app_names";
     String tb_employee="emp_table";
     String tb_tmp_battery="tmp_battery";
+    String tb_ip_adress="ip_adress_tbl";
     ArrayList<String> pnames;
     ArrayList<Questions_main> questionsList;
     SQLiteDatabase mydatabase;
@@ -60,6 +61,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+tb_appName+"(id Integer,app_name varchar)");
         db.execSQL("create table "+tb_employee+"(id Integer primary key autoincrement,token_no Integer, name varchar)");
         db.execSQL("create table "+tb_tmp_battery+"(id Integer primary key autoincrement,mainqr varchar, batteryqr varchar, status varchar)");
+        db.execSQL("create table "+tb_ip_adress+"(ip_address varchar)");
+        db.execSQL("insert into "+tb_ip_adress+"(ip_address) values ('192.168.0.34')");
     }
 
     @Override
@@ -430,6 +433,25 @@ public class MyDbHelper extends SQLiteOpenHelper {
               empname= cursor.getString(1);
         }
         return empname;
+    }
+
+    // TODO: 22-06-2021 change ip adress
+    public void changeIp(String ip_adress) {
+        SQLiteDatabase mydatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ip_address", ip_adress);
+        mydatabase.update(tb_ip_adress,contentValues,null,null);
+    }
+
+    // TODO: 23-06-2021 get ip adress 
+    public String getIpAdress() {
+        String ip="";
+        SQLiteDatabase mydatabase = this.getWritableDatabase();
+        Cursor cursor=mydatabase.query(tb_ip_adress,new String[]{"ip_address"},null,null,null,null,null);
+        if(cursor.moveToFirst())
+        ip=cursor.getString(0);
+        Log.e("ip: ",ip);
+        return ip;
     }
 
     public static class Parts{

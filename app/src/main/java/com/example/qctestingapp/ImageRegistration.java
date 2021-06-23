@@ -92,11 +92,11 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
     /*------------------ Server Related Declaration -------------------*/
 
    // public static final String INSERT_URL = Main_page.IP_ADDRESS + "/MasterDataInsertion.php";
-   public static final String INSERT_URL = Main_page.IP_ADDRESS + "/SetMasterImageByModel.php";
-    public static final String UPDATE_URL = Main_page.IP_ADDRESS + "/MasterDataUpdation.php";
-    public static final String DELETE_URL = Main_page.IP_ADDRESS + "/MasterDataDeletion.php";
+   public static String INSERT_URL = Main_page.IP_ADDRESS + "/SetMasterImageByModel.php";
+    public static String UPDATE_URL = Main_page.IP_ADDRESS + "/MasterDataUpdation.php";
+    public static String DELETE_URL = Main_page.IP_ADDRESS + "/MasterDataDeletion.php";
     //public static final String FETCH_URL = Main_page.IP_ADDRESS + "/MasterDataFetch.php";
-    public static final String FETCH_URL = Main_page.IP_ADDRESS + "/GetMasterImageByModel.php";
+    public static String FETCH_URL = Main_page.IP_ADDRESS + "/GetMasterImageByModel.php";
     
     public static final String KEY_ID = "id";
     public static final String KEY_PART_NAME = "prt_name";

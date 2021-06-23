@@ -70,9 +70,10 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(savedInstanceState!=null)
+            savedInstanceState=null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
-
         handler=new Handler();
         questionTimer=new Runnable() {
             @Override

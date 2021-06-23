@@ -211,14 +211,9 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
         imagePreview = (ImageView) findViewById(R.id.img_preview);
 
         //todo add pichart fragmennt
-        pieChart = new PieChart(0, 0);
+        pieChart = new PieChart(okCount, notOkCount);
         pichartLayout = findViewById(R.id.layoutPieChart);
-        if(qr.getText().toString()!="") {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.layoutPieChart, pieChart);
-            transaction.commit();
-        }
+
        // sharedPreferences = getSharedPreferences("Picture Pref", Context.MODE_PRIVATE);
 
         ///////

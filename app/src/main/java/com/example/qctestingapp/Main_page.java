@@ -47,8 +47,8 @@ import java.util.List;
 public class Main_page extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // public static final String IP_ADDRESS = "http://192.168.137.1/at/app";
-    public static final String IP_ADDRESS = "http://192.168.0.35/Test";
-    public static final String IP_ADDRESS_IMG = "http://192.168.137.1";
+    public static String IP_ADDRESS = "http://192.168.0.35/Test";
+    public static String IP_ADDRESS_IMG = "http://192.168.137.1";
     public static TextView resultTextView;
     public static ImageView imagePreview, inputImageView1;
     private Button identifyButton;
@@ -69,6 +69,10 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        // TODO: 23-06-2021 Get IP from db
+        MyDbHelper myDbHelper=new MyDbHelper(Main_page.this,MyDbHelper.DB_NAME,null,1);
+         IP_ADDRESS="http://"+myDbHelper.getIpAdress()+"/Test";
+
         SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);
         Log.e("user from main",preferences.getString("user","unknown"));
 
@@ -235,6 +239,10 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
         }
         else if (id == R.id.nav_exit) {
             this.finish();
+        }
+        else if (id == R.id.nav_change_ip) {
+           LoginDialog loginDialog=new LoginDialog(this);
+           loginDialog.show();
         }
 
 

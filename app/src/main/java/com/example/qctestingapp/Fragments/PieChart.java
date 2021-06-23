@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.qctestingapp.R;
@@ -56,6 +57,7 @@ TextView txtok,txtNotOk;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_pie_chart,container,false);
+
         txtok=view.findViewById(R.id.txtOk);
         txtNotOk=view.findViewById(R.id.txtNotOk);
         txtNotOk.setText("NOT OK="+Not_ok);
@@ -72,6 +74,7 @@ TextView txtok,txtNotOk;
                 Not_ok,
                 Color.parseColor("#FA6B3E")));
         pieChart.startAnimation();
+
         return view;
     }
 }

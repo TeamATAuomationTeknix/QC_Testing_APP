@@ -395,7 +395,7 @@ public class ServerJson {
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-// add images**************************************
+// todo get images from server**************************************
 
     public void fetchImagesFromServer(){
 

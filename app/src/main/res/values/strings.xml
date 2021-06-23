@@ -16,4 +16,5 @@
     <string name="textResult">Result In Days</string>
     <string name="batteryQR">Enter Battery QR Code >></string>
     <string name="scanBatteryTextView">"Scan QR Code For Battery : "</string>
+    <string name="change_ip">Insert IP adress</string>
 </resources>
