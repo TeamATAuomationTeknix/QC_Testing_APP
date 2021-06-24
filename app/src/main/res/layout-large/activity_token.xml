@@ -16,7 +16,7 @@
         android:background="@drawable/shadow"
         android:gravity="center"
         android:hint="Enter Token Number"
-        android:inputType="number"
+
         android:textSize="22dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"

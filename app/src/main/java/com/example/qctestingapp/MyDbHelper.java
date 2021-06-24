@@ -50,19 +50,19 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight varchar, partname varchar, qr varchar, user varchar)");
+        db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight varchar, partname varchar, qr varchar, user varchar,TimeStamp datetime)");
         // id,qid,partname,qrcode,operator,answer,partTime,TimeStamp,fullTime,qr_code
 
-        db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp varchar)");
+        db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp datetime)");
         db.execSQL("create table "+tb_part+"(id Integer primary key autoincrement,part_name varchar,app_name varchar)");
-        db.execSQL("create table "+tb_question+"(id Integer primary key,question varchar, Highlight varchar, part_name String)");
+        db.execSQL("create table "+tb_question+"(id Integer primary key,question varchar, Highlight varchar, part_name varchar, model_name varchar)");
         db.execSQL("create table "+tb_remaining_parts+"(id Integer,part_name varchar,qr_code varchar, fullTime Integer)");
         db.execSQL("create table "+tb_master+" (id integer primary key autoincrement,part_name text, model_name text, image blob)");
         db.execSQL("create table "+tb_appName+"(id Integer,app_name varchar)");
         db.execSQL("create table "+tb_employee+"(id Integer primary key autoincrement,token_no Integer, name varchar)");
         db.execSQL("create table "+tb_tmp_battery+"(id Integer primary key autoincrement,mainqr varchar, batteryqr varchar, status varchar)");
         db.execSQL("create table "+tb_ip_adress+"(ip_address varchar)");
-        db.execSQL("insert into "+tb_ip_adress+"(ip_address) values ('192.168.0.34')");
+        db.execSQL("insert into "+tb_ip_adress+"(ip_address) values ('192.168.0.33')");
     }
 
     @Override
@@ -86,11 +86,13 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 values.put("qr", qr);
                 values.put("user", user);
                 values.put("partname", partname);
+                Date date=new Date();
+                SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                values.put("timestamp",formatter.format(date));
                 // mydatabase.insert(tb_answer,null,values);
                 mydatabase.update(tb_answer, values, where, new String[]{q.getQuestion(), qr});
             }
             else{
-
                 values.put("id", q.getId());
                 values.put("question", q.getQuestion());
                 values.put("answer", q.getAnswer());
@@ -98,6 +100,9 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 values.put("qr", qr);
                 values.put("user", user);
                 values.put("partname", partname);
+                Date date=new Date();
+                SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                values.put("timestamp",formatter.format(date));
                 mydatabase.insert(tb_answer,null,values);
             }
         }
@@ -196,7 +201,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return pnames;
     }
     //********************** todo add questions
-    public void addQuestions(ArrayList<Questions_main> questions,String partname){
+    public void addQuestions(ArrayList<Questions_main> questions, String partname, String model_name){
         Log.e("MyDbHelper","size:  "+questions.size()+" "+partname);
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         ContentValues values=new ContentValues();
@@ -207,12 +212,13 @@ public class MyDbHelper extends SQLiteOpenHelper {
             String h=q.highlight;
             values.put("Highlight",h);
             values.put("part_name",partname);
+            values.put("model_name",model_name);
             mydatabase.insert(tb_question,null,values);
 
         }
         Log.e("MyDbHelper","questions added to local db");
     }
-    //get Qeestions***********************************************
+    //todo get Qeestions***********************************************
     public ArrayList<Questions_main> getQuestions(String partname){
         if(partname==null)partname="";
         Log.e("Mydbhelper","reading partnames");
@@ -250,7 +256,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put("operator",operator);
         values.put("answer",answer);
         values.put("partTime",partTime);
-        values.put("TimeStamp", String.valueOf(TimeStamp));
+
+        values.put("TimeStamp", TimeStamp);
         mydatabase.insert(tb_temp_ans,null,values);
 
 
@@ -279,7 +286,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
                     jsonObjet.put("answer", cursor.getInt(4));
                     jsonObjet.put("partTime",cursor.getString(5));
-                    SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     jsonObjet.put("currentTime",formatter.format(new Date()));
                     jsonArray.put(jsonObjet);
 

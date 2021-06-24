@@ -117,7 +117,7 @@ public class PartFragment extends Fragment {
         if(list.size()==0) {
             serverJson = new ServerJson(getContext(), list, recyclerView, partname);
             Log.e("tag", "execute volley request");
-            serverJson.volleyRequest();
+            serverJson.volleyRequest(model_name);
         }
         if(list.size()>0)
         Questions.partcount=Questions.devidedparts/list.size();

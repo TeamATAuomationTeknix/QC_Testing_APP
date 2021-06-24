@@ -47,7 +47,7 @@ import java.util.List;
 public class Main_page extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // public static final String IP_ADDRESS = "http://192.168.137.1/at/app";
-    public static String IP_ADDRESS = "http://192.168.0.35/Test";
+    public static String IP_ADDRESS = "http://192.168.0.33/Test";
     public static String IP_ADDRESS_IMG = "http://192.168.137.1";
     public static TextView resultTextView;
     public static ImageView imagePreview, inputImageView1;

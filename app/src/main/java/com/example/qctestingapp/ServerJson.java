@@ -109,7 +109,6 @@ public class ServerJson {
 
                             // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varcha
                             for(int i=0;i<jsonArray.length();i++){
-
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 //user=jsonObject.getString("operator");
                                 Questions_main q= new Questions_main(jsonObject.getInt("id"),jsonObject.getString("question"),jsonObject.getString("answer"),
@@ -146,7 +145,7 @@ public class ServerJson {
     }
 
     //*********************************todo access questions**************************************
-    public void volleyRequest(){
+    public void volleyRequest(String model_name){
         partname=partname.replace(" ","%20");
         p=new ProgressDialog(context);
         p.setMessage("Please wait... Questions are downloading");
@@ -158,12 +157,46 @@ public class ServerJson {
 
         RequestQueue requestQueue= m.getRequestQueue();
         Log.e("getting from partname: ",partname);
+        //String url=Main_page.IP_ADDRESS + "/PhpMySql.php?partname=" + partname + "&model_name=" + model_name;
+        String url=Main_page.IP_ADDRESS + "/GetQuestionsByModel.php?partname=" + partname + "&model_name=" + model_name;
         JsonArrayRequest jsonObjectRequest=new JsonArrayRequest(
 
                 Request.Method.POST,
-                Main_page.IP_ADDRESS + "/PhpMySql.php?partname="+partname,
+                url,
                 null,
-                new JSONObjectResponseListener(),
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        p.hide();
+                        Log.e("length of ressponse",response.length()+"");
+                        try {
+                            for(int i=0;i<response.length();i++) {
+                                JSONObject obj = response.getJSONObject(i);
+                                Log.e("json tag", obj.getInt("id") + " " + obj.getString("question") + " " + obj.getString("Highlight"));
+                                String highlight = obj.getString("Highlight");
+                                qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), highlight));
+                                //qlist.add(new Questions_main(obj.getString("question"), flag));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        finally {
+                            if(partname!=null) {
+                                String pn = partname.replace("%20", " ");
+                                myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
+                                if (qlist != null && pn != null)
+                                    myDbHelper.addQuestions(qlist, pn,model_name);
+                                QuestionsAdapter adapter = new QuestionsAdapter(qlist);
+                                if (recyclerView != null) {
+                                    Questions.partcount=Questions.devidedparts/qlist.size();
+                                    recyclerView.setAdapter(adapter);
+                                }
+                            }
+                        }
+
+                    }
+                },
                 new ErrorListner()
         );
 //        {
@@ -178,41 +211,6 @@ public class ServerJson {
         requestQueue.add(jsonObjectRequest);
     }
 
-
-    class JSONObjectResponseListener implements Response.Listener<JSONArray>{
-
-        @Override
-        public void onResponse(JSONArray response) {
-
-            p.hide();
-            Log.e("length of ressponse",response.length()+"");
-            try {
-                for(int i=0;i<response.length();i++) {
-                    JSONObject obj = response.getJSONObject(i);
-                    Log.e("json tag", obj.getInt("id") + " " + obj.getString("question") + " " + obj.getString("Highlight"));
-                    String highlight = obj.getString("Highlight");
-                    qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), highlight));
-                    //qlist.add(new Questions_main(obj.getString("question"), flag));
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            finally {
-                if(partname!=null) {
-                    String pn = partname.replace("%20", " ");
-                    myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
-                    if (qlist != null && pn != null)
-                        myDbHelper.addQuestions(qlist, pn);
-                    QuestionsAdapter adapter = new QuestionsAdapter(qlist);
-                    if (recyclerView != null) {
-                        Questions.partcount=Questions.devidedparts/qlist.size();
-                        recyclerView.setAdapter(adapter);
-                    }
-                }
-            }
-        }
-    }
     class ErrorListner implements Response.ErrorListener{
 
         @Override
@@ -314,8 +312,8 @@ public class ServerJson {
                         for(Questions_main q:answerList) {
                             int ans=q.getAnswer()=="OK"?1:0;
                             //( int qid, String partname, String qrcode, String operator,String answer,String partTime, Date TimeStamp)
-                            SimpleDateFormat formatter=new SimpleDateFormat("yy-MM-dd hh:mm:ss");
-                            myDbHelper.submitTempAnswers(q.getId(),partname,qr_res,"sukrut",ans,partTime,formatter.format(new Date()));
+                            SimpleDateFormat formatter=new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+                            myDbHelper.submitTempAnswers(q.getId(),partname,qr_res,user,ans,partTime,formatter.format(new Date()));
                         }
                     }
                 }){
@@ -340,7 +338,7 @@ public class ServerJson {
                         int ans=q.getAnswer()=="OK"?1:0;
                         jsonObjet.put("answer", ans);
                         jsonObjet.put("partTime",partTime);
-                        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         jsonObjet.put("currentTime",formatter.format(new Date()));
                         jsonArray.put(jsonObjet);
 

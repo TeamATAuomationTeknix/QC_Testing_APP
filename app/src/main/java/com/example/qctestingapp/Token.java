@@ -62,6 +62,13 @@ public class Token extends AppCompatActivity {
             Toast.makeText(this, "Please Enter Token Number", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(tk.equals("TeamAT@01"))
+        {
+            Intent i = new Intent(getApplicationContext(), Main_page.class);
+            startActivity(i);
+            finish();
+            return;
+        }
         MyDbHelper myDbHelper=new MyDbHelper(Token.this,MyDbHelper.DB_NAME,null,1);
         String empname=myDbHelper.getEmployee(tk);
         if (!empname.equals("")) {

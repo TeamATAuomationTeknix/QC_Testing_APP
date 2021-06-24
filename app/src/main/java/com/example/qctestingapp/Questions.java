@@ -389,7 +389,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 // Toast.makeText(Questions.this, "Records submitted successfully", Toast.LENGTH_SHORT).show();
                 Toast.makeText(Questions.this, "Ok: " + ok + " times & not ok: " + not_ok + "times", Toast.LENGTH_SHORT).show();
                 Log.e("part time",fullTimer.getText().toString());
-
                 helper.getAllAnswers();
                 timer.setBase(SystemClock.elapsedRealtime());
             }
