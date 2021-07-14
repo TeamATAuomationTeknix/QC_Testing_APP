@@ -1,5 +1,6 @@
 package com.example.qctestingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -201,6 +202,12 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null){
+//            okCount=Integer.parseInt(savedInstanceState.getString("ok"));
+//            notOkCount=Integer.parseInt(savedInstanceState.getString("not_ok"));
+//            Log.e("saved instance",okCount+" "+notOkCount);
+//            Log.e("saved inst",savedInstanceState.getString("ok")+" "+savedInstanceState.getString("not_ok"));
+        }
         setContentView(R.layout.activity_qcheck);
 
         spinner=findViewById(R.id.spinner);
@@ -211,7 +218,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
         imagePreview = (ImageView) findViewById(R.id.img_preview);
 
         //todo add pichart fragmennt
-        pieChart = new PieChart(okCount, notOkCount);
+        pieChart = new PieChart(okCount, notOkCount,true);
         pichartLayout = findViewById(R.id.layoutPieChart);
 
        // sharedPreferences = getSharedPreferences("Picture Pref", Context.MODE_PRIVATE);
@@ -227,7 +234,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
         String qrcode=qr.getText().toString();
         if(qr_res!=null) {
             if (!qr_res.equals("")) {
-                getTablleData();
+                getTablleData(true);
                 loadImages();
             }
         }
@@ -295,27 +302,28 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
         }
     }
 //TODO get data when qr code is scanned
-    private void getTablleData() {
+    private void getTablleData( boolean flag) {
         okCount=0;
         notOkCount=0;
         recyclerViewQCheck.setLayoutManager(new LinearLayoutManager(QCheck.this));
         String qr_res=qr.getText().toString();
         if(!qr_res.equals("")) {
             String partname = spinner.getSelectedItem().toString();
-           MyDbHelper myDbHelper = new MyDbHelper(QCheck.this, MyDbHelper.DB_NAME, null, 1);
+            MyDbHelper myDbHelper = new MyDbHelper(QCheck.this, MyDbHelper.DB_NAME, null, 1);
             // ArrayList<Questions_main> list = myDbHelper.getAllAnswers();
-           ArrayList<Questions_main> list = myDbHelper.getAnswersBydata(qr_res, partname);
+            ArrayList<Questions_main> list = myDbHelper.getAnswersBydata(qr_res, partname);
             if(list.size()==0&&!qr.getText().toString().equals("")){
             ServerJson serverJson = new ServerJson(QCheck.this, partnamelist);
             serverJson.setPartname(partname);
             //list=serverJson.getAnswers(qr_res);
             list= serverJson.getAnswers(qr_res, recyclerViewQCheck,this);
              }
-           addFragments(list);
+
+           addFragments(list,flag);
         }
     }
 
-    public void addFragments(ArrayList<Questions_main> list) {
+    public void addFragments(ArrayList<Questions_main> list,boolean flag) {
         if(list.size()>0&&list!=null) {
             countOkNotOk(list);
             FragmentManager fragmentManager=getSupportFragmentManager();
@@ -323,7 +331,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
             transaction.remove(pieChart);
 
             Log.e("pie chart values",okCount+" "+notOkCount);
-            pieChart=new PieChart(okCount,notOkCount);
+            pieChart=new PieChart(okCount,notOkCount,flag);
             transaction.add(R.id.layoutPieChart,pieChart);
             transaction.commit();
             adapter = new QCheckAdapter(QCheck.this, list);
@@ -331,6 +339,12 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
             recyclerViewQCheck.setAdapter(adapter);
 
         }
+    }
+    public void removeFragment(){
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        transaction.remove(pieChart);
+        transaction.commit();
     }
 
     private void initializeSpinner() {
@@ -990,7 +1004,8 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(qr.getText()!=null) {
             if (!qr.getText().equals("")) {
-                getTablleData();
+                recyclerViewQCheck.setVisibility(View.VISIBLE);
+                getTablleData(false);
                 loadImages();
             }
         }
@@ -1000,7 +1015,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
     public void onNothingSelected(AdapterView<?> parent) {
        if(qr.getText()!=null) {
             if (!qr.getText().equals("")) {
-                getTablleData();
+                getTablleData(true);
                 loadImages();
             }
         }
@@ -1008,7 +1023,6 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
 
     /*--------------------------------------------------------------*/
 public String getAppName(){
-
     return null;
 }
 public void countOkNotOk(List<Questions_main> list){
@@ -1019,4 +1033,27 @@ public void countOkNotOk(List<Questions_main> list){
             notOkCount++;
     }
 }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        okCount=savedInstanceState.getInt("ok");
+        notOkCount=savedInstanceState.getInt("not_ok");
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        transaction.remove(pieChart);
+
+        Log.e("pie chart values",okCount+" "+notOkCount);
+        pieChart=new PieChart(okCount,notOkCount,true);
+        transaction.add(R.id.layoutPieChart,pieChart);
+        transaction.commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        Log.e("saving instanse",okCount+" "+notOkCount);
+        outState.putInt("ok", okCount);
+        outState.putInt("not_ok",notOkCount);
+    }
 }

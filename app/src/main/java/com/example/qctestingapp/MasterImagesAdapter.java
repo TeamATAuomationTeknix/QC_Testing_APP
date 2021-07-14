@@ -22,12 +22,10 @@ public class MasterImagesAdapter extends RecyclerView.Adapter<MasterImagesAdapte
     ArrayList<Integer> listClipNo;
 
     public MasterImagesAdapter(Context context, ArrayList<Bitmap> listImages, ArrayList<String> listModel, ArrayList<Integer> listClipNo) {
-
         this.context = context;
         this.listImages = listImages;
         this.listModel = listModel;
         this.listClipNo = listClipNo;
-
     }
 
     @Override

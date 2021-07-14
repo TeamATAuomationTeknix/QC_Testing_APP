@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -37,7 +38,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.qctestingapp.databinding.ActivityMainPageBinding;
+//import com.example.qctestingapp.databinding.ActivityMainPageBinding;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -47,14 +48,16 @@ import java.util.List;
 public class Main_page extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    // public static final String IP_ADDRESS = "http://192.168.137.1/at/app";
-    public static String IP_ADDRESS = "http://192.168.0.33/Test";
+    public static String IP_ADDRESS = "http://192.168.0.13/Test";
     public static String IP_ADDRESS_IMG = "http://192.168.137.1";
     public static TextView resultTextView;
     public static ImageView imagePreview, inputImageView1;
     private Button identifyButton;
     private SharedPreferences sharedPreferences;
-
+    DrawerLayout drawer;
+    ActionBarDrawerToggle toggle;
     private ImageButton next;
+    NavigationView navigationView;
     // **********************2 variables added
     ArrayList<String> pnames;
     String partname="";
@@ -64,15 +67,16 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
     private BroadcastReceiver broadcastReceiver;
     public static boolean partEnabled=true;
     public static int appNameSelection=1;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+       toolbar= findViewById(R.id.toolbar);
         // TODO: 23-06-2021 Get IP from db
         MyDbHelper myDbHelper=new MyDbHelper(Main_page.this,MyDbHelper.DB_NAME,null,1);
          IP_ADDRESS="http://"+myDbHelper.getIpAdress()+"/Test";
-
+         Log.e("ip",IP_ADDRESS);
         SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);
         Log.e("user from main",preferences.getString("user","unknown"));
 
@@ -83,8 +87,14 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
         //***************** local db
         MyDbHelper dbHelper=new MyDbHelper(Main_page.this,MyDbHelper.DB_NAME,null,1);
         pnames= dbHelper.getPartnames();
+        // TODO: 13-07-2021  check remarks
+        if(dbHelper.getRemarks()!=null){
+         if(dbHelper.getRemarks().getCount()==0){
+             ServerJson serverJson=new ServerJson(Main_page.this);
+             serverJson.getRemarks();
+         }
 
-
+        }
         //**************** server db
         if(pnames.size()==0) {
             Log.e("MainPage getting pnames",pnames.size()+"");
@@ -106,13 +116,13 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
 
         next = (ImageButton) findViewById(R.id.img_btn_next);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer= (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle= new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         //drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+       navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +238,10 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
             Intent i = new Intent(Main_page.this, Battery.class);
             startActivity(i);
         }
+        else if (id == R.id.nav_current_page_report) {
+            Intent i = new Intent(Main_page.this, CurrentDataReport.class);
+            startActivity(i);
+        }
         else if (id == R.id.nav_restart) {
             Log.e("main_activity","restarting app");
 //            ServerJson serverJson=new ServerJson(getBaseContext());
@@ -238,7 +252,7 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
             startActivity(getIntent());
         }
         else if (id == R.id.nav_exit) {
-            this.finish();
+            finish();
         }
         else if (id == R.id.nav_change_ip) {
            LoginDialog loginDialog=new LoginDialog(this);

@@ -1,5 +1,6 @@
 package com.example.qctestingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -121,7 +122,8 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         update = (ImageButton) findViewById(R.id.img_btn_update);
         broom = (ImageButton) findViewById(R.id.img_btn_broom);
         remove = (ImageButton) findViewById(R.id.img_btn_remove);
-
+        // TODO: 29-06-2021 access saved instanse state
+       
 
         relativeLayout_img = (RelativeLayout) findViewById(R.id.relative_layout_img);
         initializeSpinner();
@@ -250,12 +252,33 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
             }
         });
 
-
+if(!qr.getText().equals("")){
+    fetchImages();
+}
         // Add Back Arrow to Toolbar
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
-   //todo add home icon to toolbar
+
+    // TODO: 29-06-2021 restore instanse state
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(savedInstanceState!=null){
+            bitmapImage=savedInstanceState.getParcelable("image1");
+            imagePreview.setVisibility(View.VISIBLE);
+            camera.setVisibility(View.INVISIBLE);
+            add.setVisibility(View.VISIBLE);
+            broom.setVisibility(View.VISIBLE);
+            if(bitmapImage!=null) {
+                imagePreview.setImageBitmap(bitmapImage);
+                Log.e("bitmap image",bitmapImage.toString());
+            }
+
+        }
+    }
+
+    //todo add home icon to toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -314,6 +337,8 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         editor.putString("appname",spinner.getSelectedItem().toString());
         editor.apply();
         Log.e("appname",spinner.getSelectedItem().toString());
+        if(!qr.getText().toString().equals(""))
+        fetchImages();
         // Showing selected spinner item
         //model_name=item;
 
@@ -354,6 +379,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
                             byte[] image = c1.getBlob(c1.getColumnIndex(db.IMG));
 
                             if (model_nm.equals(model)) {
+
                                 fetchImages();
                                 fetchDataFromServer();
                                 break;
@@ -770,7 +796,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-
+        String url=Main_page.IP_ADDRESS+"/GetMasterImageByModel.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, FETCH_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -979,6 +1005,9 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         alertDialog("BACK", alertMsg);
     }
 
-
-
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        bitmapImage = ((BitmapDrawable)imagePreview.getDrawable()).getBitmap();
+        outState.putParcelable("image1",bitmapImage);
+    }
 }

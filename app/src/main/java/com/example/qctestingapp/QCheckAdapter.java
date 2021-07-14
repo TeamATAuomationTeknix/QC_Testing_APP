@@ -1,5 +1,6 @@
 package com.example.qctestingapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +29,6 @@ public class QCheckAdapter extends RecyclerView.Adapter<QCheckAdapter.VhQuestion
         this.context = context;
 
     }
-
     @NonNull
     @NotNull
     @Override
@@ -68,7 +68,18 @@ public class QCheckAdapter extends RecyclerView.Adapter<QCheckAdapter.VhQuestion
             super(itemView);
             question=itemView.findViewById(R.id.qcCheckQuestion);
             btnOk=itemView.findViewById(R.id.qcCheckBtn);
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                   builder.setTitle("Remark");
+                   builder.setMessage(list.get(getAdapterPosition()).getRemark());
 
+                   AlertDialog alertDialog=builder.create();
+                   alertDialog.show();
+
+                }
+            });
         }
     }
 

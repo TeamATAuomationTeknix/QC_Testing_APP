@@ -6,11 +6,15 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -18,7 +22,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +37,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import com.example.qctestingapp.MyDbHelper;
+import com.example.qctestingapp.PartFragmentViewModel;
+import com.example.qctestingapp.QuestionViewModel;
 import com.example.qctestingapp.Questions;
 import com.example.qctestingapp.Questions_main;
 import com.example.qctestingapp.QuestionsAdapter;
@@ -40,6 +49,7 @@ import static android.content.Context.MODE_MULTI_PROCESS;
 
 
 public class PartFragment extends Fragment {
+    QuestionViewModel viewModel1;
     //changes made from ganesh r
     ArrayList<Questions_main> list;
     TextView fragmentName;
@@ -54,6 +64,8 @@ public class PartFragment extends Fragment {
     EditText qr;
     String model_name="";
     ArrayList<String> pnames;
+     PartFragmentViewModel viewModel;
+
     //    public PartFragment(ArrayList<Questions_main> list, ArrayList<String> pnames) {
 //        // Required empty public constructorthis
 //        this.list=list;
@@ -62,7 +74,10 @@ public class PartFragment extends Fragment {
 //
 //    }
     public PartFragment (ArrayList<Questions_main> list,String partname,String model){
-        this.list=list;
+       // viewModel1 = new ViewModelProvider(getActivity()).get(QuestionViewModel.class);
+
+       // viewModel = new PartFragmentViewModel();
+        this.list=list=new ArrayList<>();
         this.partname=partname;
         model_name=model;
     }
@@ -110,10 +125,14 @@ public class PartFragment extends Fragment {
         // Check local questions**********************
 
         MyDbHelper myDbHelper=new MyDbHelper(getContext(),MyDbHelper.DB_NAME,null,1);
-        list=myDbHelper.getQuestions(partname);
+        //todo get questions from local db
+
+        if(list.size()==0)
+        list=myDbHelper.getQuestions(partname,model_name);
+
         ServerJson serverJson;
 
-        //************get questions from server
+        //************todo get questions from server
         if(list.size()==0) {
             serverJson = new ServerJson(getContext(), list, recyclerView, partname);
             Log.e("tag", "execute volley request");
@@ -121,7 +140,7 @@ public class PartFragment extends Fragment {
         }
         if(list.size()>0)
         Questions.partcount=Questions.devidedparts/list.size();
-        QuestionsAdapter adapter=new QuestionsAdapter(list);
+        QuestionsAdapter adapter=new QuestionsAdapter(list,getContext());
         recyclerView.setAdapter(adapter);
         return fragment;
     }
@@ -170,4 +189,29 @@ public class PartFragment extends Fragment {
         }
     }
 
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Uri mUri = data.getData();
+//        ArrayList<Questions_main> savedList=viewModel.getList();
+//        if(savedList!=null){
+//            list=savedList;
+//        }
+    }
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        String text=item.getTitle().toString();
+        Log.e("title",text+" clicked");
+        int position=item.getOrder();
+        Log.e("order", item.getOrder()+"");
+        list.get(position).setRemark(text);
+        return super.onContextItemSelected(item);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        //viewModel.saveListState(list);
+
+    }
 }

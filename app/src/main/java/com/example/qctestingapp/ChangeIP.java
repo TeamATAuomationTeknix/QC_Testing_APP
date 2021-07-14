@@ -36,7 +36,9 @@ public class ChangeIP extends AppCompatActivity {
             if (m.find()) {
                 MyDbHelper myDbHelper=new MyDbHelper(ChangeIP.this,MyDbHelper.DB_NAME,null,1);
                 myDbHelper.changeIp(ip_adress);
+                Main_page.IP_ADDRESS="http://"+ip_adress+"/Test";
                 Toast.makeText(ChangeIP.this, "IP Address Changed Successfully...", Toast.LENGTH_SHORT).show();
+                finish();
             }
            else{
                 Toast.makeText(ChangeIP.this, "Please Enter Valid IP Address", Toast.LENGTH_SHORT).show();

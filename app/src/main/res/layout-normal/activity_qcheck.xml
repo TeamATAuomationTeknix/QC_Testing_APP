@@ -134,16 +134,11 @@
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="7">
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_qcheck"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-
                 android:orientation="horizontal" />
-
         </LinearLayout>
-
     </LinearLayout>
-
 </RelativeLayout>

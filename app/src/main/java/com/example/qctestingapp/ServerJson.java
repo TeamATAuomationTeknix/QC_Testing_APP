@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -31,12 +35,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -104,15 +112,14 @@ public class ServerJson {
                     @Override
                     public void onResponse(String response) {
                         try {
-
                             JSONArray jsonArray=new JSONArray(response);
-
-                            // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varcha
+                            // (id Integer , question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varcha,remark
                             for(int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 //user=jsonObject.getString("operator");
                                 Questions_main q= new Questions_main(jsonObject.getInt("id"),jsonObject.getString("question"),jsonObject.getString("answer"),
                                         "NOHIGHLIGHT",qr);
+                                q.setRemark(jsonObject.getString("remark"));
                                 Log.e("answer from server",q.toString());
                                 qqlist.add(q);
                             }
@@ -124,10 +131,15 @@ public class ServerJson {
 
                             MyDbHelper myDbHelper = new MyDbHelper(dialog.getContext(), MyDbHelper.DB_NAME, null, 1);
                             myDbHelper.insert_data(qqlist, ServerJson.this.getPartname().replace("%20"," "), qr, "user");
-                           qCheck.addFragments(qqlist);
+                           qCheck.addFragments(qqlist,true);
 //                            QCheckAdapter qCheckAdapter = new QCheckAdapter(dialog.getContext(), qqlist);
 //                            recyclerViewQCheck.setAdapter(qCheckAdapter);
                         }
+                        else{
+                            qCheck.removeFragment();
+                            qCheck.recyclerViewQCheck.setVisibility(View.INVISIBLE);
+                        }
+
                         dialog.hide();
                     }
                 },
@@ -172,7 +184,13 @@ public class ServerJson {
                         try {
                             for(int i=0;i<response.length();i++) {
                                 JSONObject obj = response.getJSONObject(i);
-                                Log.e("json tag", obj.getInt("id") + " " + obj.getString("question") + " " + obj.getString("Highlight"));
+                                JSONArray array=obj.getJSONArray("remarks");
+                                Log.e("json question", obj.getInt("id") + " " + obj.getString("question") );
+                                Log.e("json remarks","remarks");
+                                for(int j=0;j<array.length();j++){
+                                    JSONObject remark=array.getJSONObject(j);
+                                    Log.e("remark ",remark.toString());
+                                }
                                 String highlight = obj.getString("Highlight");
                                 qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), highlight));
                                 //qlist.add(new Questions_main(obj.getString("question"), flag));
@@ -187,7 +205,7 @@ public class ServerJson {
                                 myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
                                 if (qlist != null && pn != null)
                                     myDbHelper.addQuestions(qlist, pn,model_name);
-                                QuestionsAdapter adapter = new QuestionsAdapter(qlist);
+                                QuestionsAdapter adapter = new QuestionsAdapter(qlist,context);
                                 if (recyclerView != null) {
                                     Questions.partcount=Questions.devidedparts/qlist.size();
                                     recyclerView.setAdapter(adapter);
@@ -221,7 +239,7 @@ public class ServerJson {
         }
     }
 
-    //**************************************************get partname*************************************
+    //**************************************************todo get partname*************************************
     public void getPartName(){
 
         p1=new ProgressDialog(context);
@@ -312,8 +330,8 @@ public class ServerJson {
                         for(Questions_main q:answerList) {
                             int ans=q.getAnswer()=="OK"?1:0;
                             //( int qid, String partname, String qrcode, String operator,String answer,String partTime, Date TimeStamp)
-                            SimpleDateFormat formatter=new SimpleDateFormat("yy-MM-dd HH:mm:ss");
-                            myDbHelper.submitTempAnswers(q.getId(),partname,qr_res,user,ans,partTime,formatter.format(new Date()));
+                            SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            myDbHelper.submitTempAnswers(q.getId(),partname,qr_res,user,ans,partTime,formatter.format(new Date()),q.getRemark());
                         }
                     }
                 }){
@@ -340,6 +358,7 @@ public class ServerJson {
                         jsonObjet.put("partTime",partTime);
                         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         jsonObjet.put("currentTime",formatter.format(new Date()));
+                        jsonObjet.put("remark",q.getRemark());
                         jsonArray.put(jsonObjet);
 
                     } catch (JSONException e) {
@@ -401,8 +420,8 @@ public class ServerJson {
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ImageRegistration.FETCH_URL,
+        String url=Main_page.IP_ADDRESS + "/GetMasterImageByModel.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
@@ -410,17 +429,18 @@ public class ServerJson {
                         try {
                             MyDbHelper db = new MyDbHelper(context,MyDbHelper.DB_NAME,null,1);
                             db.deleteAllImages();
-
+                            Log.e("response for images",response);
                             JSONArray jsonArray = new JSONArray(response);
 
                             for (int i = 0; i < jsonArray.length(); i++) {
 
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-
+                                Log.e("adding image",i+"");
                                 int id = jsonObject.getInt("id");
                                 String part_name = jsonObject.getString("img_name");
                                 String image = jsonObject.getString("img");
                                 String model=jsonObject.getString("model_name");
+                                Log.e("model is",jsonObject.getString("model_name"));
                                  //db.addImage(id, model_nm, image.getBytes());
                                 //db.addImage(id, model_nm, Base64.decode(image.substring(23), Base64.DEFAULT));
                                 db.addImage( part_name,model, Base64.decode(image, Base64.DEFAULT));
@@ -592,8 +612,10 @@ public class ServerJson {
     }
     public void insertBatteryStatus(HashMap<String,String> batteryInfo){
         builder=new AlertDialog.Builder(context);
+        String url=Main_page.IP_ADDRESS+"/InsertBatteryInfo.php";
+        Log.e("battery ip",url);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,
-                Main_page.IP_ADDRESS+"/InsertBatteryInfo.php",
+                url,
 
                 new Response.Listener<String>() {
                     @Override
@@ -638,6 +660,117 @@ public class ServerJson {
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
 
+    }
+
+    // TODO: 25-06-2021 fetch all cars report
+    public void getReport(CurrentDataReport currentDataReport,RecyclerView recyclerView, Date date){
+        List<Bundle> modelList=new ArrayList<>();
+        p1=new ProgressDialog(context);
+        p1.setMessage("Please wait...");
+        p1.setIndeterminate(false);
+        p1.setCancelable(false);
+        Log.e("tag","showing progress dialog");
+        p1.show();
+        MySingleton m=MySingleton.getInstance(context);
+        RequestQueue requestQueue= m.getRequestQueue();
+        if(date.getHours()<7){
+            date=getYesterday(date);
+        }
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd 07:00:00");
+        String url=Main_page.IP_ADDRESS + "/GetModelwiseDetails.php?date="+formatter.format(date);
+        Log.e("report url",url);
+        JsonArrayRequest jsonObjectRequest=new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                    int okcount=0,nokcount=0;
+                        try {
+
+                            for(int i=0;i<response.length();i++) {
+                                Bundle bundle=new Bundle();
+                                JSONObject obj = response.getJSONObject(i);
+                                String model_name=obj.getString("model_name");
+                                String total=obj.getString("total");
+                                String ok=obj.getString("ok");
+                                okcount=okcount+Integer.parseInt(ok);
+                                String not_ok=obj.getString("notOk");
+                                nokcount=nokcount+Integer.parseInt(not_ok);
+                                bundle.putString("model_name",model_name);
+                                bundle.putString("total",total);
+                                bundle.putString("ok",ok);
+                                bundle.putString("notOk",not_ok);
+                                modelList.add(bundle);
+                                Log.e("model name", obj.getString("model_name"));
+                            }
+                        } catch (JSONException e) {
+                            Log.e("getting model details",e.toString());
+                            e.printStackTrace();
+                            p1.dismiss();
+                        }
+                        finally {
+                            currentDataReport.addPieChart(okcount,nokcount);
+                            ReportAdapter adapter=new ReportAdapter();
+                            adapter.setData(modelList);
+                            recyclerView.setAdapter(adapter);
+                            p1.dismiss();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        p1.dismiss();
+                        Toast.makeText(context, "Not connected to network", Toast.LENGTH_SHORT).show();
+                        Log.e("Json ERROR", error.toString());
+                    }
+                }
+        );
+
+        requestQueue.add(jsonObjectRequest);
+    }
+    public Date getYesterday(Date date){
+        Log.e("minus 24 hours",new Date(date.getTime()-24*60*60*1000).toString());
+        return new Date(date.getTime()-24*60*60*1000);
+    }
+
+    // TODO: 12-07-2021 get remarks from server
+    public void getRemarks(){
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, Main_page.IP_ADDRESS+"/GetRemarks.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                MyDbHelper myDbHelper=new MyDbHelper(context);
+                ArrayList<Bundle> list=new ArrayList<>();
+                JSONArray jsonArray;
+                JSONObject jsonObject;
+                try {
+                    jsonArray = new JSONArray(response);
+                    for(int i=0;i<jsonArray.length();i++){
+                        jsonObject=jsonArray.getJSONObject(i);
+                        Bundle bundle=new Bundle();
+                        bundle.putInt("question_id",jsonObject.getInt("question_id"));
+                        bundle.putString("remark",jsonObject.getString("remark"));
+                        Log.e(jsonObject.getInt("question_id")+"",jsonObject.getString("remark"));
+                        list.add(bundle);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                myDbHelper.insertRemarks(list);
+            }
+            }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show();
+                Log.e("emp name error",error.toString());
+            }
+        });
+        MySingleton singleton=MySingleton.getInstance(context);
+        singleton.addToRequestQue(stringRequest);
     }
 
 }

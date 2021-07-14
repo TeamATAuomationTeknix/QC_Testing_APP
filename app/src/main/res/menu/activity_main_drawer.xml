@@ -14,18 +14,23 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Master Images" />
 
-        <item
-            android:id="@+id/nav_current_page"
-            android:icon="@drawable/next"
-            android:title="Current Data" />
-        <item
+       <item
             android:id="@+id/nav_battery_check"
             android:icon="@drawable/ic_battery"
             android:title="Battery Status" />
         <item
+            android:id="@+id/nav_current_page"
+            android:icon="@drawable/next"
+            android:title="Current Data - Vehicle" />
+
+        <item
+            android:id="@+id/nav_current_page_report"
+            android:icon="@drawable/ic_report"
+            android:title="Current Data - Production" />
+        <item
             android:id="@+id/nav_change_ip"
             android:icon="@drawable/ic_change_ip"
-            android:title="Change IP Adress" />
+            android:title="IP Address" />
 
     </group>
 

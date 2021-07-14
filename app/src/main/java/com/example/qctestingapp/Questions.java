@@ -1,22 +1,28 @@
 package com.example.qctestingapp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,9 +39,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qctestingapp.Fragments.PartFragment;
+import com.example.qctestingapp.Fragments.SeperateImageFragment;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
 public class Questions extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -67,6 +75,8 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     Spinner parts;
     public static String appName="LHS";
     boolean submitted=true;
+    private QuestionViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +84,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             savedInstanceState=null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
+        viewModel = new ViewModelProvider(this).get(QuestionViewModel.class);
         handler=new Handler();
         questionTimer=new Runnable() {
             @Override
@@ -92,9 +103,12 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         fullTimer=findViewById(R.id.fullTimer);
         partTimeLayout=findViewById(R.id.parttimeLayout);
         fullTimeLayout=findViewById(R.id.fulltimelayout);
+
         //Getting data from ScanQR
         parts=findViewById(R.id.parts);
-
+        if(!qr.getText().toString().equals("")){
+            parts.setVisibility(View.INVISIBLE);
+        }
         qr.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -123,7 +137,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             parts.setVisibility(View.INVISIBLE);
         qr_res = getIntent().getStringExtra("qr_result");
         qr.setText(qr_res);
-
         ArrayList<String> appNames=new ArrayList<>();
         MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
         appNames=myDbHelper.getAppNames();
@@ -275,6 +288,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             btnNext.setVisibility(View.VISIBLE);
             partTimeLayout.setVisibility(View.VISIBLE);
             fullTimeLayout.setVisibility(View.VISIBLE);
+            parts.setVisibility(View.INVISIBLE);
             timer.start();
             fullTimer.start();
         //}
@@ -355,12 +369,9 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         @Override
         public void onClick(View v) {
             ServerJson serverJson=new ServerJson(Questions.this);
-            if(count<100) {
-//                count=count+partcount;
-//                progressBar.setProgress(count);
-            }
             int i=1,ok=0,not_ok=0;
             list=partFragment.getList();
+            Log.e("list size btn",list.size()+" "+list.get(0).getAnswer());
             for(Questions_main q:list){
                 if(q.getAnswer()==null) {
                     Toast.makeText(Questions.this, "Please complete check point: " + i, Toast.LENGTH_LONG).show();
@@ -378,7 +389,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 
             }
             if(i-1==list.size()&&i!=0) {
-                //one activity completed
+                // todo one activity completed
 
                 SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);
                 String user=preferences.getString("user","unknown");
@@ -422,6 +433,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
                 btnNext.setVisibility(View.INVISIBLE);
                 partTimeLayout.setVisibility(View.INVISIBLE);
                 fullTimeLayout.setVisibility(View.INVISIBLE);
+
                 qr.setText("");
                 return;
             }
@@ -434,7 +446,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
 
                 partname = pnames.get(0);
                 pnames.remove(0);
-
                 Questions_main.qNo=1;
                 fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.remove(partFragment);
@@ -463,8 +474,12 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     @Override
     protected void onPause() {
         super.onPause();
+        viewModel.count=count;
+        viewModel.devidedparts=devidedparts;
+        viewModel.partcount=partcount;
         count=0;
-
+        if(partFragment!=null)
+       viewModel.list=partFragment.getList();
         LinkedList<String> ppnames=new LinkedList<>(pnames);
         if(noRemaining){
             ppnames.addFirst(partname);
@@ -473,7 +488,6 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         fullTimer.stop();
         timer.stop();
         String qr_code=qr.getText().toString();
-
         if(ppnames.size()>0 &&active&&!qr_code.equals("")){
 //            if(partname!=firstPart)
 //                ppnames.addFirst(partname);
@@ -484,6 +498,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             MyDbHelper myDbHelper=new MyDbHelper(this,MyDbHelper.DB_NAME,null,1);
             myDbHelper.setRemainingParts(ppnames,fullTime,qr_code);
         }
+
     }
     private String getModel(){
 
@@ -503,12 +518,34 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
-
         if (item.getItemId() == R.id.home) {
            finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        count=viewModel.count;
+        devidedparts=viewModel.devidedparts;
+        partcount=viewModel.partcount;
+        list=viewModel.list;
+
+        if(resultCode== Activity.RESULT_OK){
+            Uri uri=data.getData();
+        Log.e("list size",list.size()+"");
+            partFragment.setList(list);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentTransaction=fragmentManager.beginTransaction();
+            partFragment = new PartFragment(list, partname,getModel());
+            fragmentTransaction.replace(R.id.layoutQuestions, partFragment).commit();
+            LinkedHashSet<String> linkedHashSet=new LinkedHashSet<>(pnames);
+            pnames=new ArrayList<>(linkedHashSet);
+        }
+Log.e("size",list.size()+"");
+
     }
 
 }

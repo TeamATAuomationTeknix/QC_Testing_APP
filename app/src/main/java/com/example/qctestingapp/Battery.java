@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.ParseException;
@@ -34,6 +36,8 @@ public class Battery extends AppCompatActivity {
     TextView textView;
     String status="NOT OK";
     Button homeBtn;
+    int days=0;
+    boolean restoreFlag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class Battery extends AppCompatActivity {
         battery_qr.setText(qr_res2);
         if(battery_qr!=null){
             try {
+                if(savedInstanceState==null)
                 checking();
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -109,6 +114,22 @@ public class Battery extends AppCompatActivity {
                     }
                 }
         );
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+         days=savedInstanceState.getInt("days");
+        if (days <= 45) {
+            status="\n"+days;
+            textView.setText(status);
+            textView.setBackgroundResource(R.drawable.green_circle);
+        } else {
+            status="\n"+days;
+            textView.setText(status);
+            textView.setBackgroundResource(R.drawable.red_circle);
+        }
 
     }
 
@@ -178,7 +199,7 @@ public class Battery extends AppCompatActivity {
             long pretime = prev.getTime();
             long milliseconds = today - pretime;
 
-            int days = (int) (milliseconds / (60 * 60 * 24 * 1000))%365;
+             days = (int) (milliseconds / (60 * 60 * 24 * 1000))%365;
             if (days <= 45) {
                 status="\n"+days;
                 textView.setText(status);
@@ -266,4 +287,9 @@ public class Battery extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("days",days);
+    }
 }

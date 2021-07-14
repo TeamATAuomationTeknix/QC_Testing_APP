@@ -3,21 +3,17 @@ package com.example.qctestingapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Handler;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
-
-import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +32,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     String tb_employee="emp_table";
     String tb_tmp_battery="tmp_battery";
     String tb_ip_adress="ip_adress_tbl";
+    String tb_remark="remark_tbl";
     ArrayList<String> pnames;
     ArrayList<Questions_main> questionsList;
     SQLiteDatabase mydatabase;
@@ -46,14 +43,16 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
         super(context, name, factory, version);
     }
-
+    public MyDbHelper(Context context){
+        super(context, DB_NAME, null, 1);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight varchar, partname varchar, qr varchar, user varchar,TimeStamp datetime)");
+        db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight varchar, partname varchar, qr varchar, user varchar,TimeStamp datetime,remark varchar)");
         // id,qid,partname,qrcode,operator,answer,partTime,TimeStamp,fullTime,qr_code
 
-        db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp datetime)");
+        db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp datetime,remark varchar)");
         db.execSQL("create table "+tb_part+"(id Integer primary key autoincrement,part_name varchar,app_name varchar)");
         db.execSQL("create table "+tb_question+"(id Integer primary key,question varchar, Highlight varchar, part_name varchar, model_name varchar)");
         db.execSQL("create table "+tb_remaining_parts+"(id Integer,part_name varchar,qr_code varchar, fullTime Integer)");
@@ -62,7 +61,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+tb_employee+"(id Integer primary key autoincrement,token_no Integer, name varchar)");
         db.execSQL("create table "+tb_tmp_battery+"(id Integer primary key autoincrement,mainqr varchar, batteryqr varchar, status varchar)");
         db.execSQL("create table "+tb_ip_adress+"(ip_address varchar)");
-        db.execSQL("insert into "+tb_ip_adress+"(ip_address) values ('192.168.0.33')");
+        db.execSQL("insert into "+tb_ip_adress+"(ip_address) values ('192.168.0.13')");
+        db.execSQL("create table "+tb_remark+"(id Integer primary key autoincrement,question_id Integer,remark varchar)");
     }
 
     @Override
@@ -86,6 +86,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 values.put("qr", qr);
                 values.put("user", user);
                 values.put("partname", partname);
+                values.put("remark",q.getRemark());
                 Date date=new Date();
                 SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 values.put("timestamp",formatter.format(date));
@@ -100,6 +101,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 values.put("qr", qr);
                 values.put("user", user);
                 values.put("partname", partname);
+                values.put("remark",q.getRemark());
                 Date date=new Date();
                 SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 values.put("timestamp",formatter.format(date));
@@ -136,7 +138,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         Log.e(qr_res,partname);
         questionsList=new ArrayList<>();
         SQLiteDatabase mydatabase = this.getReadableDatabase();
-        String[] resultColumns = {"id", "question", "answer","Highlight","partname","qr","user"};
+        String[] resultColumns = {"id", "question", "answer","Highlight","partname","qr","user","remark"};
         String where="qr=? and partname=?";
         Cursor cursor= mydatabase.query(tb_answer, resultColumns, where, new String[]{qr_res, partname}, null, null, null, null);
         if (cursor.moveToFirst()) {
@@ -149,6 +151,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
                 Questions_main q=new Questions_main(id,question,highlight);
                 q.setAnswer(answer);
+                q.setRemark(cursor.getString(7));
                 questionsList.add(q);
                 Log.e("from database", id + " " + question);
                 Log.e("from database", answer);
@@ -219,15 +222,15 @@ public class MyDbHelper extends SQLiteOpenHelper {
         Log.e("MyDbHelper","questions added to local db");
     }
     //todo get Qeestions***********************************************
-    public ArrayList<Questions_main> getQuestions(String partname){
+    public ArrayList<Questions_main> getQuestions(String partname, String model_name){
         if(partname==null)partname="";
         Log.e("Mydbhelper","reading partnames");
         questionsList=new ArrayList<>();
         String[] resultColumns = {"id", "question", "Highlight"};
         SQLiteDatabase mydatabase = this.getReadableDatabase();
-        String where="part_name=?";
+        String where="part_name=? and model_name=?";
 
-        Cursor cursor = mydatabase.query( tb_question, resultColumns, where, new String[]{partname}, null, null, null, null);
+        Cursor cursor = mydatabase.query( tb_question, resultColumns, where, new String[]{partname,model_name}, null, null, null, null);
         Log.e("Mydbhelper","reading questions");
         if (cursor.moveToFirst()) {
             do {
@@ -244,7 +247,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return questionsList;
     }
 
-    public void submitTempAnswers( int qid, String partname, String qrcode, String operator,int answer,String partTime, String TimeStamp) {
+    public void submitTempAnswers( int qid, String partname, String qrcode, String operator,int answer,String partTime, String TimeStamp, String remark) {
         // (id Integer ,qid Text, question text,answer Integer, Highlight Integer, partname varchar, qr varchar, user varchar)
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         ContentValues values=new ContentValues();
@@ -256,17 +259,15 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put("operator",operator);
         values.put("answer",answer);
         values.put("partTime",partTime);
-
+        values.put("remark",remark);
         values.put("TimeStamp", TimeStamp);
         mydatabase.insert(tb_temp_ans,null,values);
-
-
     }
     public  JSONArray getTempAnswers(){
         ArrayList<Questions_main> q=new ArrayList<>();
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         //id,qid,partname,qrcode,operator,answer,partTime,TimeStamp
-        String[] resultColumns = { "qid","partname","qrcode","operator","answer","partTime","TimeStamp"};
+        String[] resultColumns = { "qid","partname","qrcode","operator","answer","partTime","TimeStamp","remark"};
         Cursor cursor = mydatabase.query(tb_temp_ans,resultColumns,null,null,null,null,null);
         JSONObject jsonObjet=new JSONObject();
         JSONArray jsonArray=null;
@@ -288,6 +289,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
                     jsonObjet.put("partTime",cursor.getString(5));
                     SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     jsonObjet.put("currentTime",formatter.format(new Date()));
+                    jsonObjet.put("remark",cursor.getString(7));
                     jsonArray.put(jsonObjet);
 
                 } catch (JSONException e) {
@@ -513,5 +515,34 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.execSQL("delete from " +tb_tmp_battery);
 
         return batteryinfo;
+    }
+
+    // TODO: 12-07-2021 add remarks
+    public void insertRemarks(List<Bundle> remarkList){
+        //id Integer,question_id Integer,remark varchar
+        SQLiteDatabase mydatabase = this.getWritableDatabase();
+        for(Bundle b:remarkList) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("question_id", b.getInt("question_id"));
+            contentValues.put("remark", b.getString("remark"));
+            mydatabase.insert(tb_remark, null, contentValues);
+        }
+    }
+    public Cursor getRemarks(){
+        SQLiteDatabase db=this.getWritableDatabase();
+        Cursor cursorRemark=db.query(tb_remark,new String[]{"question_id,remark"},null,null,null,null,null);
+        return cursorRemark;
+    }
+    public ArrayList<String> getRemarksByQID(int question_id){
+        ArrayList<String> remarks=new ArrayList<>();
+        SQLiteDatabase mydatabase = this.getWritableDatabase();
+        String where="question_id=?";
+        Cursor cursor=mydatabase.query(tb_remark,new String[]{"remark"},where,new String[]{question_id+""},null,null,null);
+        if(cursor.moveToFirst()){
+            while (cursor.moveToNext()){
+                remarks.add(cursor.getString(0));
+            }
+        }
+        return remarks;
     }
 }

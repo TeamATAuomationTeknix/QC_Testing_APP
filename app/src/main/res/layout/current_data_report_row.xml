@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:layout_margin="10dp"
+   >
+<TextView
+    android:id="@+id/modelName"
+    android:layout_width="90dp"
+    android:layout_height="wrap_content"
+    android:text="Model Name"
+    android:textAlignment="center"
+    android:layout_margin="1dp"
+    android:background="@color/white"
+    android:textStyle="bold"
+    />
+    <TextView
+        android:id="@+id/totalCars"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="Total"
+        android:textAlignment="center"
+        android:layout_margin="1dp"
+        android:background="@color/white"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/report_ok"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:textAlignment="center"
+        android:layout_margin="1dp"
+        android:background="@color/white"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/report_not_ok"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="NOT OK"
+        android:textAlignment="center"
+        android:layout_margin="1dp"
+        android:background="@color/white"
+        android:textStyle="bold"/>
+</LinearLayout>

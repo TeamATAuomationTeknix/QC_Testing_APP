@@ -54,7 +54,7 @@
                 <!--Text view to display R -->
                 <TextView
                     android:id="@+id/txtOk"
-                    android:layout_width="wrap_content"
+                    android:layout_width="62dp"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
                     android:text="OK" />
@@ -76,7 +76,7 @@
                 <!--Text view to display python text -->
                 <TextView
                     android:id="@+id/txtNotOk"
-                    android:layout_width="85dp"
+                    android:layout_width="111dp"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
                     android:text="NOT OK" />

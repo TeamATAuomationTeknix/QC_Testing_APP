@@ -9,6 +9,7 @@ public class Questions_main {
     String answer;
     String highlight="NOHIGHLIGHT";
     String qr_code;
+    String remark="no remark";
     public static final String OK="OK";
     public static final String NOT_OK="NOT OK";
     static int qNo=1;
@@ -38,6 +39,14 @@ public class Questions_main {
                 ", isHighlighted=" + highlight +
                 ", qr_code='" + qr_code + '\'' +
                 '}';
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getQr_code() {

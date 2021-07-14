@@ -49,7 +49,7 @@ public class CompleteDialog extends Dialog {
             Intent i=new Intent(context,Main_page.class);
             Main_page.partEnabled=true;
             context.finish();
-            context.startActivity(i);
+           //context.startActivity(i);
         }
     }
 }

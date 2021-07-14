@@ -56,4 +56,5 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.android.volley:volley:1.2.0'
     implementation 'me.dm7.barcodescanner:zxing:1.9'
+    implementation 'com.github.dhaval2404:imagepicker:2.1' //camera activity
 }

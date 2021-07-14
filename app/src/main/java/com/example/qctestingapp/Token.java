@@ -13,16 +13,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Token extends AppCompatActivity {
-    EditText token;
-    Button btn;
-
+        EditText token;
+        Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token);
         setupVariables();
     }
-
     private void setupVariables() {
         token = (EditText) findViewById(R.id.token_number);
         //TODO When done/enter key on android keyboard pressed login method called
@@ -32,8 +30,10 @@ public class Token extends AppCompatActivity {
             {
                 if (event.getAction() == KeyEvent.ACTION_DOWN)
                 {
+                    Log.e("key code",keyCode+"");
                     switch (keyCode)
                     {
+
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
                             login();
@@ -71,6 +71,7 @@ public class Token extends AppCompatActivity {
         }
         MyDbHelper myDbHelper=new MyDbHelper(Token.this,MyDbHelper.DB_NAME,null,1);
         String empname=myDbHelper.getEmployee(tk);
+        Main_page.IP_ADDRESS="http://"+myDbHelper.getIpAdress()+"/Test";
         if (!empname.equals("")) {
             Log.e("emp is",empname);
             SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);

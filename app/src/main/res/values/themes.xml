@@ -14,8 +14,8 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="Theme.QCTestingApp.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
     </style>
     <style name="Theme.QCTestingApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.QCTestingApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
