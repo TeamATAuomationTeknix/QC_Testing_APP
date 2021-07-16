@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.qctestingapp">
+    package="com.example.MVMc_MA_QCR">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -33,26 +33,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QCTestingApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CurrentDataReport"></activity>
-        <activity android:name=".ChangeIP" />
-        <activity android:name=".Questions"/>
-        <activity android:name=".CustomCamera" />
-        <activity android:name=".QCheck1" />
-        <activity android:name=".QRScanner" />
-        <activity android:name=".QRScan" />
-        <activity android:name=".MasterImages" />
-        <activity android:name=".QCheck" />
-        <activity android:name=".ScanQR" />
-        <activity android:name=".CameraPreview" />
-        <activity android:name=".ImageRegistration" />
-        <activity android:name=".Token" />
+        <activity android:name="com.example.MVMc_MA_QCR.CurrentDataReport"></activity>
+        <activity android:name="com.example.MVMc_MA_QCR.ChangeIP" />
+        <activity android:name="com.example.MVMc_MA_QCR.Questions"/>
+        <activity android:name="com.example.MVMc_MA_QCR.CustomCamera" />
+        <activity android:name="com.example.MVMc_MA_QCR.QCheck1" />
+        <activity android:name="com.example.MVMc_MA_QCR.QRScanner" />
+        <activity android:name="com.example.MVMc_MA_QCR.QRScan" />
+        <activity android:name="com.example.MVMc_MA_QCR.MasterImages" />
+        <activity android:name="com.example.MVMc_MA_QCR.QCheck" />
+        <activity android:name="com.example.MVMc_MA_QCR.ScanQR" />
+        <activity android:name="com.example.MVMc_MA_QCR.CameraPreview" />
+        <activity android:name="com.example.MVMc_MA_QCR.ImageRegistration" />
+        <activity android:name="com.example.MVMc_MA_QCR.Token" />
         <activity android:name=".Battery" />
-        <activity android:name=".ScanQR1" />
+        <activity android:name="com.example.MVMc_MA_QCR.ScanQR1" />
         <activity
-            android:name=".Main_page"
+            android:name="com.example.MVMc_MA_QCR.Main_page"
             android:label="@string/title_activity_main_page"
             android:theme="@style/Theme.QCTestingApp.NoActionBar" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.MVMc_MA_QCR.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,20 +60,20 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".NetworkStateChecker">
+        <receiver android:name="com.example.MVMc_MA_QCR.NetworkStateChecker">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <service
-            android:name=".MyService"
+            android:name="com.example.MVMc_MA_QCR.MyService"
             android:enabled="true"
             android:exported="false"
             android:stopWithTask="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.qctestingapp.fileprovider"
+            android:authorities="com.example.MVMc_MA_QCR.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="android:authorities">

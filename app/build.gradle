@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.qctestingapp"
+        applicationId "com.example.MVMc_MA_QCR"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
