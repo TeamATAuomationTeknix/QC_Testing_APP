@@ -42,8 +42,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/report_recycler_view"
-        android:layout_width="350dp"
-        android:layout_height="171dp"
+        android:layout_width="340dp"
+        android:layout_height="184dp"
         android:maxHeight="300dp"
         android:minWidth="300dp"
         android:minHeight="171dp"

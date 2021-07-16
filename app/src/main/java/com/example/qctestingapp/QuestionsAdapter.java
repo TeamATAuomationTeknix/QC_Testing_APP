@@ -118,6 +118,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
                     @Override
                     public void onClick(View v) {
                         Log.e("tag","ok button clicked");
+
+                        Questions.notOkPosition=getAdapterPosition();
                         // TODO: 14-07-2021 set default remark
                         int qid=questionsList.get(getAdapterPosition()).getId();
 
@@ -136,40 +138,37 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.VHQu
                             Questions.progressBar.setProgress((int) Questions.count);
                         }
                         partFragmentViewModel.saveListState(questionsList);
-//                        ImagePicker.with((Activity) context)
-//                                .crop()
-//                                .cropSquare()
-//                                .crop()
-//                                .start();
+                        ImagePicker.with((Activity) context).maxResultSize(512,512)
+                                .start(103);
                     }
                 });
 
                 // TODO: 01-07-2021 register not ok btn for context menu
-                btnNotOk.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-                    @Override
-                    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
-                        questionsList.get(getAdapterPosition()).setAnswer(Questions_main.NOT_OK);
-                        Log.e("tag",questionsList.get(getAdapterPosition()).getAnswer());
-
-                        btnNotOk.setBackgroundColor(v.getResources().getColor(R.color.color_not_ok));
-                        btnOk.setBackgroundColor(v.getResources().getColor(R.color.white));
-                        if(increase){
-                            increase=false;
-                            Questions.count=Questions.count+Questions.partcount;
-                            Questions.progressBar.setProgress((int) Questions.count);
-                        }
-                        int id=questionsList.get(getAdapterPosition()).getId();
-                        MyDbHelper myDbHelper=new MyDbHelper(context);
-                        ArrayList<String> list=  myDbHelper.getRemarksByQID(id);
-                        if(list!=null){
-                            for(String s:list){
-                                menu.add(0,id,getAdapterPosition(),s);
-                            }
-                        }
-                       // menu.add(0, id+2, 0, "Another problem");
-                    }
-                });
+//                btnNotOk.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+//                    @Override
+//                    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//
+//                        questionsList.get(getAdapterPosition()).setAnswer(Questions_main.NOT_OK);
+//                        Log.e("tag",questionsList.get(getAdapterPosition()).getAnswer());
+//
+//                        btnNotOk.setBackgroundColor(v.getResources().getColor(R.color.color_not_ok));
+//                        btnOk.setBackgroundColor(v.getResources().getColor(R.color.white));
+//                        if(increase){
+//                            increase=false;
+//                            Questions.count=Questions.count+Questions.partcount;
+//                            Questions.progressBar.setProgress((int) Questions.count);
+//                        }
+//                        int id=questionsList.get(getAdapterPosition()).getId();
+//                        MyDbHelper myDbHelper=new MyDbHelper(context);
+//                        ArrayList<String> list=  myDbHelper.getRemarksByQID(id);
+//                        if(list!=null){
+//                            for(String s:list){
+//                                menu.add(0,id,getAdapterPosition(),s);
+//                            }
+//                        }
+//                       // menu.add(0, id+2, 0, "Another problem");
+//                    }
+//                });
         }
 
 

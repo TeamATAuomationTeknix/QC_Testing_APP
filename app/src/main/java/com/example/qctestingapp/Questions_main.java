@@ -13,6 +13,7 @@ public class Questions_main {
     public static final String OK="OK";
     public static final String NOT_OK="NOT OK";
     static int qNo=1;
+    byte[] remarkImage;
 
     public Questions_main(int id,String question, String highlight) {
         this.id=id;
@@ -39,6 +40,14 @@ public class Questions_main {
                 ", isHighlighted=" + highlight +
                 ", qr_code='" + qr_code + '\'' +
                 '}';
+    }
+
+    public byte[] getRemarkImage() {
+        return remarkImage;
+    }
+
+    public void setRemarkImage(byte[] remarkImage) {
+        this.remarkImage = remarkImage;
     }
 
     public String getRemark() {

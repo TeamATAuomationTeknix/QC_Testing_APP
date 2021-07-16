@@ -77,7 +77,8 @@ public class PartFragment extends Fragment {
        // viewModel1 = new ViewModelProvider(getActivity()).get(QuestionViewModel.class);
 
        // viewModel = new PartFragmentViewModel();
-        this.list=list=new ArrayList<>();
+
+        this.list=list;
         this.partname=partname;
         model_name=model;
     }

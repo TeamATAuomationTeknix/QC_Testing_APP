@@ -72,6 +72,7 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        partEnabled=true;
        toolbar= findViewById(R.id.toolbar);
         // TODO: 23-06-2021 Get IP from db
         MyDbHelper myDbHelper=new MyDbHelper(Main_page.this,MyDbHelper.DB_NAME,null,1);

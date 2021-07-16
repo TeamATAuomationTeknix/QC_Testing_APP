@@ -49,10 +49,10 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight varchar, partname varchar, qr varchar, user varchar,TimeStamp datetime,remark varchar)");
+        db.execSQL("create table "+tb_answer+" (id Integer , question text,answer Integer, Highlight varchar, partname varchar, qr varchar, user varchar,TimeStamp datetime,remark varchar,remarkImage blob)");
         // id,qid,partname,qrcode,operator,answer,partTime,TimeStamp,fullTime,qr_code
 
-        db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp datetime,remark varchar)");
+        db.execSQL("create table "+tb_temp_ans+"(id Integer ,qid Integer, partname text,qrcode Text, operator Text, answer varchar, partTime varchar, TimeStamp datetime,remark varchar,remarkImage blob)");
         db.execSQL("create table "+tb_part+"(id Integer primary key autoincrement,part_name varchar,app_name varchar)");
         db.execSQL("create table "+tb_question+"(id Integer primary key,question varchar, Highlight varchar, part_name varchar, model_name varchar)");
         db.execSQL("create table "+tb_remaining_parts+"(id Integer,part_name varchar,qr_code varchar, fullTime Integer)");
@@ -87,6 +87,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 values.put("user", user);
                 values.put("partname", partname);
                 values.put("remark",q.getRemark());
+                if(q.getAnswer().equals(Questions_main.NOT_OK) && q.getRemarkImage()!=null)
+                values.put("remarkImage",q.getRemarkImage());
                 Date date=new Date();
                 SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 values.put("timestamp",formatter.format(date));
@@ -105,6 +107,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 Date date=new Date();
                 SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 values.put("timestamp",formatter.format(date));
+                if(q.getAnswer().equals(Questions_main.NOT_OK) && q.getRemarkImage()!=null)
+                    values.put("remarkImage",q.getRemarkImage());
                 mydatabase.insert(tb_answer,null,values);
             }
         }
@@ -138,7 +142,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         Log.e(qr_res,partname);
         questionsList=new ArrayList<>();
         SQLiteDatabase mydatabase = this.getReadableDatabase();
-        String[] resultColumns = {"id", "question", "answer","Highlight","partname","qr","user","remark"};
+        String[] resultColumns = {"id", "question", "answer","Highlight","partname","qr","user","remark","remarkImage"};
         String where="qr=? and partname=?";
         Cursor cursor= mydatabase.query(tb_answer, resultColumns, where, new String[]{qr_res, partname}, null, null, null, null);
         if (cursor.moveToFirst()) {
@@ -152,6 +156,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 Questions_main q=new Questions_main(id,question,highlight);
                 q.setAnswer(answer);
                 q.setRemark(cursor.getString(7));
+                q.setRemarkImage(cursor.getBlob(8));
                 questionsList.add(q);
                 Log.e("from database", id + " " + question);
                 Log.e("from database", answer);

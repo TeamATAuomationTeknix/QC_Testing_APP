@@ -2,11 +2,14 @@ package com.example.qctestingapp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -71,17 +74,33 @@ public class QCheckAdapter extends RecyclerView.Adapter<QCheckAdapter.VhQuestion
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   AlertDialog.Builder builder=new AlertDialog.Builder(context);
-                   builder.setTitle("Remark");
-                   builder.setMessage(list.get(getAdapterPosition()).getRemark());
+                    int position=getAdapterPosition();
+                    // TODO: 15-07-2021 show remark
+//                   AlertDialog.Builder builder=new AlertDialog.Builder(context);
+//                   builder.setTitle("Remark");
+//                   builder.setMessage(list.get(getAdapterPosition()).getRemark());
+//                   AlertDialog alertDialog=builder.create();
+//                   alertDialog.show();
+                if(list.get(position).getAnswer().equals(Questions_main.NOT_OK)&& list.get(position).getRemarkImage()!=null){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                    builder.setTitle("Image For Referance");
 
-                   AlertDialog alertDialog=builder.create();
-                   alertDialog.show();
-
+                    byte[] arr=list.get(position).getRemarkImage();
+                    ImageView imageView=new ImageView(context);
+                    imageView.setImageBitmap(byteArrayToBitmap(arr));
+                   imageView.setPadding(0,15,0,20);
+                    builder.setView(imageView);
+                    AlertDialog alertDialog=builder.create();
+                    alertDialog.show();
+                }
                 }
             });
         }
-    }
 
+    }
+    private static Bitmap byteArrayToBitmap(byte[] byteimg){
+        Bitmap bitmap = BitmapFactory.decodeByteArray(byteimg, 0, byteimg.length);
+        return bitmap;
+    }
 
 }

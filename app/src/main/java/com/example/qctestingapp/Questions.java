@@ -41,6 +41,11 @@ import android.widget.Toast;
 import com.example.qctestingapp.Fragments.PartFragment;
 import com.example.qctestingapp.Fragments.SeperateImageFragment;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -76,7 +81,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
     public static String appName="LHS";
     boolean submitted=true;
     private QuestionViewModel viewModel;
-
+    static int notOkPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -445,6 +450,7 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
             if(pnames.size()>0) {
 
                 partname = pnames.get(0);
+                viewModel.partname=partname;
                 pnames.remove(0);
                 Questions_main.qNo=1;
                 fragmentTransaction=fragmentManager.beginTransaction();
@@ -477,9 +483,11 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         viewModel.count=count;
         viewModel.devidedparts=devidedparts;
         viewModel.partcount=partcount;
+        viewModel.pnames=pnames;
+        viewModel.partname=partname;
         count=0;
         if(partFragment!=null)
-       viewModel.list=partFragment.getList();
+        viewModel.list=partFragment.getList();
         LinkedList<String> ppnames=new LinkedList<>(pnames);
         if(noRemaining){
             ppnames.addFirst(partname);
@@ -532,20 +540,46 @@ public class Questions extends AppCompatActivity implements AdapterView.OnItemSe
         devidedparts=viewModel.devidedparts;
         partcount=viewModel.partcount;
         list=viewModel.list;
+        pnames=viewModel.pnames;
+        if(requestCode==103){
+            Uri uri=data.getData();
+            InputStream iStream = null;
+            try {
+                iStream = getContentResolver().openInputStream(uri);
+                byte[] inputData = getBytes(iStream);
+                list.get(notOkPosition).setRemarkImage(inputData);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            partFragment.setList(list);
 
+        }
         if(resultCode== Activity.RESULT_OK){
             Uri uri=data.getData();
         Log.e("list size",list.size()+"");
+        partname=viewModel.partname;
             partFragment.setList(list);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentTransaction=fragmentManager.beginTransaction();
-            partFragment = new PartFragment(list, partname,getModel());
+            partFragment = new PartFragment(list,partname ,getModel());
             fragmentTransaction.replace(R.id.layoutQuestions, partFragment).commit();
             LinkedHashSet<String> linkedHashSet=new LinkedHashSet<>(pnames);
             pnames=new ArrayList<>(linkedHashSet);
         }
-Log.e("size",list.size()+"");
+            Log.e("size",list.size()+"");
 
     }
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
 
 }
