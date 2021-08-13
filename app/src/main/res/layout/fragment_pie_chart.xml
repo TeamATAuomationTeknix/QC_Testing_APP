@@ -26,36 +26,37 @@
 
         <org.eazegraph.lib.charts.PieChart
             android:id="@+id/piechart"
-            android:layout_width="169dp"
-            android:layout_height="123dp"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
             android:layout_marginStart="0dp"
-
+            android:layout_gravity="center"
             />
 
         <!--Creating another linear layout -->
         <!-- to display pie chart details -->
         <LinearLayout
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center_vertical"
+            android:layout_height="46dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="16dp">
+                android:layout_height="35dp">
 
                 <!--View to display the yellow color icon-->
                 <View
                     android:layout_width="15dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="2dp"
                     android:background="@color/color_ok" />
 
                 <!--Text view to display R -->
                 <TextView
                     android:id="@+id/txtOk"
                     android:layout_width="wrap_content"
-                    android:layout_height="15dp"
+                    android:layout_height="match_parent"
                     android:paddingLeft="10dp"
                     android:text="OK" />
 
@@ -64,19 +65,20 @@
             <!--Linear layout to display Python-->
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="16dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="5dp">
 
                 <!--View to display the green color icon-->
                 <View
                     android:layout_width="15dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="2dp"
                     android:background="@color/color_not_ok" />
 
                 <!--Text view to display python text -->
                 <TextView
                     android:id="@+id/txtNotOk"
-                    android:layout_width="111dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
                     android:text="NOT OK" />

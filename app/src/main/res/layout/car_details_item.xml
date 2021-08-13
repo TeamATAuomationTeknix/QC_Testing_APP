@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/carDetailItem"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:padding="3dp"
+    android:elevation="10dp"
+    android:translationZ="20dp"
+    >
+    <TextView
+        android:id="@+id/vinPosition"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        android:background="@drawable/shadow"
+        android:paddingRight="5dp"
+        android:textAlignment="center"
+        android:paddingTop="15dp"
+        />
+    <TextView
+        android:id="@+id/txtVin"
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
+        android:text="Car Vin"
+        android:textSize="20sp"
+        android:background="@drawable/shadow"
+       />
+</LinearLayout>
