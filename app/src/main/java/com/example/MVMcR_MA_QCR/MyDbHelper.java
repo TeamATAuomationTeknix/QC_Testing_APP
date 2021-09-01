@@ -40,12 +40,14 @@ public class MyDbHelper extends SQLiteOpenHelper {
     String tb_ip_adress="ip_adress_tbl";
     String tb_remark="remark_tbl";
     String tb_backpress="backpress_tbl";
+    String tb_report_tbl="data_report_tbl";
     ArrayList<String> pnames;
     ArrayList<Questions_main> questionsList;
     SQLiteDatabase mydatabase;
     Context context;
     CommonMethods methods;
     public static final String DB_NAME="my_database";
+
 
     public MyDbHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -75,6 +77,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+tb_remark+"(id Integer primary key autoincrement,question_id Integer,remark varchar)");
         db.execSQL("create table "+tb_backpress+"(id int,answer varchar,qr varchar,partname varchar," +
                 "remark varchar)");
+        db.execSQL("create table "+tb_report_tbl+"(id Integer primary key autoincrement,qr_code varchar,timestamp datetime,vehiclePlatform varchar,answer varchar)");
     }
 
     @Override
@@ -82,49 +85,35 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     }
 
+    // TODO: 01-09-2021  submit answer
     public void insert_data( ArrayList<Questions_main> questions,String partname,String qr,String user){
         mydatabase=this.getWritableDatabase();
+        String ans="OK";
         ContentValues values=new ContentValues();
+        Date date=new Date();
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for(Questions_main q:questions) {
-            Cursor cursor = mydatabase.query(tb_answer, new String[]{"question", "qr"}, "question=? and qr=?", new String[]{q.getQuestion(), qr}, null, null, null);
-            if(cursor.moveToFirst()) {
-                String where = "question=? and qr=?";
+            if(q.getAnswer().equals("NOK"))
+                ans="NOK";
                 values.put("id", q.getId());
                 values.put("question", q.getQuestion());
                 values.put("answer", q.getAnswer());
-                values.put("Highlight", q.isHighlighted());
+                values.put("Highlight", q.getHighlight());
                 values.put("qr", qr);
                 values.put("user", user);
                 values.put("partname", partname);
                 values.put("remark",q.getRemark());
                 values.put("nokImage",q.getNokImage());
-                Date date=new Date();
-                SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                values.put("timestamp",formatter.format(date));
-                values.put("vehiclePlatform",methods.getPlatform(qr));
-                // mydatabase.insert(tb_answer,null,values);
-                mydatabase.update(tb_answer, values, where, new String[]{q.getQuestion(), qr});
-            }
-            else{
-                values.put("id", q.getId());
-                values.put("question", q.getQuestion());
-                values.put("answer", q.getAnswer());
-                values.put("Highlight", q.isHighlighted());
-                values.put("qr", qr);
-                values.put("user", user);
-                values.put("partname", partname);
-                values.put("remark",q.getRemark());
-                values.put("nokImage",q.getNokImage());
-                Date date=new Date();
-                SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                values.put("timestamp",formatter.format(date));
+                values.put("timestamp",formatter.format(q.getSubmissionTime()));
                 values.put("vehiclePlatform",methods.getPlatform(qr));
                 mydatabase.insert(tb_answer,null,values);
-            }
 
         }
-        if(questions.size()>0)
-        Toast.makeText(context, "Records Submitted", Toast.LENGTH_SHORT).show();
+        if(questions.size()>0) {
+            Questions_main q=questions.get(0);
+            addReportData(qr,formatter.format(q.getSubmissionTime()),methods.getPlatform(qr),ans);
+            Toast.makeText(context, "Records Submitted", Toast.LENGTH_SHORT).show();
+        }
     }
     //todo get all answers******************************
     public ArrayList<Questions_main> getAllAnswers() {
@@ -133,7 +122,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         String[] resultColumns = {"id", "question", "answer","Highlight","partname","qr","user"};
         SQLiteDatabase mydatabase = this.getReadableDatabase();
         Cursor cursor = mydatabase.query(false, tb_answer, resultColumns, null, null, null, null, null, null);
-
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(0);
@@ -154,9 +142,16 @@ public class MyDbHelper extends SQLiteOpenHelper {
         Log.e(qr_res,partname);
         questionsList=new ArrayList<>();
         SQLiteDatabase mydatabase = this.getReadableDatabase();
+        String query="select max(TimeStamp) as d from "+tb_answer+" where qr='"+qr_res+"'";
+        Log.e("questy",query);
+        Cursor c=mydatabase.rawQuery(query,null);
+        String date="";
+        if(c.moveToFirst())
+            date=c.getString(0);
+        Log.e("date",date);
         String[] resultColumns = {"id", "question", "answer","Highlight","partname","qr","user","remark","nokImage"};
-        String where="qr=? and partname=?";
-        Cursor cursor= mydatabase.query(tb_answer, resultColumns, where, new String[]{qr_res, partname}, null, null, null, null);
+        String where="qr=? and partname=? and TimeStamp=?";
+        Cursor cursor= mydatabase.query(tb_answer, resultColumns, where, new String[]{qr_res, partname,date}, null, null, null, null);
         if (cursor.moveToFirst()) {
             Log.e("tag","update operation");
             do {
@@ -237,8 +232,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return pnames;
     }
     //********************** todo add questions
-    public void addQuestions(ArrayList<Questions_main> questions, String partname, String platform, String varient){
-        Log.e("MyDbHelper","size:  "+questions.size()+" "+partname);
+    public void addQuestions(ArrayList<Questions_main> questions){
+        Log.e("MyDbHelper","size:  "+questions.size());
         SQLiteDatabase mydatabase=this.getWritableDatabase();
         ContentValues values=new ContentValues();
         for(Questions_main q:questions) {
@@ -247,9 +242,9 @@ public class MyDbHelper extends SQLiteOpenHelper {
             values.put("question",q.getQuestion());
             String h=q.highlight;
             values.put("Highlight",h);
-            values.put("part_name",partname);
-            values.put("platform",platform);
-            values.put("varient",varient);
+            values.put("part_name",q.getPartname());
+            values.put("platform",q.getPlatform());
+            values.put("varient",q.getVarient());
             mydatabase.insert(tb_question,null,values);
         }
         Log.e("MyDbHelper","questions added to local db");
@@ -505,10 +500,18 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public ArrayList<Questions_main> getPreviousAnswers(String qr_code) {
         ArrayList<Questions_main> list=new ArrayList<>();
         SQLiteDatabase db=this.getReadableDatabase();
+        String query="select max(TimeStamp) as d from "+tb_answer+" where qr='"+qr_code+"'";
+        Log.e("questy",query);
+        Cursor c=db.rawQuery(query,null);
+        String date="";
+        if(c.moveToFirst())
+            date=c.getString(0);
+        if(date==null) date="55";
+        Log.e("date",date);
         String[] cols=new String[]{"id","question","answer","qr","user","TimeStamp","nokImage"};
-        String where="qr=?";
-        Cursor cursor=db.query(tb_answer,cols,where,new String[]{qr_code},null,null,null);
-        if(cursor.moveToFirst()){
+        String where="qr=? and TimeStamp=?";
+        Cursor cursor=db.query(tb_answer,cols,where,new String[]{qr_code,date},null,null,null);
+        if(cursor!=null&&cursor.moveToFirst()){
             do {
                 Questions_main q = new Questions_main(cursor.getInt(0), cursor.getString(1), cursor.getString(2), "NOHIGHLIGHT", cursor.getString(3));
                 q.setNokImage(cursor.getBlob(6));
@@ -523,13 +526,13 @@ public class MyDbHelper extends SQLiteOpenHelper {
         Date nextDay=methods.getNextDay(date);
         SQLiteDatabase db=this.getReadableDatabase();
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd 07:00:00");
-        Cursor platforms=db.rawQuery("select distinct vehiclePlatform from "+tb_answer,null);
+        Cursor platforms=db.rawQuery("select distinct vehiclePlatform from "+tb_report_tbl,null);
         if(platforms.moveToFirst()){
             int total=0,ok=0,nok=0;
             do{
                 String platform=platforms.getString(0);
                 Log.e("model",platform);
-                String query="select count(*) from "+tb_answer+ " where vehiclePlatform='"+platform+"' and answer='OK' and timestamp BETWEEN '"+formatter.format(date)+"' AND '" +formatter.format(nextDay)+"'";
+                String query="select count(*) from "+tb_report_tbl+ " where vehiclePlatform='"+platform+"' and answer='OK' and timestamp BETWEEN '"+formatter.format(date)+"' AND '" +formatter.format(nextDay)+"'";
                 Log.e("query",query);
                 Cursor okCursor=db.rawQuery(query,null);
                 if(okCursor.moveToFirst()) {
@@ -549,6 +552,15 @@ public class MyDbHelper extends SQLiteOpenHelper {
             }while(platforms.moveToNext());
         }
         return reportList;
+    }
+
+    // TODO: 16-08-2021 check number of questions 
+    public int getQuestionLength() {
+        int len=0;
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.query(tb_question,null,null,null,null,null,null);
+        len=cursor.getCount();
+        return len;
     }
 
     public static class Parts{
@@ -706,11 +718,22 @@ public class MyDbHelper extends SQLiteOpenHelper {
             do{
                PartInfo partInfo=new PartInfo(cursor.getInt(0),cursor.getString(3),cursor.getString(1));
                partInfo.setConcern(cursor.getString(4));
-
                list.add(partInfo);
             }while(cursor.moveToNext());
         }
         db.delete(tb_backpress,null,null);
         return list;
+    }
+
+    public void addReportData(String qr_code,String timestamp,String vehiclePlatform,String answer){
+        //qr_code ,timestamp ,vehiclePlatform ,answer
+        mydatabase=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put("qr_code",qr_code);
+        //values.put("prt_time",prt_time);
+        values.put("timestamp",timestamp);
+        values.put("vehiclePlatform",vehiclePlatform);
+        values.put("answer",answer);
+        mydatabase.insert(tb_report_tbl,null,values);
     }
 }

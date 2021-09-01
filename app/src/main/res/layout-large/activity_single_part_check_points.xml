@@ -65,10 +65,10 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <ImageView
+    <com.ortiz.touchview.TouchImageView
         android:id="@+id/partImage"
-        android:layout_width="374dp"
-        android:layout_height="247dp"
+        android:layout_width="355dp"
+        android:layout_height="214dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="15dp"
@@ -83,6 +83,7 @@
         android:id="@+id/imageDescr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLength="50"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="35dp"
         android:textStyle="italic"
@@ -95,8 +96,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCarDetails"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_width="591dp"
+        android:layout_height="179dp"
         android:layout_marginTop="25dp"
 
         android:textAlignment="center"
@@ -105,13 +106,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageDescr" />
 
+    <ProgressBar
+        android:id="@+id/progressCheckpoints"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="11dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerCarDetails" />
+
     <Button
         android:id="@+id/btnNotOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="96dp"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:background="@color/color_not_ok"
         android:text="NOT OK"
         android:textColor="@color/black"
@@ -119,15 +134,15 @@
         app:backgroundTint="@color/white"
         app:backgroundTintMode="multiply"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerCarDetails" />
+        app:layout_constraintTop_toBottomOf="@+id/progressCheckpoints" />
 
     <Button
         android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
-        android:layout_marginTop="8dp"
 
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="100dp"
         android:background="@color/color_ok"
         android:text="OK"
@@ -136,7 +151,7 @@
         app:backgroundTint="@color/white"
         app:backgroundTintMode="multiply"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintHorizontal_bias="0.573"
         app:layout_constraintStart_toEndOf="@+id/btnNotOk"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerCarDetails" />
+        app:layout_constraintTop_toBottomOf="@+id/progressCheckpoints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

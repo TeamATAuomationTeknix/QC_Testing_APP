@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -24,6 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.MVMcR_MA_QCR.DataClass.CommonMethods;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
@@ -43,6 +47,7 @@ public class SinglePartCheckPoints extends AppCompatActivity {
     ArrayList<String> stringList;
     public RecyclerView recyclerView;
     Chronometer timer;
+    ProgressBar progressCheckpoints;
     String imageDescription;
     int position;
     ArrayList<String> remarkList;
@@ -52,6 +57,7 @@ public class SinglePartCheckPoints extends AppCompatActivity {
         setContentView(R.layout.activity_single_part_check_points);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        progressCheckpoints=findViewById(R.id.progressCheckpoints);
         Intent intent=getIntent();
         imageDescription="";
         imageDescr=findViewById(R.id.imageDescr);
@@ -75,6 +81,7 @@ public class SinglePartCheckPoints extends AppCompatActivity {
         partname=intent.getStringExtra("partname");
         qr_code=intent.getStringExtra("qr_result");
         String[] arr=qr_code.split("_");
+        progressCheckpoints.setProgress(CheckPoints.progress.intValue());
         vin=arr[0];
         txtVin.setText("VIN: "+vin);
         txtModel.setText("Model: "+methods.getPlatform(qr_code)+" "+methods.getVarient(qr_code));
@@ -137,7 +144,8 @@ public class SinglePartCheckPoints extends AppCompatActivity {
             remarkList.addAll(remarksByQID);
         }
         if (stringList != null && stringList.size() > 0) {
-            TextViewAdapter t=new TextViewAdapter(this,stringList);
+
+            TextViewAdapter t=new TextViewAdapter(this,questionsList);
             recyclerView.setAdapter(t);
         }
         // TODO: 29-07-2021 if questions list is empty load data from server
@@ -170,19 +178,42 @@ public class SinglePartCheckPoints extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==103){
             Uri uri=data.getData();
-            InputStream iStream = null;
+
             try {
-                iStream = getContentResolver().openInputStream(uri);
-                byte[] imageBitmap = methods.getBytes(iStream);
-                Intent intent1=new Intent();
-                intent1.putExtra("result","NOK");
-                intent1.putExtra("position",position);
-                intent1.putExtra("imageBitmap",imageBitmap);
-                setResult(2,intent1);
-                finish();
+
+                Intent intent=new Intent(this, DsPhotoEditorActivity.class);
+                //set output directory name
+                intent.setData(uri);
+                //set output directory
+                //intent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_OUTPUT_DIRECTORY,"Images");
+                //set toolbar color
+                intent.putExtra(DsPhotoEditorConstants.DS_TOOL_BAR_BACKGROUND_COLOR, Color.parseColor("#004883"));
+                //set background color
+                intent.putExtra(DsPhotoEditorConstants.DS_MAIN_BACKGROUND_COLOR,Color.parseColor("#FFFFFF"));
+                //hide tools
+                intent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_TOOLS_TO_HIDE,new int[]{DsPhotoEditorActivity.TOOL_WARMTH,DsPhotoEditorActivity.TOOL_PIXELATE});
+                startActivityForResult(intent,101);
+
             } catch (Exception e){
                 e.printStackTrace();
             }
+        }
+        if(requestCode==101){
+            InputStream iStream = null;
+                try {
+                    Uri uri = data.getData();
+                    iStream = getContentResolver().openInputStream(uri);
+                    byte[] imageBitmap = methods.getBytes(iStream);
+                    Intent intent1 = new Intent();
+                    intent1.putExtra("result", "NOK");
+                    intent1.putExtra("position", position);
+                    intent1.putExtra("imageBitmap", imageBitmap);
+                    setResult(2, intent1);
+                    finish();
+                }
+                catch (Exception e){
+                    Log.e("error in edt image",e.getMessage());
+                }
         }
     }
 }

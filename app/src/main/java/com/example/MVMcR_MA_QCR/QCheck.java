@@ -182,32 +182,16 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
 
         //Toast.makeText(getApplicationContext(),"Id : "+autoIncrementId(),Toast.LENGTH_SHORT).show();
         qr = (TextView) findViewById(R.id.txt_qr);
+
+
         scanqr = (ImageButton) findViewById(R.id.btn_scan_qr);
 
 
         //todo add pichart fragmennt
         pieChart = new PieChart(okCount, notOkCount,true);
         pichartLayout = findViewById(R.id.layoutPieChart);
-
        // sharedPreferences = getSharedPreferences("Picture Pref", Context.MODE_PRIVATE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        String qr_res = getIntent().getStringExtra("qr_result");
-        qr.setText(qr_res);
-        recyclerViewQCheck=(RecyclerView)findViewById(R.id.recycler_view_qcheck);
-        recyclerViewQCheck.setHasFixedSize(true);
-        String qrcode=qr.getText().toString();
-        if(qr_res!=null) {
-            if (!qr_res.equals("")) {
-                getTablleData(true);
-
-            }
-        }
-        //recyclerViewQCheck.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-
-        // Calling the RecyclerView
-        //isModelNameExist();
-
-        // Scan  QR Code
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,12 +219,36 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
                 return false;
             }
         });
-
         // todo get app name in center
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        String qr_res = getIntent().getStringExtra("qr_result");
+        qr.setText(qr_res);
+        if(qr_res!=null&&!qr_res.equals("")){
+            if(!commonMethods.checkQR(qr_res)){
+                Toast.makeText(this, "Invalid QR Code...", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        recyclerViewQCheck=(RecyclerView)findViewById(R.id.recycler_view_qcheck);
+        recyclerViewQCheck.setHasFixedSize(true);
+        String qrcode=qr.getText().toString();
+        if(qr_res!=null) {
+            if (!qr_res.equals("")) {
+                getTablleData(true);
+
+            }
+        }
+        //recyclerViewQCheck.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+
+        // Calling the RecyclerView
+        //isModelNameExist();
+
+        // Scan  QR Code
+
+
     }
 
 //TODO get data when qr code is scanned
@@ -574,7 +582,7 @@ public class QCheck extends AppCompatActivity implements AdapterView.OnItemSelec
                // Pattern p = Pattern.compile("\\S{2}\\d{1}\\S{2}\\d{1}\\S{4}\\d{1}\\S{1}\\d{5}\\S{3}\\d{1}\\S{4}\\d{1}\\S{2}\\d{2}\\S{2}\\d{1}\\S{2}");
 
                 //if(qr_code.length()==36){
-                if(true){
+                if(commonMethods.checkQR(qr_code)){
                    // qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";
                     Intent i = new Intent(QCheck.this, QCheck.class);
                     i.putExtra("qr_result", qr_code);

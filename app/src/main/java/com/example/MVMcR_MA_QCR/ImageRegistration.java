@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -46,7 +47,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
+import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.MVMcR_MA_QCR.DataClass.CommonMethods;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,6 +91,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
     //public static Bitmap decodedImage = null;
     private  int camera_id;
     private static File mediaStorageDir;
+    ServerJson myServer;
 
     /*------------------ Server Related Declaration -------------------*/
 
@@ -124,7 +129,7 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         broom = (ImageButton) findViewById(R.id.img_btn_broom);
         remove = (ImageButton) findViewById(R.id.img_btn_remove);
         // TODO: 29-06-2021 access saved instanse state
-
+        myServer=new ServerJson(this);
 
         relativeLayout_img = (RelativeLayout) findViewById(R.id.relative_layout_img);
         //initializeSpinner();
@@ -150,18 +155,6 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
         // The number of Columns
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1, LinearLayoutManager.HORIZONTAL, true);
         recyclerViewImages.setLayoutManager(layoutManager);
-
-
-        //Getting data from ScanQR
-        qr_res = getIntent().getStringExtra("qr_result");
-        qr.setText(qr_res);
-        if(qr_res!=null&&!qr_res.equals("")){
-            initializeSpinner();
-        }
-        // Check Model Exist Or Not
-        isModelNameExist();
-
-        // Scan  QR Code
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,6 +174,19 @@ public class ImageRegistration extends AppCompatActivity implements AdapterView.
             }
         });
 
+        //Getting data from ScanQR
+        qr_res = getIntent().getStringExtra("qr_result");
+
+        qr.setText(qr_res);
+        if(qr_res!=null&&!qr_res.equals("")){
+            if(!commonMethods.checkQR(qr_res)){
+                Toast.makeText(this, "Invalid QR Code...", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            initializeSpinner();
+        }
+        // Check Model Exist Or Not
+        isModelNameExist();
 
         // Open Camera
         camera.setOnClickListener(new View.OnClickListener() {
@@ -389,7 +395,8 @@ if(!qr.getText().equals("")){
                             if (model_nm.equals(model)) {
 
                                 fetchImages();
-                                fetchDataFromServer();
+                               // fetchDataFromServer();
+                                myServer.fetchImagesFromServer();
                                 break;
                             }
 
@@ -651,16 +658,13 @@ if(!qr.getText().equals("")){
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String qr_code = inputQR.getText().toString();//toUpperCase().trim().replaceAll("\\s+", "").replaceAll("\n","");
-               // Pattern p = Pattern.compile("\\S{2}\\d{1}\\S{2}\\d{1}\\S{4}\\d{1}\\S{1}\\d{5}\\S{3}\\d{1}\\S{4}\\d{1}\\S{2}\\d{2}\\S{2}\\d{1}\\S{2}");
-                //if(qr_code.length()==36){
-                if(true){
-                    //qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";
+
+                if(commonMethods.checkQR(qr_code)){
                     Intent i = new Intent(ImageRegistration.this, ImageRegistration.class);
                     i.putExtra("qr_result", qr_code);
                     startActivity(i);
                     finish();
-                    //qr.setText(qr_code);
-                    //isModelNameExist();
+
                 }else {
                     Toast.makeText(getApplicationContext(), "Invalid QR Code...!", Toast.LENGTH_LONG).show();
                     inputQRCode();
@@ -681,14 +685,9 @@ if(!qr.getText().equals("")){
         camera_id = view.getId();
 //        Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
         try {
-            System.out.println("## mmmmm");
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            System.out.println("## mmmmm1");
-            file = FileProvider.getUriForFile(ImageRegistration.this, "com.example.MVMcR_MA_QCR.fileprovider", getOutputMediaFile());
-            System.out.println("## mmmmm2");
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-            System.out.println("## mmmmm3");
-            startActivityForResult(intent, TAKE_PHOTO_CODE);
+
+            ImagePicker.with(ImageRegistration.this).maxResultSize(512,512).cameraOnly()
+                    .start(103);
         }
         catch(ActivityNotFoundException anfe){
             //display an error message
@@ -746,7 +745,8 @@ if(!qr.getText().equals("")){
                             {
 
                                 Toast.makeText(getApplicationContext(),"Operation Done Successfully...!",Toast.LENGTH_LONG).show();
-                                fetchDataFromServer();
+                                //fetchDataFromServer();
+                                myServer.fetchImagesFromServer();
                                 clearImage();
                             }
                             dialog.dismiss();
@@ -869,8 +869,24 @@ if(!qr.getText().equals("")){
         //super.onActivityResult(requestCode, resultCode, data);
 
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
+        if(requestCode == 103 && resultCode == RESULT_OK) {
+            file=data.getData();
+            Intent intent=new Intent(this, DsPhotoEditorActivity.class);
+            //set output directory name
+            intent.setData(file);
+            //set output directory
+            intent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_OUTPUT_DIRECTORY,"Images");
+            //set toolbar color
+            intent.putExtra(DsPhotoEditorConstants.DS_TOOL_BAR_BACKGROUND_COLOR, Color.parseColor("#004883"));
+            //set background color
+            intent.putExtra(DsPhotoEditorConstants.DS_MAIN_BACKGROUND_COLOR,Color.parseColor("#FFFFFF"));
+            //hide tools
+            intent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_TOOLS_TO_HIDE,new int[]{DsPhotoEditorActivity.TOOL_WARMTH,DsPhotoEditorActivity.TOOL_PIXELATE});
+            startActivityForResult(intent,101);
+        }
+        if (/*requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK*/requestCode==101) {
 
+            file=data.getData();
             Bitmap bitmapImage = null;
             try {
                 bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), file);
@@ -936,26 +952,26 @@ if(!qr.getText().equals("")){
                 System.out.println("Rotated");
             }
 
-            int x, y, width, height;
-            int center, start;
-            int rotation;
-            int w = bitmapImage.getWidth();
-            int h = bitmapImage.getHeight();
-
-            width = w;
-            height = w;
-            center = h / 2;
-            start = center - (w / 2);
-            x = 0;
-            y = start;
-
-            Bitmap cropedBitmapImage = Bitmap.createBitmap(bitmapImage, x, y, width, height);
-            //ByteArrayOutputStream out = new ByteArrayOutputStream();
-            //cropedBitmapImage.compress(Bitmap.CompressFormat.JPEG, 30, out);
-            //Bitmap decodedImage = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
-            Bitmap scaledImage = Bitmap.createScaledBitmap(cropedBitmapImage, 512, 512, true);
+//            int x, y, width, height;
+//            int center, start;
+//            int rotation;
+//            int w = bitmapImage.getWidth();
+//            int h = bitmapImage.getHeight();
+//
+//            width = w;
+//            height = w;
+//            center = h / 2;
+//            start = center - (w / 2);
+//            x = 0;
+//            y = start;
+//
+//            Bitmap cropedBitmapImage = Bitmap.createBitmap(bitmapImage, x, y, width, height);
+//            //ByteArrayOutputStream out = new ByteArrayOutputStream();
+//            //cropedBitmapImage.compress(Bitmap.CompressFormat.JPEG, 30, out);
+//            //Bitmap decodedImage = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
+//            Bitmap scaledImage = Bitmap.createScaledBitmap(cropedBitmapImage, 512, 512, true);
             imagePreview.setVisibility(View.VISIBLE);
-            imagePreview.setImageBitmap(scaledImage);
+            imagePreview.setImageBitmap(bitmapImage);
 
 
             if (camera_id == camera.getId()) {
@@ -972,7 +988,7 @@ if(!qr.getText().equals("")){
                 broom.setVisibility(View.VISIBLE);
             }
 
-            deleteFolderWithImages(mediaStorageDir);
+            //deleteFolderWithImages(mediaStorageDir);
         }
 
     }

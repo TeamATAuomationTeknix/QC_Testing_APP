@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.MVMcR_MA_QCR.DataClass.CommonMethods;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,6 +38,7 @@ public class Battery extends AppCompatActivity {
     String status="NOT OK";
     Button homeBtn;
     int days=0;
+    CommonMethods commonMethods;
     boolean restoreFlag=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class Battery extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
         textView = findViewById(R.id.txtView);
-
+        commonMethods=new CommonMethods();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyy");
         String dateTime = simpleDateFormat.format(calendar.getTime());
@@ -53,18 +56,7 @@ public class Battery extends AppCompatActivity {
         battery_qr=findViewById(R.id.battery_qr);
         scanqr = (ImageButton) findViewById(R.id.btn_scan_qr);
         scanqr1 = (ImageButton) findViewById(R.id.btn_scan_qr2);
-        qr_res = getIntent().getStringExtra("qr_result");
-        qr_res2=getIntent().getStringExtra("battery_qr");
-        qr.setText(qr_res);
-        battery_qr.setText(qr_res2);
-        if(battery_qr!=null){
-            try {
-                if(savedInstanceState==null)
-                checking();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
+
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +105,24 @@ public class Battery extends AppCompatActivity {
                     }
                 }
         );
+        qr_res = getIntent().getStringExtra("qr_result");
+        qr_res2=getIntent().getStringExtra("battery_qr");
+        if(qr_res!=null&&!qr_res.equals("")) {
+            if (!commonMethods.checkQR(qr_res)) {
+                Toast.makeText(this, "Invalid QR Code...!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        qr.setText(qr_res);
+        battery_qr.setText(qr_res2);
+        if(battery_qr!=null){
+            try {
+                if(savedInstanceState==null)
+                    checking();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -164,7 +174,7 @@ public class Battery extends AppCompatActivity {
                // Pattern p = Pattern.compile("\\S{2}\\d{1}\\S{2}\\d{1}\\S{4}\\d{1}\\S{1}\\d{5}\\S{3}\\d{1}\\S{4}\\d{1}\\S{2}\\d{2}\\S{2}\\d{1}\\S{2}");
 
                // if(qr_code.length()==36){
-                if(true){
+                if(commonMethods.checkQR(qr_code)){
                     Intent i = new Intent(Battery.this, Battery.class);
                     i.putExtra("qr_result", qr_code);
                     startActivity(i);

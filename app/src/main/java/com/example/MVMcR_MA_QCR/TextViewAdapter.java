@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class TextViewAdapter extends RecyclerView.Adapter<TextViewAdapter.TextViewHolder> {
-    ArrayList<String> list;
+    ArrayList<Questions_main> list;
     Context context;
     public TextViewAdapter(Context context,ArrayList list) {
         this.list = list;
@@ -36,7 +36,11 @@ public class TextViewAdapter extends RecyclerView.Adapter<TextViewAdapter.TextVi
     }
     @Override
     public void onBindViewHolder(@NonNull @NotNull TextViewHolder holder, int position) {
-        holder.textView.setText(position+1+". "+list.get(position));
+        holder.textView.setText(position+1+". "+list.get(position).getQuestion());
+        if(list.get(position).getHighlight().equals("INTERNAL"))
+            holder.textView.setBackgroundColor(context.getResources().getColor(R.color.BlueColor));
+        if(list.get(position).getHighlight().equals("EXTERNAL"))
+            holder.textView.setBackgroundColor(context.getResources().getColor(R.color.highlighit));
     }
     @Override
     public int getItemCount() {

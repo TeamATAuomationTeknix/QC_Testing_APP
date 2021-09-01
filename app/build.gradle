@@ -12,6 +12,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -40,6 +42,7 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1' //zoom in image view
 
     implementation 'org.jsoup:jsoup:1.11.2' //html parsing
     //implementation 'com.mcxiaoke.volley:library:1.0.19'
@@ -52,4 +55,8 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.0'
     implementation 'me.dm7.barcodescanner:zxing:1.9'
     implementation 'com.github.dhaval2404:imagepicker:2.1' //camera activity
+
+    //photo editing libraries
+    implementation(name: 'ds-photo-editor-sdk', ext:'aar')
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
 }

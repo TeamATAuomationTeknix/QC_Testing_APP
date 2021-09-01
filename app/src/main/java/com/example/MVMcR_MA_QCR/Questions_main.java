@@ -1,5 +1,7 @@
 package com.example.MVMcR_MA_QCR;
 
+import java.util.Date;
+
 public class Questions_main {
     int id;
     String question;
@@ -12,6 +14,9 @@ public class Questions_main {
     static int qNo=1;
     byte[] nokImage=new byte[]{0};
     String user;
+    Date submissionTime;
+
+    String partname="",platform="",varient="";
 
     public Questions_main(int id,String question, String highlight) {
         this.id=id;
@@ -38,6 +43,38 @@ public class Questions_main {
                 ", isHighlighted=" + highlight +
                 ", qr_code='" + qr_code + '\'' +
                 '}';
+    }
+
+    public Date getSubmissionTime() {
+        return submissionTime;
+    }
+
+    public void setSubmissionTime(Date submissionTime) {
+        this.submissionTime = submissionTime;
+    }
+
+    public String getPartname() {
+        return partname;
+    }
+
+    public void setPartname(String partname) {
+        this.partname = partname;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getVarient() {
+        return varient;
+    }
+
+    public void setVarient(String varient) {
+        this.varient = varient;
     }
 
     public String getUser() {
@@ -72,7 +109,7 @@ public class Questions_main {
         this.qr_code = qr_code;
     }
 
-    public String isHighlighted() {
+    public String getHighlight() {
         return highlight;
     }
 

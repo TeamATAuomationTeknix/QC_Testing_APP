@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteTransactionListener;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Base64;
@@ -32,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -146,7 +148,6 @@ public class ServerJson {
                             qCheck.removeFragment();
                             qCheck.recyclerViewQCheck.setVisibility(View.INVISIBLE);
                         }
-
                         dialog.hide();
                     }
                 },
@@ -199,7 +200,11 @@ public class ServerJson {
                                     Log.e("remark ",remark.toString());
                                 }
                                 String highlight = obj.getString("Highlight");
-                                qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), highlight));
+                                Questions_main question=new Questions_main(obj.getInt("id"), obj.getString("question"), highlight);
+                                question.setPartname(partname.replace("%20", " "));
+                                question.setPlatform(platform);
+                                question.setVarient(varient);
+                                qlist.add(question);
                                 //qlist.add(new Questions_main(obj.getString("question"), flag));
                             }
 
@@ -210,8 +215,10 @@ public class ServerJson {
                             if(partname!=null) {
                                 String pn = partname.replace("%20", " ");
                                 myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
-                                if (qlist != null && pn != null)
-                                    myDbHelper.addQuestions(qlist, pn,platform,varient);
+                                if (qlist != null && pn != null) {
+
+                                    myDbHelper.addQuestions(qlist);
+                                }
                                 QuestionsAdapter adapter = new QuestionsAdapter(qlist,context);
                                 if (recyclerView != null) {
                                     Questions.partcount=Questions.devidedparts/qlist.size();
@@ -236,6 +243,63 @@ public class ServerJson {
             }
         };
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public void getAllQuestions() {
+
+        String url=Main_page.IP_ADDRESS+"/GetAllQuestions.php";
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            String platform="";
+            String varient="";
+            ArrayList<Questions_main> qlist;
+            @Override
+            public void onResponse(String response) {
+                qlist=new ArrayList<>();
+                Log.e("question response",response);
+
+                Log.e("length of ressponse",response.length()+"");
+                try {
+                    JSONArray jsonArrays=new JSONArray(response);
+                    for(int i=0;i<response.length();i++) {
+                        JSONObject obj = jsonArrays.getJSONObject(i);
+                        JSONArray array=obj.getJSONArray("remarks");
+                        Log.e("json question", obj.getInt("id") + " " + obj.getString("question") );
+                        Log.e("json remarks","remarks");
+                        platform=obj.getString("platform");
+                        varient=obj.getString("varient");
+                        partname=obj.getString("partname");
+                        for(int j=0;j<array.length();j++){
+                            JSONObject remark=array.getJSONObject(j);
+                            Log.e("remark ",remark.toString());
+                        }
+                        String highlight = obj.getString("Highlight");
+                        Questions_main question=new Questions_main(obj.getInt("id"), obj.getString("question"), highlight);
+                        question.setPlatform(platform);
+                        question.setVarient(varient);
+                        question.setPartname(partname);
+                        qlist.add(question);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    if(partname!=null) {
+                        String pn = partname.replace("%20", " ");
+                        myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
+                        if (qlist != null && pn != null)
+                            myDbHelper.addQuestions(qlist);
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestQueue requestQueue=Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
     }
 
     public void getQuestions(String platform, String varient, String partname, RecyclerView recyclerView){
@@ -271,7 +335,11 @@ public class ServerJson {
                                     Log.e("remark ",remark.toString());
                                 }
                                 String highlight = obj.getString("Highlight");
-                                qlist.add(new Questions_main(obj.getInt("id"), obj.getString("question"), highlight));
+                                Questions_main question=new Questions_main(obj.getInt("id"), obj.getString("question"), highlight);
+                                question.setPartname(partname.replace("%20", " "));
+                                question.setPlatform(platform);
+                                question.setVarient(varient);
+                                qlist.add(question);
                                 //qlist.add(new Questions_main(obj.getString("question"), flag));
                             }
 
@@ -285,7 +353,7 @@ public class ServerJson {
                                 String pn = partname.replace("%20", " ");
                                 myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
                                 if (qlist != null && pn != null) {
-                                    myDbHelper.addQuestions(qlist, pn, platform, varient);
+                                    myDbHelper.addQuestions(qlist);
                                     for(Questions_main q:qlist){
                                         questionlist.add(q.getQuestion());
                                     }
@@ -407,13 +475,11 @@ public class ServerJson {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         Toast.makeText(context, "Connection problem", Toast.LENGTH_SHORT).show();
                         Log.e("submit answer",error.toString());
                         Toast.makeText(context, "Data is stored locally", Toast.LENGTH_SHORT).show();
                         myDbHelper=new MyDbHelper(context,MyDbHelper.DB_NAME,null,1 );
                         for(Questions_main q:answerList) {
-
                             int ans=q.getAnswer().equals("OK")?1:0;
                             //( int qid, String partname, String qrcode, String operator,String answer,String partTime, Date TimeStamp)
                             SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -445,11 +511,16 @@ public class ServerJson {
                         jsonObjet.put("answer", ans);
                         jsonObjet.put("partTime",partTime);
                         SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        jsonObjet.put("currentTime",formatter.format(new Date()));
+                        jsonObjet.put("currentTime",formatter.format(q.getSubmissionTime()));
                         jsonObjet.put("remark",q.getRemark());
-                        if(ans==0)
-                            jsonObjet.put("nokImage",commonMethods.bitmapToBase64(commonMethods.byteArrayToBitmap(q.getNokImage())));
-                        else
+                        if(ans==0) {
+                            byte[] bb=q.getNokImage();
+                            if(bb==null)
+                            jsonObjet.put("nokImage", 00);
+                            else
+                                jsonObjet.put("nokImage", commonMethods.byteArrayToBase64(bb));
+                        }
+                            else
                             jsonObjet.put("nokImage",0);
                         jsonObjet.put("platform",commonMethods.getPlatform(qr_res));
                         jsonArray.put(jsonObjet);
@@ -904,6 +975,7 @@ public class ServerJson {
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                MyDbHelper myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
                 ArrayList<Questions_main> list=new ArrayList<>();
                 try {
                     JSONArray jsonArray=new JSONArray(response);
@@ -916,13 +988,18 @@ public class ServerJson {
                             questions_main.setUser(jsonObject.getString("user"));
                             Log.e("tag",questions_main.toString());
                             String img=jsonObject.getString("remarkImage");
+                            String dateTime=jsonObject.getString("timestamp");
+                            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Date d= simpleDateFormat.parse(dateTime);
+                            questions_main.setSubmissionTime(d);
+
                             if(img.length()>2)
                             questions_main.setNokImage(Base64.decode(jsonObject.getString("remarkImage"), Base64.DEFAULT));
                             else
                                 questions_main.setNokImage(new byte[]{0});
                             list.add(questions_main);
                         }
-                        MyDbHelper myDbHelper = new MyDbHelper(context, MyDbHelper.DB_NAME, null, 1);
+
                         //myDbHelper.insert_data(list, ServerJson.this.getPartname().replace("%20", " "), qr,"unknown");
                         myDbHelper.insert_data(list, "na", qr,"unknown");
                         if(onResponseInterface!=null){
@@ -930,6 +1007,8 @@ public class ServerJson {
                         }
                     }
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 dialog.dismiss();

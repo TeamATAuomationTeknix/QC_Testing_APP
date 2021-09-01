@@ -84,7 +84,13 @@ public class Main_page extends AppCompatActivity implements NavigationView.OnNav
              ServerJson serverJson=new ServerJson(Main_page.this);
              serverJson.getRemarks();
          }
-
+            // TODO: 16-08-2021 check checkpoints present
+            int len=myDbHelper.getQuestionLength();
+            Log.e("all questions",len+"");
+            if(len==0){
+                ServerJson serverJson = new ServerJson(Main_page.this, pnames);
+                serverJson.getAllQuestions();
+            }
         }
         //**************** server db
         if(pnames.size()==0) {

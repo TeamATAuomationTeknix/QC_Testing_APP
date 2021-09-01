@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.MVMcR_MA_QCR.DataClass.CommonMethods;
+
 import java.util.List;
 
 public class CarDetails extends AppCompatActivity {
@@ -29,12 +31,14 @@ public class CarDetails extends AppCompatActivity {
     List<Questions_main> list;
     RecyclerView recyclerView;
     CarDetailsAdapter adapter;
+    CommonMethods commonMethods;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_details);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        commonMethods=new CommonMethods();
         recyclerView=findViewById(R.id.recyclerCars);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         qr=findViewById(R.id.txt_qr);
@@ -58,8 +62,14 @@ public class CarDetails extends AppCompatActivity {
             }
         });
         qr_res = getIntent().getStringExtra("qr_result");
+
+
         qr.setText(qr_res);
         if(qr_res!=null&&!qr_res.equals("")){
+            if(!commonMethods.checkQR(qr_res)){
+                Toast.makeText(this,"Invalid QR Code...", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Intent i = new Intent(CarDetails.this, com.example.MVMcR_MA_QCR.CheckPoints.class);
             i.putExtra("qr_result", qr_res);
             i.putExtra("qrScanned","scanned");
@@ -108,7 +118,7 @@ public class CarDetails extends AppCompatActivity {
                 }
 
                // if(qr_code.length()==37){
-                if(true){
+                if(commonMethods.checkQR(qr_code)){
                     //parts.setEnabled(false);
                     Main_page.partEnabled=false;
                     // qr_code = qr_code.substring(0, 17) + "_" + qr_code.substring(17, qr_code.length())+"_";

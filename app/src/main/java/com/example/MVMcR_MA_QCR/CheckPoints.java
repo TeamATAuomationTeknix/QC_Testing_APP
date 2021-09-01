@@ -11,19 +11,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Chronometer;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MVMcR_MA_QCR.DataClass.CommonMethods;
 import com.example.MVMcR_MA_QCR.DataClass.PartInfo;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CheckPoints extends AppCompatActivity {
@@ -41,15 +47,22 @@ public class CheckPoints extends AppCompatActivity {
     PartsAdapter partsAdapter;
     Chronometer fullTimer;
     ArrayList<Questions_main> questionList;
+    CheckPointsViewModel viewModel;
+    ProgressBar progressCheckpoints;
     int position;
+    double progressValue=0;
+    public static Double progress= Double.valueOf(0);
     int size=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_points);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        viewModel=new ViewModelProvider(this).get(CheckPointsViewModel.class);
 
+        progressCheckpoints=findViewById(R.id.progressCheckpoints);
         fullTimer=findViewById(R.id.fullTimer);
         fullTimer.start();
         partsList=new ArrayList<>();
@@ -71,10 +84,11 @@ public class CheckPoints extends AppCompatActivity {
         checkBackPress(qr_code);
         if(questionList.size()==0)
         checkAlreadyComplited(qr_code);
-        partsList=new ArrayList<>();
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Date submissionTime=new Date();
                 // TODO: 29-07-2021 check any answer is remaining
                 for(int i=0;i<partsList.size();i++){
                     if(partsList.get(i).getAnswer().equals("na")){
@@ -83,6 +97,8 @@ public class CheckPoints extends AppCompatActivity {
                     }
                 }
                 if(partsList.size()>0){
+                    questionList=new ArrayList<>();
+
                     SharedPreferences preferences=getSharedPreferences("userpref",MODE_PRIVATE);
                     String user=preferences.getString("user","unknown");
                     for(PartInfo p:partsList) {
@@ -91,7 +107,10 @@ public class CheckPoints extends AppCompatActivity {
                             questions_main.setRemark(p.getConcern());
                         }
                         questions_main.setNokImage(p.getNokImage());
+                        questions_main.setSubmissionTime(submissionTime);
                         questionList.add(questions_main);
+                        progress+=progressValue;
+                        progressCheckpoints.setProgress(progress.intValue());
                         Log.e("question",questions_main.toString());
                     }
                     MyDbHelper myDbHelper=new MyDbHelper(CheckPoints.this);
@@ -99,6 +118,8 @@ public class CheckPoints extends AppCompatActivity {
                     Log.e("size",questionList.size()+"");
                     ServerJson serverJson=new ServerJson(CheckPoints.this);
                     serverJson.submitAnswer(questionList,"na",fullTimer.getText().toString(),fullTimer.getText().toString(),qr_code,user);
+                    progress= Double.valueOf(0);
+                    progressValue=0;
                     Intent intent=new Intent();
                     intent.putExtra("value","submitted");
                     setResult(1,intent);
@@ -117,12 +138,16 @@ public class CheckPoints extends AppCompatActivity {
             list = myDbHelper.getPartnames();
             if (partsList.size() == 0) {
                 partsList = myDbHelper.getParts(methods.getVarient(qr_code));
+                size=partsList.size();
 //            for (String s : list) {
 //                partsList.add(new PartInfo(s, "na"));
 //            }
             }
             partsAdapter = new PartsAdapter(this, partsList, qr_code, fullTimer.getBase());
             recyclerParts.setAdapter(partsAdapter);
+            progressValue=100/size;
+            progress+=progressValue;
+            progressCheckpoints.setProgress(progress.intValue());
         }
     }
     @Override
@@ -136,7 +161,7 @@ public class CheckPoints extends AppCompatActivity {
             if(concern!=null)
             partsList.get(position).setConcern(concern);
             partsList.get(position).setAnswer(result);
-
+            Log.e("answer:",partsList.get(position).getAnswer());
             partsAdapter.setPartsList(partsList);
             recyclerParts.setAdapter(partsAdapter);
             position++;
@@ -211,6 +236,14 @@ public class CheckPoints extends AppCompatActivity {
            partsList=myDbHelper.getBackPressData(qr_code);
            partsAdapter=new PartsAdapter(this,partsList,qr);
            recyclerParts.setAdapter(partsAdapter);
+           size=partsList.size();
+           progressValue=size/100;
+           for(PartInfo partInfo:partsList)
+           {
+               if(!partInfo.getAnswer().equals("na")){
+                   progress+=progressValue;
+               }
+           }
            return;
        }
     }
@@ -220,6 +253,7 @@ public class CheckPoints extends AppCompatActivity {
         if(questionList!=null&&questionList.size()>0){
            for(Questions_main q:questionList){
                PartInfo partInfo=new PartInfo(q.getId(),q.getQuestion(),q.getAnswer());
+               partInfo.setNokImage(q.getNokImage());
                partsList.add(partInfo);
            }
             partsAdapter=new PartsAdapter(this,partsList,qr_code);
@@ -230,14 +264,14 @@ public class CheckPoints extends AppCompatActivity {
         ServerJson serverJson=new ServerJson(CheckPoints.this);
         serverJson.setOnResponseInterface(new ServerJson.OnResponseInterface() {
             PartsAdapter partsAdapter;
-
             @Override
             public void onResponse(ArrayList<Questions_main> list) {
-                partsList=new ArrayList<>();
+                partsList.clear();
                 questionList=list;
                 if(list!=null&&list.size()>0){
                     for(Questions_main q:list){
                         PartInfo partInfo=new PartInfo(q.getId(),q.getQuestion(),q.getAnswer());
+                        partInfo.setNokImage(q.getNokImage());
                         partsList.add(partInfo);
                     }
                     partsAdapter=new PartsAdapter(CheckPoints.this,partsList,qr_code);
@@ -248,5 +282,18 @@ public class CheckPoints extends AppCompatActivity {
         });
         serverJson.getAnswers(qr_code);
         }
+    }
+    @Override
+    protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        viewModel.partsList=partsList;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        partsList=viewModel.partsList;
+        partsAdapter=new PartsAdapter(this,partsList,qr_code);
+        recyclerParts.setAdapter(partsAdapter);
     }
 }

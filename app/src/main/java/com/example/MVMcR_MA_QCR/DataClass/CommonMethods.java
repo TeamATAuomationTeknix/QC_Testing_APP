@@ -121,4 +121,19 @@ public class CommonMethods {
         return new Date(date.getTime()+24*60*60*1000);
 
     }
+    public String byteArrayToBase64(byte[] byteArray){
+        String decodedImage=Base64.encodeToString(byteArray,Base64.DEFAULT);
+        return decodedImage;
+    }
+    public boolean checkQR(String qr_code){
+        if(qr_code.length()>=36&&qr_code.contains("_")){
+            if(getPlatform(qr_code).equals("na")){
+                return false;
+            }
+            else return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

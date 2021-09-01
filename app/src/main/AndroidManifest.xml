@@ -63,6 +63,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity"/>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorStickerActivity"/>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorTextActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorCropActivity"/>
+        <activity android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorDrawActivity"/>
 
         <receiver android:name="com.example.MVMcR_MA_QCR.NetworkStateChecker">
             <intent-filter>

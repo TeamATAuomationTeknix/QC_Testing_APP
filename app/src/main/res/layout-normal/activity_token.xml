@@ -12,7 +12,7 @@
         android:layout_width="255dp"
         android:layout_height="59dp"
         android:layout_gravity="center"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="88dp"
         android:background="@drawable/shadow"
         android:gravity="center"
         android:hint="Enter Token Number"
@@ -28,12 +28,12 @@
         android:layout_width="121dp"
         android:layout_height="46dp"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="162dp"
         android:text="Submit"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/token_number" />
 
@@ -41,10 +41,10 @@
         android:id="@+id/imageView4"
         android:layout_width="128dp"
         android:layout_height="100dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="128dp"
         android:src="@drawable/ic_action_protected"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
