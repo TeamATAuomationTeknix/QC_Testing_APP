@@ -51,7 +51,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.DataHolder
     }
 
     class DataHolder extends RecyclerView.ViewHolder{
-
         TextView model_name;
         TextView total;
         TextView ok;

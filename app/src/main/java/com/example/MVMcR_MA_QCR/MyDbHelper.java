@@ -107,7 +107,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 values.put("timestamp",formatter.format(q.getSubmissionTime()));
                 values.put("vehiclePlatform",methods.getPlatform(qr));
                 mydatabase.insert(tb_answer,null,values);
-
         }
         if(questions.size()>0) {
             Questions_main q=questions.get(0);

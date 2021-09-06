@@ -11,10 +11,10 @@ import java.io.InputStream;
 import java.util.Date;
 
 public class CommonMethods {
-
+    public static final int QR_CODE_LENGTH=36;
     // TODO: 11-08-2021  qr code logic to get varient
     public String getVarient(String qr_code){
-        String varient="P1";
+        String varient="na";
         String[] a = qr_code.split("_");
         String v = a[1].charAt(4)+"";
         switch (v) {
@@ -68,7 +68,7 @@ public class CommonMethods {
         return varient;
     }
 
-    // TODO: 11-08-2021 qr code logic to get varient
+    // TODO: 11-08-2021 qr code logic to get platform
     public String getPlatform(String qr_code){
         String[] a = qr_code.split("_");
         String v=a[1].charAt(4)+"";
@@ -125,8 +125,10 @@ public class CommonMethods {
         String decodedImage=Base64.encodeToString(byteArray,Base64.DEFAULT);
         return decodedImage;
     }
+
+    // TODO: 06-09-2021 check qr code
     public boolean checkQR(String qr_code){
-        if(qr_code.length()>=36&&qr_code.contains("_")){
+        if(qr_code.length()>=QR_CODE_LENGTH&&qr_code.contains("_")){
             if(getPlatform(qr_code).equals("na")){
                 return false;
             }

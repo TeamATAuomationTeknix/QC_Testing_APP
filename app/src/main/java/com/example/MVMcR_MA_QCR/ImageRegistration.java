@@ -647,12 +647,11 @@ if(!qr.getText().equals("")){
         final EditText inputQR = new EditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         inputQR.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        int maxLength = 37;
+        int maxLength = CommonMethods.QR_CODE_LENGTH;
         InputFilter[] filters = new InputFilter[1];
         filters[0] = new InputFilter.LengthFilter(maxLength);
         inputQR.setFilters(filters);
         builder.setView(inputQR);
-
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

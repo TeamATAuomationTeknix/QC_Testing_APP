@@ -885,8 +885,6 @@ public class ServerJson {
                             recyclerView.setAdapter(adapter);
                             p1.dismiss();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
